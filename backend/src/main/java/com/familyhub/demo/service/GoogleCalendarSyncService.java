@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -129,22 +128,31 @@ public class GoogleCalendarSyncService {
      */
     @Transactional
     public void persistFullSync(GoogleSyncedCalendar syncedCal, List<Event> allEvents) {
-        calendarEventRepository.deleteBySyncedCalendarAndSource(syncedCal, EventSource.GOOGLE);
+        Optional<GoogleSyncedCalendar> activeCalendar = syncedCalendarRepository
+                .findEnabledForUpdate(syncedCal.getId());
+        if (activeCalendar.isEmpty()) {
+            // A user may have deselected this calendar while Google was being
+            // fetched. Clean up any old cache and do not write the fetched data.
+            calendarEventRepository.deleteBySyncedCalendarAndSource(syncedCal, EventSource.GOOGLE);
+            return;
+        }
+
+        GoogleSyncedCalendar calendar = activeCalendar.get();
+        calendarEventRepository.deleteBySyncedCalendarAndSource(calendar, EventSource.GOOGLE);
         // The derived delete is executed in the current persistence context. Flush it
         // before inserting the fresh rows so reused Google IDs do not hit the unique index.
         calendarEventRepository.flush();
-        Map<GoogleSyncedCalendar, List<Event>> eventsByCalendar = Map.of(syncedCal, allEvents);
-        saveGoogleEvents(allEvents, eventsByCalendar);
-        syncedCal.setLastSyncedAt(Instant.now());
-        syncedCalendarRepository.save(syncedCal);
+        saveGoogleEvents(allEvents, calendar);
+        calendar.setSyncToken(syncedCal.getSyncToken());
+        calendar.setLastSyncedAt(Instant.now());
+        syncedCalendarRepository.save(calendar);
     }
 
     /**
      * Saves Google events: parents/regular first (flush), then exceptions.
      * Cancelled non-recurring events and orphaned exceptions are skipped.
      */
-    private void saveGoogleEvents(List<Event> allEvents,
-                                   Map<GoogleSyncedCalendar, List<Event>> eventsByCalendar) {
+    private void saveGoogleEvents(List<Event> allEvents, GoogleSyncedCalendar syncedCal) {
         List<Event> parentsAndRegular = allEvents.stream()
                 .filter(e -> e.getRecurringEventId() == null)
                 .filter(e -> !"cancelled".equals(e.getStatus()))
@@ -156,7 +164,6 @@ public class GoogleCalendarSyncService {
 
         List<CalendarEvent> parentEntities = new ArrayList<>();
         for (Event event : parentsAndRegular) {
-            GoogleSyncedCalendar syncedCal = resolveCalendar(event, eventsByCalendar);
             parentEntities.add(googleEventMapper.toEntity(event, syncedCal));
         }
         calendarEventRepository.saveAll(parentEntities);
@@ -164,7 +171,8 @@ public class GoogleCalendarSyncService {
 
         for (Event exception : exceptions) {
             String googleParentId = exception.getRecurringEventId();
-            Optional<CalendarEvent> parentEntity = calendarEventRepository.findByGoogleEventId(googleParentId);
+            Optional<CalendarEvent> parentEntity = calendarEventRepository
+                    .findBySyncedCalendarAndGoogleEventId(syncedCal, googleParentId);
 
             if (parentEntity.isEmpty()) {
                 log.warn("Orphaned exception {} — parent {} not found, skipping",
@@ -172,7 +180,6 @@ public class GoogleCalendarSyncService {
                 continue;
             }
 
-            GoogleSyncedCalendar syncedCal = resolveCalendar(exception, eventsByCalendar);
             CalendarEvent exceptionEntity = googleEventMapper.toExceptionEntity(
                     exception, syncedCal, parentEntity.get());
             calendarEventRepository.save(exceptionEntity);
@@ -220,6 +227,14 @@ public class GoogleCalendarSyncService {
      */
     @Transactional
     public void persistIncrementalChanges(GoogleSyncedCalendar syncedCal, List<Event> changedEvents) {
+        Optional<GoogleSyncedCalendar> activeCalendar = syncedCalendarRepository
+                .findEnabledForUpdate(syncedCal.getId());
+        if (activeCalendar.isEmpty()) {
+            calendarEventRepository.deleteBySyncedCalendarAndSource(syncedCal, EventSource.GOOGLE);
+            return;
+        }
+
+        GoogleSyncedCalendar calendar = activeCalendar.get();
         List<Event> parentChanges = changedEvents.stream()
                 .filter(e -> e.getRecurringEventId() == null)
                 .toList();
@@ -229,23 +244,24 @@ public class GoogleCalendarSyncService {
 
         for (Event event : parentChanges) {
             if ("cancelled".equals(event.getStatus())) {
-                calendarEventRepository.deleteByGoogleEventId(event.getId());
+                calendarEventRepository.deleteBySyncedCalendarAndGoogleEventId(calendar, event.getId());
             } else {
-                upsertEvent(event, syncedCal);
+                upsertEvent(event, calendar);
             }
         }
 
         for (Event event : exceptionChanges) {
-            upsertException(event, syncedCal);
+            upsertException(event, calendar);
         }
 
-        syncedCal.setLastSyncedAt(Instant.now());
-        syncedCalendarRepository.save(syncedCal);
+        calendar.setSyncToken(syncedCal.getSyncToken());
+        calendar.setLastSyncedAt(Instant.now());
+        syncedCalendarRepository.save(calendar);
     }
 
     private void upsertEvent(Event googleEvent, GoogleSyncedCalendar syncedCal) {
         CalendarEvent entity = googleEventMapper.toEntity(googleEvent, syncedCal);
-        calendarEventRepository.findByGoogleEventId(googleEvent.getId())
+        calendarEventRepository.findBySyncedCalendarAndGoogleEventId(syncedCal, googleEvent.getId())
                 .ifPresentOrElse(
                         existing -> {
                             updateExistingEvent(existing, entity);
@@ -257,7 +273,8 @@ public class GoogleCalendarSyncService {
 
     private void upsertException(Event googleEvent, GoogleSyncedCalendar syncedCal) {
         String googleParentId = googleEvent.getRecurringEventId();
-        Optional<CalendarEvent> parentOpt = calendarEventRepository.findByGoogleEventId(googleParentId);
+        Optional<CalendarEvent> parentOpt = calendarEventRepository
+                .findBySyncedCalendarAndGoogleEventId(syncedCal, googleParentId);
 
         if (parentOpt.isEmpty()) {
             log.warn("Orphaned exception {} — parent {} not found, skipping",
@@ -266,7 +283,7 @@ public class GoogleCalendarSyncService {
         }
 
         CalendarEvent entity = googleEventMapper.toExceptionEntity(googleEvent, syncedCal, parentOpt.get());
-        calendarEventRepository.findByGoogleEventId(googleEvent.getId())
+        calendarEventRepository.findBySyncedCalendarAndGoogleEventId(syncedCal, googleEvent.getId())
                 .ifPresentOrElse(
                         existing -> {
                             updateExistingEvent(existing, entity);
@@ -323,14 +340,4 @@ public class GoogleCalendarSyncService {
         return allEvents;
     }
 
-    private GoogleSyncedCalendar resolveCalendar(Event event,
-                                                  Map<GoogleSyncedCalendar, List<Event>> eventsByCalendar) {
-        for (Map.Entry<GoogleSyncedCalendar, List<Event>> entry : eventsByCalendar.entrySet()) {
-            if (entry.getValue().contains(event)) {
-                return entry.getKey();
-            }
-        }
-        log.warn("Could not resolve calendar for event {} — falling back to first calendar", event.getId());
-        return eventsByCalendar.keySet().iterator().next();
-    }
 }

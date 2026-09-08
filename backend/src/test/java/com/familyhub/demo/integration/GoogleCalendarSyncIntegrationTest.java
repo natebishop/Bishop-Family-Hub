@@ -34,6 +34,7 @@ class GoogleCalendarSyncIntegrationTest {
     private String token;
     private String memberId;
     private String familyId;
+    private String syncedCalendarId;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -315,20 +316,50 @@ class GoogleCalendarSyncIntegrationTest {
                 .andExpect(jsonPath("$.data[0].title").value("Updated Title"));
     }
 
+    @Test
+    void sameGoogleEventIdIsScopedToCalendarAndDisabledCalendarIsHidden() throws Exception {
+        String oauthTokenId = insertOAuthToken();
+        String primaryCalendarId = UUID.randomUUID().toString();
+        String secondaryCalendarId = UUID.randomUUID().toString();
+        insertSyncedCalendar(primaryCalendarId, oauthTokenId, "primary");
+        insertSyncedCalendar(secondaryCalendarId, oauthTokenId, "secondary");
+
+        insertSimpleGoogleEvent(primaryCalendarId, "shared-google-id", "Primary Event");
+        insertSimpleGoogleEvent(secondaryCalendarId, "shared-google-id", "Secondary Event");
+
+        mockMvc.perform(get("/api/calendar/events")
+                        .header("Authorization", "Bearer " + token)
+                        .param("startDate", "2025-06-15")
+                        .param("endDate", "2025-06-15"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.length()").value(2));
+
+        disableSyncedCalendar("secondary");
+
+        mockMvc.perform(get("/api/calendar/events")
+                        .header("Authorization", "Bearer " + token)
+                        .param("startDate", "2025-06-15")
+                        .param("endDate", "2025-06-15"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.length()").value(1))
+                .andExpect(jsonPath("$.data[0].title").value("Primary Event"));
+    }
+
     // --- SQL Helpers ---
 
     private String insertGoogleEvent(String googleEventId, String title, String startTime,
                                       String endTime, String date, boolean isAllDay,
                                       String endDate, String recurrenceRule, String recurringEventId,
                                       boolean isCancelled, String originalDate, String htmlLink) throws Exception {
+        String currentSyncedCalendarId = ensureSyncedCalendar();
         String eventId = UUID.randomUUID().toString();
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(
                      "INSERT INTO calendar_event (id, title, start_time, end_time, date, member_id, family_id, " +
                              "is_all_day, is_cancelled, source, google_event_id, html_link, end_date, recurrence_rule, " +
-                             "recurring_event_id, original_date) " +
+                             "recurring_event_id, original_date, synced_calendar_id) " +
                              "VALUES (?::uuid, ?, ?::time, ?::time, ?::date, ?::uuid, ?::uuid, ?, ?, 'GOOGLE', ?, ?, " +
-                             "?::date, ?, ?::uuid, ?::date)")) {
+                             "?::date, ?, ?::uuid, ?::date, ?::uuid)")) {
             stmt.setString(1, eventId);
             stmt.setString(2, title);
             stmt.setString(3, startTime);
@@ -344,6 +375,7 @@ class GoogleCalendarSyncIntegrationTest {
             stmt.setString(13, recurrenceRule);
             stmt.setString(14, recurringEventId);
             stmt.setString(15, originalDate);
+            stmt.setString(16, currentSyncedCalendarId);
             stmt.executeUpdate();
         }
         return eventId;
@@ -352,11 +384,12 @@ class GoogleCalendarSyncIntegrationTest {
     private void insertGoogleException(String googleEventId, String title, String startTime,
                                         String endTime, String date, String parentId,
                                         String originalDate, boolean isCancelled) throws Exception {
+        String currentSyncedCalendarId = ensureSyncedCalendar();
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(
                      "INSERT INTO calendar_event (id, title, start_time, end_time, date, member_id, family_id, " +
-                             "is_all_day, is_cancelled, source, google_event_id, recurring_event_id, original_date) " +
-                             "VALUES (gen_random_uuid(), ?, ?::time, ?::time, ?::date, ?::uuid, ?::uuid, false, ?, 'GOOGLE', ?, ?::uuid, ?::date)")) {
+                             "is_all_day, is_cancelled, source, google_event_id, recurring_event_id, original_date, synced_calendar_id) " +
+                             "VALUES (gen_random_uuid(), ?, ?::time, ?::time, ?::date, ?::uuid, ?::uuid, false, ?, 'GOOGLE', ?, ?::uuid, ?::date, ?::uuid)")) {
             stmt.setString(1, title);
             stmt.setString(2, startTime);
             stmt.setString(3, endTime);
@@ -367,6 +400,44 @@ class GoogleCalendarSyncIntegrationTest {
             stmt.setString(8, googleEventId);
             stmt.setString(9, parentId);
             stmt.setString(10, originalDate);
+            stmt.setString(11, currentSyncedCalendarId);
+            stmt.executeUpdate();
+        }
+    }
+
+    private String ensureSyncedCalendar() throws Exception {
+        if (syncedCalendarId == null) {
+            String tokenId = insertOAuthToken();
+            syncedCalendarId = UUID.randomUUID().toString();
+            insertSyncedCalendar(syncedCalendarId, tokenId, "primary");
+        }
+        return syncedCalendarId;
+    }
+
+    private void insertSimpleGoogleEvent(String syncedCalendarId, String googleEventId, String title)
+            throws Exception {
+        try (var conn = dataSource.getConnection();
+             var stmt = conn.prepareStatement(
+                     "INSERT INTO calendar_event (id, title, start_time, end_time, date, member_id, family_id, " +
+                             "is_all_day, is_cancelled, source, google_event_id, synced_calendar_id) " +
+                             "VALUES (gen_random_uuid(), ?, '09:00', '10:00', '2025-06-15', ?::uuid, ?::uuid, " +
+                             "false, false, 'GOOGLE', ?, ?::uuid)")) {
+            stmt.setString(1, title);
+            stmt.setString(2, memberId);
+            stmt.setString(3, familyId);
+            stmt.setString(4, googleEventId);
+            stmt.setString(5, syncedCalendarId);
+            stmt.executeUpdate();
+        }
+    }
+
+    private void disableSyncedCalendar(String googleCalendarId) throws Exception {
+        try (var conn = dataSource.getConnection();
+             var stmt = conn.prepareStatement(
+                     "UPDATE google_synced_calendar SET enabled = false " +
+                             "WHERE member_id = ?::uuid AND google_calendar_id = ?")) {
+            stmt.setString(1, memberId);
+            stmt.setString(2, googleCalendarId);
             stmt.executeUpdate();
         }
     }
@@ -387,6 +458,7 @@ class GoogleCalendarSyncIntegrationTest {
     }
 
     private void insertSyncedCalendar(String id, String tokenId, String googleCalendarId) throws Exception {
+        syncedCalendarId = id;
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(
                      "INSERT INTO google_synced_calendar (id, token_id, member_id, google_calendar_id, " +

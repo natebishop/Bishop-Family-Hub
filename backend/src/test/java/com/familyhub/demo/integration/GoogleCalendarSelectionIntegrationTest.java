@@ -126,9 +126,11 @@ class GoogleCalendarSelectionIntegrationTest {
         // 2. Insert a GOOGLE-sourced calendar event
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(
-                     "INSERT INTO calendar_event (id, title, start_time, end_time, date, member_id, family_id, is_all_day, is_cancelled, source) " +
+                     "INSERT INTO calendar_event (id, title, start_time, end_time, date, member_id, family_id, is_all_day, is_cancelled, source, synced_calendar_id) " +
                              "SELECT gen_random_uuid(), 'Google Event', '09:00', '10:00', '2025-06-15', " +
-                             "fm.id, fm.family_id, false, false, 'GOOGLE' FROM family_member fm WHERE fm.id = ?::uuid")) {
+                             "fm.id, fm.family_id, false, false, 'GOOGLE', sc.id FROM family_member fm " +
+                             "JOIN google_synced_calendar sc ON sc.member_id = fm.id AND sc.google_calendar_id = 'primary' " +
+                             "WHERE fm.id = ?::uuid")) {
             stmt.setString(1, memberId);
             stmt.executeUpdate();
         }

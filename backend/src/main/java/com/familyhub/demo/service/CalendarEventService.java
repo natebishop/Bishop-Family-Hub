@@ -121,6 +121,12 @@ public class CalendarEventService {
         CalendarEvent calendarEvent = calendarEventRepository.findByFamilyAndId(family, id)
                 .orElseThrow(() -> new ResourceNotFoundException("Calendar Event", id));
 
+        if (calendarEvent.getSource() == EventSource.GOOGLE
+                && (calendarEvent.getSyncedCalendar() == null
+                || !calendarEvent.getSyncedCalendar().isEnabled())) {
+            throw new ResourceNotFoundException("Calendar Event", id);
+        }
+
         return CalendarEventMapper.toDto(calendarEvent);
     }
 

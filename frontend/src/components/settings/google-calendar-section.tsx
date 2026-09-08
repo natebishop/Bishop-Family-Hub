@@ -100,7 +100,13 @@ export function GoogleCalendarSection({
     );
   }
 
-  const lastSyncedAt = status?.calendars?.[0]?.lastSyncedAt;
+  const lastSyncedAt = status?.calendars
+    ?.filter((calendar) => calendar.enabled && calendar.lastSyncedAt)
+    .map((calendar) => calendar.lastSyncedAt)
+    .filter((date): date is string => date !== null)
+    .sort(
+      (a, b) => new Date(b).getTime() - new Date(a).getTime(),
+    )[0];
   const lastSyncedLabel = lastSyncedAt
     ? `Last synced ${formatDistanceToNow(new Date(lastSyncedAt), { addSuffix: true })}`
     : "Never synced";

@@ -21,18 +21,30 @@ public interface CalendarEventRepository extends JpaRepository<CalendarEvent, UU
 
     void deleteBySyncedCalendarAndSource(GoogleSyncedCalendar syncedCalendar, EventSource source);
 
+    Optional<CalendarEvent> findBySyncedCalendarAndGoogleEventId(
+            GoogleSyncedCalendar syncedCalendar, String googleEventId);
+
+    void deleteBySyncedCalendarAndGoogleEventId(
+            GoogleSyncedCalendar syncedCalendar, String googleEventId);
+
     List<CalendarEvent> findByFamily(Family family);
     Optional<CalendarEvent> findByFamilyAndId(Family family, UUID uuid);
 
-    @Query("SELECT e FROM CalendarEvent e WHERE e.family = :family " +
+    @Query("SELECT e FROM CalendarEvent e " +
+            "LEFT JOIN e.syncedCalendar sc " +
+            "WHERE e.family = :family " +
             "AND e.recurrenceRule IS NULL " +
-            "AND e.recurringEvent IS NULL")
+            "AND e.recurringEvent IS NULL " +
+            "AND (e.source <> com.familyhub.demo.model.EventSource.GOOGLE OR sc.enabled = true)")
     List<CalendarEvent> findRegularEventsByFamily(@Param("family") Family family);
 
-    @Query("SELECT e FROM CalendarEvent e WHERE e.family = :family " +
+    @Query("SELECT e FROM CalendarEvent e " +
+            "LEFT JOIN e.syncedCalendar sc " +
+            "WHERE e.family = :family " +
             "AND e.recurrenceRule IS NOT NULL " +
             "AND e.recurringEvent IS NULL " +
-            "AND e.date <= :rangeEnd")
+            "AND e.date <= :rangeEnd " +
+            "AND (e.source <> com.familyhub.demo.model.EventSource.GOOGLE OR sc.enabled = true)")
     List<CalendarEvent> findRecurringParentsByFamily(@Param("family") Family family, @Param("rangeEnd") LocalDate rangeEnd);
 
     @Query("SELECT e FROM CalendarEvent e " +
@@ -41,6 +53,4 @@ public interface CalendarEventRepository extends JpaRepository<CalendarEvent, UU
 
     Optional<CalendarEvent> findByRecurringEventAndOriginalDate(CalendarEvent recurringEvent, LocalDate originalDate);
 
-    Optional<CalendarEvent> findByGoogleEventId(String googleEventId);
-    void deleteByGoogleEventId(String googleEventId);
 }

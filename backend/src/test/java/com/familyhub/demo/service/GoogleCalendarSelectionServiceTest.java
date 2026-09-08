@@ -3,9 +3,11 @@ package com.familyhub.demo.service;
 import com.familyhub.demo.dto.GoogleCalendarInfo;
 import com.familyhub.demo.dto.GoogleCalendarResponse;
 import com.familyhub.demo.exception.BadRequestException;
+import com.familyhub.demo.model.EventSource;
 import com.familyhub.demo.model.FamilyMember;
 import com.familyhub.demo.model.GoogleOAuthToken;
 import com.familyhub.demo.model.GoogleSyncedCalendar;
+import com.familyhub.demo.repository.CalendarEventRepository;
 import com.familyhub.demo.repository.GoogleOAuthTokenRepository;
 import com.familyhub.demo.repository.GoogleSyncedCalendarRepository;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,9 @@ class GoogleCalendarSelectionServiceTest {
 
     @Mock
     private GoogleSyncedCalendarRepository syncedCalendarRepository;
+
+    @Mock
+    private CalendarEventRepository calendarEventRepository;
 
     @Mock
     private GoogleCalendarListService calendarListService;
@@ -124,6 +129,7 @@ class GoogleCalendarSelectionServiceTest {
         // work@group should have been disabled
         assertThat(workCal.isEnabled()).isFalse();
         verify(syncedCalendarRepository, times(2)).save(any());
+        verify(calendarEventRepository).deleteBySyncedCalendarAndSource(workCal, EventSource.GOOGLE);
     }
 
     @Test
@@ -148,6 +154,27 @@ class GoogleCalendarSelectionServiceTest {
         assertThat(existing.isEnabled()).isTrue();
         assertThat(existing.getSyncToken()).isNull();
         assertThat(existing.getLastSyncedAt()).isNull();
+        verify(syncedCalendarRepository).save(existing);
+        verify(calendarEventRepository).deleteBySyncedCalendarAndSource(existing, EventSource.GOOGLE);
+    }
+
+    @Test
+    void updateCalendarSelections_repairsAlreadyDisabledCalendarCache() {
+        GoogleOAuthToken token = new GoogleOAuthToken();
+        token.setMember(new FamilyMember());
+        when(tokenRepository.findByMemberId(MEMBER_ID)).thenReturn(Optional.of(token));
+        when(calendarListService.listCalendars(MEMBER_ID)).thenReturn(List.of(
+                new GoogleCalendarInfo("work@group", "Work", false)
+        ));
+
+        GoogleSyncedCalendar existing = new GoogleSyncedCalendar();
+        existing.setGoogleCalendarId("work@group");
+        existing.setEnabled(false);
+        when(syncedCalendarRepository.findByMemberId(MEMBER_ID)).thenReturn(List.of(existing));
+
+        selectionService.updateCalendarSelections(MEMBER_ID, List.of());
+
+        verify(calendarEventRepository).deleteBySyncedCalendarAndSource(existing, EventSource.GOOGLE);
         verify(syncedCalendarRepository).save(existing);
     }
 

@@ -6,6 +6,8 @@ import com.familyhub.demo.event.SyncRequestedEvent;
 import com.familyhub.demo.exception.BadRequestException;
 import com.familyhub.demo.model.GoogleOAuthToken;
 import com.familyhub.demo.model.GoogleSyncedCalendar;
+import com.familyhub.demo.model.EventSource;
+import com.familyhub.demo.repository.CalendarEventRepository;
 import com.familyhub.demo.repository.GoogleOAuthTokenRepository;
 import com.familyhub.demo.repository.GoogleSyncedCalendarRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class GoogleCalendarSelectionService {
     private final GoogleOAuthTokenRepository tokenRepository;
     private final GoogleSyncedCalendarRepository syncedCalendarRepository;
+    private final CalendarEventRepository calendarEventRepository;
     private final GoogleCalendarListService calendarListService;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -80,21 +83,39 @@ public class GoogleCalendarSelectionService {
                         // any other selected calendar.
                         existing.setSyncToken(null);
                         existing.setLastSyncedAt(null);
+                        calendarEventRepository.deleteBySyncedCalendarAndSource(existing, EventSource.GOOGLE);
                     }
                     existing.setEnabled(true);
                     existing.setCalendarName(cal.name());
                     syncedCalendarRepository.save(existing);
                 }
             } else if (existing != null) {
-                existing.setEnabled(false);
-                syncedCalendarRepository.save(existing);
+                disableCalendar(existing);
             }
 
             response.add(new GoogleCalendarResponse(cal.id(), cal.name(), cal.primary(), shouldEnable));
         }
 
+        // Google can stop returning a calendar after it is deleted or access is
+        // revoked. Treat that the same as deselection so its cached events cannot
+        // remain visible indefinitely.
+        Set<String> availableIds = googleCalendars.stream()
+                .map(GoogleCalendarInfo::id)
+                .collect(Collectors.toSet());
+        existingByGoogleId.values().stream()
+                .filter(existing -> !availableIds.contains(existing.getGoogleCalendarId()))
+                .forEach(this::disableCalendar);
+
         eventPublisher.publishEvent(new SyncRequestedEvent(memberId));
 
         return response;
+    }
+
+    private void disableCalendar(GoogleSyncedCalendar calendar) {
+        calendarEventRepository.deleteBySyncedCalendarAndSource(calendar, EventSource.GOOGLE);
+        calendar.setSyncToken(null);
+        calendar.setLastSyncedAt(null);
+        calendar.setEnabled(false);
+        syncedCalendarRepository.save(calendar);
     }
 }
