@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: family-hub-api
+
+  profiles:
+    active: dev
+
+  jpa:
+    # SQL logging controlled by logback-spring.xml per profile
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  sql:
+    init:
+      mode: never
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+  issuer: family-hub-api
+
+google:
+  oauth:
+    client-id: ${GOOGLE_CLIENT_ID:}
+    client-secret: ${GOOGLE_CLIENT_SECRET:}
+    redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/api/google/callback}
+    frontend-redirect-url: ${GOOGLE_FRONTEND_REDIRECT:http://localhost:5173/settings?googleConnected=true}
+
+security:
+  # Must be a Base64-encoded 32-byte key for AES-256
+  token-encryption-key: ${TOKEN_ENCRYPTION_KEY}

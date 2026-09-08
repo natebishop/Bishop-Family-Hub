@@ -1,0 +1,159 @@
+import { expect, test } from "@playwright/test";
+import {
+  clearStorage,
+  waitForCalendarReady,
+  waitForHydration,
+} from "./helpers/test-helpers";
+
+test.describe("First-Time User Onboarding", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await clearStorage(page);
+
+    // No seeding — app shows login screen
+    await page.reload();
+    await waitForHydration(page);
+    // Navigate from login to onboarding
+    await page.getByRole("button", { name: "Create an account" }).click();
+  });
+
+  test("completes full onboarding flow and persists data", async ({
+    page,
+    isMobile,
+  }) => {
+    // Step 1: Welcome screen
+    await expect(
+      page.getByRole("heading", { name: "Welcome to FamilyHub" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Get Started" }),
+    ).toBeVisible();
+
+    // Verify welcome features are shown
+    await expect(page.getByText("Shared Calendar")).toBeVisible();
+    await expect(page.getByText("Family Profiles")).toBeVisible();
+
+    // Click to proceed
+    await page.getByRole("button", { name: "Get Started" }).click();
+
+    // Step 2: Family Name (Step 1 of 3)
+    await expect(
+      page.getByRole("heading", { name: /family name/i }),
+    ).toBeVisible();
+    await expect(page.getByText("Step 1 of 3")).toBeVisible();
+
+    // Enter family name
+    const familyNameInput = page.getByPlaceholder("The Smiths");
+    await familyNameInput.fill("The Johnsons");
+
+    // Click continue
+    await page.getByRole("button", { name: "Continue" }).click();
+
+    // Step 3: Members (Step 2 of 3)
+    await expect(
+      page.getByRole("heading", { name: /who's in your family/i }),
+    ).toBeVisible();
+    await expect(page.getByText("Step 2 of 3")).toBeVisible();
+
+    // Continue should be disabled (no members yet)
+    const continueButton = page.getByRole("button", { name: "Continue" });
+    await expect(continueButton).toBeDisabled();
+
+    // Click Add Family Member
+    await page.getByRole("button", { name: "Add Family Member" }).click();
+
+    // Wait for modal
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Add Family Member" }),
+    ).toBeVisible();
+
+    // Fill member name
+    await page.getByLabel("Name").fill("Alice");
+
+    // Select coral color
+    await page.getByRole("button", { name: /select coral color/i }).click();
+
+    // Submit the form
+    await page.getByRole("button", { name: "Add", exact: true }).click();
+
+    // Wait for modal to close
+    await expect(page.getByRole("dialog")).toBeHidden();
+
+    // Verify member card appears
+    await expect(page.getByText("Alice")).toBeVisible();
+
+    // Continue should now be enabled
+    await expect(continueButton).toBeEnabled();
+
+    // Click Continue to go to credentials step
+    await continueButton.click();
+
+    // Step 4: Credentials (Step 3 of 3)
+    await expect(
+      page.getByRole("heading", { name: /create your login/i }),
+    ).toBeVisible();
+    await expect(page.getByText("Step 3 of 3")).toBeVisible();
+
+    // Fill in credentials (unique username to avoid conflicts)
+    const username = `t_${Math.random().toString(36).slice(2, 10)}`;
+    await page.getByLabel("Username").fill(username);
+    await page.getByLabel("Password", { exact: true }).fill("password123");
+    await page.getByLabel("Confirm Password").fill("password123");
+
+    // Click Complete Setup
+    await page.getByRole("button", { name: "Complete Setup" }).click();
+
+    // Wait for registration API call to complete and app to transition
+    // The onboarding screen should disappear
+    await expect(
+      page.getByRole("heading", { name: /create your login/i }),
+    ).toBeHidden({ timeout: 10000 });
+
+    if (isMobile) {
+      // Mobile lands on Home first, so verify the dashboard header before
+      // navigating away to Calendar.
+      const dashboardHeader = page.getByTestId("dashboard-header");
+      await expect(dashboardHeader).toBeVisible({
+        timeout: 10000,
+      });
+      await expect(dashboardHeader).toContainText("The Johnsons");
+    } else {
+      // Desktop preserves the existing contract: null state redirects to Calendar.
+      await expect(
+        page.getByRole("heading", { name: "The Johnsons", level: 1 }),
+      ).toBeVisible({
+        timeout: 10000,
+      });
+    }
+
+    // Now navigate to calendar view
+    await waitForCalendarReady(page);
+
+    // Step 4: Verify persistence on reload
+    await page.reload();
+    await waitForHydration(page);
+
+    if (isMobile) {
+      const dashboardHeader = page.getByTestId("dashboard-header");
+      await expect(dashboardHeader).toBeVisible({
+        timeout: 10000,
+      });
+      await expect(dashboardHeader).toContainText("The Johnsons");
+    } else {
+      await expect(
+        page.getByRole("heading", { name: "The Johnsons", level: 1 }),
+      ).toBeVisible({
+        timeout: 10000,
+      });
+    }
+
+    // Navigate to calendar
+    await waitForCalendarReady(page);
+
+    // Onboarding welcome should NOT be visible
+    await expect(
+      page.getByRole("heading", { name: "Welcome to FamilyHub" }),
+    ).not.toBeVisible();
+  });
+});

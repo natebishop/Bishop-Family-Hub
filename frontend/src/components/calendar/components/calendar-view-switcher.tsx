@@ -1,0 +1,48 @@
+import { Calendar, CalendarDays, CalendarRange, List } from "lucide-react";
+import type React from "react";
+import type { CalendarViewType } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { useCalendarStore } from "@/stores";
+
+const views: { id: CalendarViewType; label: string; icon: React.ReactNode }[] =
+  [
+    { id: "daily", label: "Day", icon: <Calendar className="w-4 h-4" /> },
+    { id: "weekly", label: "Week", icon: <CalendarDays className="w-4 h-4" /> },
+    {
+      id: "monthly",
+      label: "Month",
+      icon: <CalendarRange className="w-4 h-4" />,
+    },
+    { id: "schedule", label: "Schedule", icon: <List className="w-4 h-4" /> },
+  ];
+
+export function CalendarViewSwitcher() {
+  const calendarView = useCalendarStore((state) => state.calendarView);
+  const setCalendarView = useCalendarStore((state) => state.setCalendarView);
+
+  return (
+    <div
+      data-testid="view-switcher"
+      className="flex items-center gap-1 rounded-xl bg-muted p-1"
+    >
+      {views.map((v) => (
+        <button
+          key={v.id}
+          onClick={() => setCalendarView(v.id)}
+          aria-label={v.label}
+          title={v.label}
+          className={cn(
+            "flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-semibold transition-all sm:px-3",
+            calendarView === v.id
+              ? "bg-background text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground hover:bg-background/50",
+          )}
+        >
+          {v.icon}
+          {/* Icon-only below xl (768-1279) so the merged toolbar keeps one row */}
+          <span className="hidden xl:inline">{v.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}

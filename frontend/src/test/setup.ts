@@ -1,0 +1,163 @@
+import "@testing-library/jest-dom/vitest";
+import { cleanup } from "@testing-library/react";
+import { afterEach, beforeEach, vi } from "vitest";
+
+// =============================================================================
+// Browser API Mocks
+// =============================================================================
+
+// Mock window.matchMedia (used by use-is-mobile.ts and responsive components)
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: vi.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
+// Mock ResizeObserver (used by Radix UI primitives)
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Mock IntersectionObserver (used for lazy loading and scroll detection)
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+  root: null,
+  rootMargin: "",
+  thresholds: [],
+}));
+
+// Mock scrollTo (used by calendar views for auto-scrolling)
+Element.prototype.scrollTo = vi.fn();
+window.scrollTo = vi.fn();
+
+// Mock scrollIntoView (used by the mobile Meals stack to land on today; jsdom
+// lacks it entirely, unlike scrollTo, so calling it unstubbed throws and takes
+// the whole component tree down). The real scroll is proven in Playwright.
+Element.prototype.scrollIntoView = vi.fn();
+
+// Mock pointer capture APIs (used by vaul's drag handling; missing in jsdom)
+Element.prototype.setPointerCapture = vi.fn();
+Element.prototype.releasePointerCapture = vi.fn();
+Element.prototype.hasPointerCapture = vi.fn().mockReturnValue(false);
+
+// Mock Web Animations API (used by ScreenTransition; jsdom lacks it)
+Element.prototype.animate = vi.fn();
+
+// =============================================================================
+// Zustand Store Reset
+// =============================================================================
+
+// Import stores directly to reset them (avoid circular deps with test-utils)
+import { AUTH_TOKEN_STORAGE_KEY, FAMILY_STORAGE_KEY } from "@/lib/constants";
+import { resetHapticsThrottle } from "@/lib/haptics";
+import { useAppStore } from "@/stores/app-store";
+import { useAuthStore } from "@/stores/auth-store";
+import { useBackStack } from "@/stores/back-stack-store";
+import { useCalendarStore } from "@/stores/calendar-store";
+import { useFamilyStore } from "@/stores/family-store";
+import {
+  HAPTICS_STORAGE_KEY,
+  useHapticsPreference,
+} from "@/stores/haptics-store";
+import { resetTestQueryClient } from "@/test/test-utils";
+
+/**
+ * Reset all Zustand stores to initial state.
+ * Called after each test to prevent state leakage.
+ */
+function resetAllStores(): void {
+  // Reset family store (now only has hydration state)
+  useFamilyStore.setState({
+    _hasHydrated: false,
+  });
+
+  // Clear family data from localStorage
+  localStorage.removeItem(FAMILY_STORAGE_KEY);
+
+  // Reset calendar store
+  useCalendarStore.setState({
+    currentDate: new Date(),
+    calendarView: "weekly",
+    hasUserSetView: false,
+    filter: { selectedMembers: [], showAllDayEvents: true },
+    isAddEventModalOpen: false,
+    dayRailHidden: false,
+    addEventDefaults: null,
+    selectedEvent: null,
+    isDetailModalOpen: false,
+    editingEvent: null,
+    isEditModalOpen: false,
+  });
+
+  // Reset app store
+  useAppStore.setState({
+    activeModule: "calendar",
+    isSidebarOpen: false,
+    mealPlacementDraft: null,
+    recipeCreationDraft: null,
+    listDetailIntent: null,
+    calendarFocusDate: null,
+    calendarEventIntent: null,
+    mealSlotIntent: null,
+    idleReturnBlockers: {},
+  });
+
+  // Reset auth store
+  useAuthStore.setState({
+    _hasHydrated: false,
+    isAuthenticated: false,
+  });
+  localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
+
+  // Reset back stack store
+  useBackStack.setState({ stack: [] });
+
+  // Reset haptics preference store
+  useHapticsPreference.setState({
+    enabled: false,
+    categories: { taps: true, completions: true, back: true },
+  });
+  localStorage.removeItem(HAPTICS_STORAGE_KEY);
+  // Reset the module-level throttle clock so a test that exercises the real
+  // fire() (capable + opted-in) cannot leak a recent lastFireAt into the next.
+  resetHapticsThrottle();
+}
+
+// =============================================================================
+// Test Lifecycle
+// =============================================================================
+
+// Clean state before each test (prevents Zustand persist leaking between tests)
+beforeEach(() => {
+  localStorage.clear();
+  sessionStorage.clear();
+
+  // vaul injects keyframe CSS on import. jsdom parses the closed-state
+  // animation rules but never fires animation events, so Radix Presence would
+  // keep closed drawers mounted forever. Removing the stylesheet makes exit
+  // animations resolve instantly, like the other Radix dialogs in tests.
+  for (const style of document.querySelectorAll("head style")) {
+    if (style.textContent?.includes("data-vaul-drawer")) style.remove();
+  }
+});
+
+// Cleanup after each test case
+afterEach(() => {
+  cleanup();
+  vi.clearAllMocks();
+  vi.useRealTimers();
+  resetAllStores();
+  resetTestQueryClient();
+});

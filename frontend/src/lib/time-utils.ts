@@ -1,0 +1,232 @@
+/**
+ * Shared time parsing utilities for calendar components.
+ * Centralizes time parsing logic and compiles regex once for reuse.
+ */
+
+import { format, parseISO, startOfDay } from "date-fns";
+
+// Compile regex once, reuse across all calls
+const TIME_REGEX = /(\d+):(\d+)\s*(AM|PM)/i;
+
+export interface ParsedTime {
+  hours: number;
+  minutes: number;
+}
+
+/**
+ * Parse a time string like "9:30 AM" or "2:00 PM" into hours (24h) and minutes.
+ */
+export function parseTime(timeStr: string): ParsedTime {
+  const match = timeStr.match(TIME_REGEX);
+  if (!match) {
+    return { hours: 0, minutes: 0 };
+  }
+
+  let hours = Number.parseInt(match[1], 10);
+  const minutes = Number.parseInt(match[2], 10);
+  const period = match[3].toUpperCase();
+
+  // Convert to 24-hour format
+  if (period === "PM" && hours !== 12) {
+    hours += 12;
+  } else if (period === "AM" && hours === 12) {
+    hours = 0;
+  }
+
+  return { hours, minutes };
+}
+
+/**
+ * Convert a time string to total minutes since midnight.
+ * Useful for sorting and comparing events.
+ */
+export function getTimeInMinutes(timeStr: string): number {
+  const { hours, minutes } = parseTime(timeStr);
+  return hours * 60 + minutes;
+}
+
+/**
+ * Compare two events by their start time.
+ * Use as a comparator function for Array.sort().
+ */
+export function compareEventsByTime(
+  a: { startTime: string },
+  b: { startTime: string },
+): number {
+  return getTimeInMinutes(a.startTime) - getTimeInMinutes(b.startTime);
+}
+
+/**
+ * Compare events with all-day events sorted first, then by start time.
+ * Use in views where all-day events should appear above/before timed events.
+ */
+export function compareEventsAllDayFirst(
+  a: { startTime: string; isAllDay?: boolean },
+  b: { startTime: string; isAllDay?: boolean },
+): number {
+  if (a.isAllDay && !b.isAllDay) return -1;
+  if (!a.isAllDay && b.isAllDay) return 1;
+  if (a.isAllDay && b.isAllDay) return 0;
+  return getTimeInMinutes(a.startTime) - getTimeInMinutes(b.startTime);
+}
+
+/**
+ * Convert 24-hour time format to 12-hour format with AM/PM.
+ * Example: "16:00" -> "4:00 PM", "09:30" -> "9:30 AM"
+ */
+export function format24hTo12h(time24h: string): string {
+  const [hours, minutes] = time24h.split(":");
+  const hour = Number.parseInt(hours, 10);
+  const ampm = hour >= 12 ? "PM" : "AM";
+  const hour12 = hour % 12 || 12;
+  return `${hour12}:${minutes} ${ampm}`;
+}
+
+/**
+ * Convert 12-hour time format to 24-hour format.
+ * Example: "4:00 PM" -> "16:00", "9:30 AM" -> "09:30"
+ */
+export function format12hTo24h(time12h: string): string {
+  const { hours, minutes } = parseTime(time12h);
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+}
+
+/**
+ * Format a Date to a local date string (yyyy-MM-dd).
+ * Uses date-fns format() which respects local timezone,
+ * avoiding the timezone shift bug from toISOString().
+ */
+export function formatLocalDate(date: Date): string {
+  return format(date, "yyyy-MM-dd");
+}
+
+/**
+ * Parse a date string (yyyy-MM-dd) to a local Date at midnight.
+ * Uses date-fns to ensure consistent local timezone handling,
+ * avoiding the browser-specific quirk of appending "T00:00:00".
+ */
+export function parseLocalDate(dateStr: string): Date {
+  return startOfDay(parseISO(dateStr));
+}
+
+/**
+ * Get the local Sunday that starts the week containing the provided date.
+ */
+export function getWeekStartSunday(date: Date): Date {
+  const localDate = startOfDay(date);
+  return new Date(
+    localDate.getFullYear(),
+    localDate.getMonth(),
+    localDate.getDate() - localDate.getDay(),
+  );
+}
+
+/**
+ * Add whole weeks while preserving local calendar dates.
+ */
+export function addWeeksLocal(date: Date, amount: number): Date {
+  const localDate = startOfDay(date);
+  return new Date(
+    localDate.getFullYear(),
+    localDate.getMonth(),
+    localDate.getDate() + amount * 7,
+  );
+}
+
+/**
+ * Check whether a Sunday week start is before the week containing now.
+ */
+export function isPastWeek(
+  weekStartDate: string,
+  now: Date = new Date(),
+): boolean {
+  return (
+    parseLocalDate(weekStartDate).getTime() < getWeekStartSunday(now).getTime()
+  );
+}
+
+/**
+ * Check if an event falls on a given date.
+ * Handles both single-day events (exact date match) and multi-day events (date range).
+ * Normalizes all dates to midnight to avoid time-of-day comparison bugs.
+ */
+export function isEventOnDate(
+  event: { date: Date; endDate?: Date },
+  targetDate: Date,
+): boolean {
+  const normalize = (d: Date) =>
+    new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const target = normalize(targetDate);
+  if (normalize(event.date) === target) return true;
+  if (!event.endDate) return false;
+  return target >= normalize(event.date) && target <= normalize(event.endDate);
+}
+
+/**
+ * Get a stable key for any calendar event (regular, parent, instance, or exception).
+ * Regular/parent/exception events have a real UUID id.
+ * Expanded instances have id: null and use recurringEventId + date as composite key.
+ */
+export function getEventKey(event: {
+  id: string | null;
+  recurringEventId?: string;
+  date: Date;
+}): string {
+  return event.id ?? `${event.recurringEventId}_${formatLocalDate(event.date)}`;
+}
+
+/**
+ * Calendar grid visible hours constants.
+ * These match the weekly/daily view rendering boundaries.
+ */
+export const CALENDAR_START_HOUR = 6; // 6 AM
+export const CALENDAR_END_HOUR = 22; // 10 PM (leaves room for 1hr event before 11 PM)
+export const DEFAULT_EVENT_HOUR = 9; // Fallback when outside visible range
+
+/** Sunday-first day initials for weekly/monthly calendar grids */
+export const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"] as const;
+
+/**
+ * Get a smart default time for new events.
+ * - If current time is within visible calendar hours (6 AM - 10 PM), rounds up to next 15-min slot
+ * - If current time is outside visible hours, defaults to 9 AM
+ * - Returns start and end times (1 hour duration)
+ *
+ * @param now - The current time (default: new Date())
+ * @returns Object with startTime and endTime in "HH:mm" format
+ */
+export function getSmartDefaultTimes(now: Date = new Date()): {
+  startTime: string;
+  endTime: string;
+} {
+  const workingDate = new Date(now);
+  const currentHour = workingDate.getHours();
+
+  if (currentHour < CALENDAR_START_HOUR || currentHour >= CALENDAR_END_HOUR) {
+    // Outside visible hours - default to 9 AM
+    workingDate.setHours(DEFAULT_EVENT_HOUR, 0, 0, 0);
+  } else {
+    // Within visible hours - round up to next 15-min interval
+    const minutes = workingDate.getMinutes();
+    const roundedMinutes = Math.ceil(minutes / 15) * 15;
+    workingDate.setMinutes(roundedMinutes, 0, 0);
+
+    // If we rounded to 60, the hour increments automatically
+    if (roundedMinutes === 60) {
+      workingDate.setMinutes(0);
+    }
+
+    // After rounding, if we've crossed the boundary, fall back
+    if (workingDate.getHours() >= CALENDAR_END_HOUR) {
+      workingDate.setHours(DEFAULT_EVENT_HOUR, 0, 0, 0);
+    }
+  }
+
+  // End time = start time + 1 hour
+  const endDate = new Date(workingDate.getTime() + 60 * 60 * 1000);
+
+  return {
+    startTime: format(workingDate, "HH:mm"),
+    endTime: format(endDate, "HH:mm"),
+  };
+}

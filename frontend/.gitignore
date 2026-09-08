@@ -1,0 +1,46 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment files
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Playwright
+playwright-report/
+test-results/
+
+# Lighthouse CI
+.lighthouseci/
+
+# Bundle analysis (rollup-plugin-visualizer, ANALYZE=true)
+.analyze/
+
+# Personal learning notes
+docs/VERSIONING-WALKTHROUGH.md
+.worktrees/
+.claude/launch.json
+
+# Local Calendar screenshot evidence (PR attachments, never source)
+.calendar-evidence/

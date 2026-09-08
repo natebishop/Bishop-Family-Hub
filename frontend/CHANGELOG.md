@@ -1,0 +1,1374 @@
+# Changelog
+
+## [0.3.26](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.25...family-hub-v0.3.26) (2026-08-09)
+
+
+### Features
+
+* **calendar:** add prev/next to the mobile toolbar ([dbfd7e5](https://github.com/joe-bor/FamilyHub/commit/dbfd7e5113b314121faa72de52c7701cf3152d45))
+
+
+### Bug Fixes
+
+* **calendar:** give Schedule a real context label ([1efdf5b](https://github.com/joe-bor/FamilyHub/commit/1efdf5bc5f154407562167f67053bff926f965bb))
+* **calendar:** keep member filter dots reachable beside prev/next ([668be31](https://github.com/joe-bor/FamilyHub/commit/668be31e658d7210c1873c7443d833727e97dffb))
+* **calendar:** raise date-picker and weekday controls to 44px ([04543a5](https://github.com/joe-bor/FamilyHub/commit/04543a5b2ba653af66490b41f220b141211464ea))
+* **calendar:** raise mobile toolbar controls to 44px ([76c59d5](https://github.com/joe-bor/FamilyHub/commit/76c59d51ba83c02671bf744ff06873c8b8f05166))
+* **calendar:** restore month focus against the live grid, not a dead one ([53c3136](https://github.com/joe-bor/FamilyHub/commit/53c3136c1aa939aa68c5a6dc41a6bfed9d23a978))
+* **chores:** 44px checkoff and a tappable row body ([5599a50](https://github.com/joe-bor/FamilyHub/commit/5599a5097a71a9692b70d691dc85c93cfd4c9ca9))
+* **chores:** hide cadence labels the active scope already implies ([5fcf997](https://github.com/joe-bor/FamilyHub/commit/5fcf997d157eb5818fa4476bf291318753144ece))
+* **chores:** one completion control per row, labelled for its state ([5b31216](https://github.com/joe-bor/FamilyHub/commit/5b31216b2c5fd3fab1ee178c6a5303cd04c4615e))
+* **chores:** raise the scope switcher to a 44px target ([20051aa](https://github.com/joe-bor/FamilyHub/commit/20051aafdc6451f6d2a76cc8308864aa80dce18e))
+* **chores:** read progress counts from the API summary ([58824db](https://github.com/joe-bor/FamilyHub/commit/58824db7c542d71d19a5e7f9939a2aa9db565a0c))
+* **ci:** pin Playwright offline emulation ([f008fd4](https://github.com/joe-bor/FamilyHub/commit/f008fd47126a38c4905a83ed76871ce38aa724af))
+* **e2e:** navigate recurring end-date months ([f13f50b](https://github.com/joe-bor/FamilyHub/commit/f13f50bccc13872b3525de64b40af05e8f5d2f4c))
+* **e2e:** navigate recurring end-date months ([95f4d54](https://github.com/joe-bor/FamilyHub/commit/95f4d5426a6d525d37ed5224be673cda201aac13))
+* **e2e:** seed the touch-target chore from the backend clock ([699525a](https://github.com/joe-bor/FamilyHub/commit/699525ae1b59e1841641c7343d4a5713ab8980cb))
+* **e2e:** wait for month grid before reading cells ([84aba55](https://github.com/joe-bor/FamilyHub/commit/84aba55278b9d9783784277f18e0d4c4b75b1869))
+* **family:** give color validation a human message on both member forms ([fb3aeb5](https://github.com/joe-bor/FamilyHub/commit/fb3aeb5c45380445afc9452141375342bafa18d6))
+* **header:** keep the mobile header height stable on Calendar ([afef88f](https://github.com/joe-bor/FamilyHub/commit/afef88f4fdc361a412ab52704b435b4cce1238f8))
+* **header:** raise the Today control to a 44px touch target ([32bba91](https://github.com/joe-bor/FamilyHub/commit/32bba91ef1ceecc80970674fa78a6bc6310c6e00))
+* **home:** agree on cleared-day copy across both heroes ([291132a](https://github.com/joe-bor/FamilyHub/commit/291132a1994982c5c0e207c62453931d6793c0d8))
+* **home:** mark elapsed events "ended", not "done" ([30a221c](https://github.com/joe-bor/FamilyHub/commit/30a221cc1c19dfe4354ded2847def27b5e0df511))
+* **home:** mark finished events under a cleared hero ([84b9415](https://github.com/joe-bor/FamilyHub/commit/84b941572e63103430f24287430cd98aa9dac266))
+* **home:** stop claiming a previous visit on first run ([c4cb8fa](https://github.com/joe-bor/FamilyHub/commit/c4cb8fa799bf6848ac11d1f6eaea133adf65a683))
+* **lists:** hide the Uncategorized header when it stands alone ([2cc8531](https://github.com/joe-bor/FamilyHub/commit/2cc85314cc6cddd5c2a740d2bda36f9226e0e4ca))
+* **lists:** raise category manager controls to 44px targets ([b6e5e3a](https://github.com/joe-bor/FamilyHub/commit/b6e5e3aa55d07a400600df4fb0de12d250fe67ed))
+* **lists:** single 44px overflow control for row actions below lg ([f19976d](https://github.com/joe-bor/FamilyHub/commit/f19976d880f7aea19968958570f73f58546f0eb9))
+* **meals:** bring today into view without moving the Sunday anchor ([1a07845](https://github.com/joe-bor/FamilyHub/commit/1a078456cc3d3ccab7ba7576f09ce9830316f312))
+* **mobile:** meet the 44px touch-target minimum below lg ([32ffea2](https://github.com/joe-bor/FamilyHub/commit/32ffea2bea3f2a8ef9496d607a16405996c37753))
+* **settings:** replace Danger Zone jargon with plain language ([65c87ea](https://github.com/joe-bor/FamilyHub/commit/65c87ea15ceeccfdd59016fa15accda05349014b))
+* **ui:** close out remaining sub-44px touch targets ([c6465eb](https://github.com/joe-bor/FamilyHub/commit/c6465eb98dd86a470f99a59c8419efdb41e0fd42))
+* **ui:** make every Button size meet the 44px minimum ([73794ce](https://github.com/joe-bor/FamilyHub/commit/73794ce2ef20d479bc4ebbfc3d9c14b3b0efbbc3))
+* **ui:** raise hand-rolled selects and inputs to 44px ([530502c](https://github.com/joe-bor/FamilyHub/commit/530502cbbf3a23dd0da408ae1ae0bfad06534dc7))
+* **ui:** raise remaining below-lg sm controls and document the size rule ([38f209e](https://github.com/joe-bor/FamilyHub/commit/38f209e18e8d0027b383fb9e79cb2bb7c30110d9))
+* **ui:** state list and chore progress once, consistently ([7b3aa8a](https://github.com/joe-bor/FamilyHub/commit/7b3aa8a97b0dc96b4f60e55a8d856db393e588dc))
+
+
+### Documentation
+
+* **e2e:** document recurring end-date CI fix ([74cbce1](https://github.com/joe-bor/FamilyHub/commit/74cbce11e72d273b36806418c7bc0048d457d2e9))
+* **e2e:** plan recurring end-date CI fix ([f6c8bb5](https://github.com/joe-bor/FamilyHub/commit/f6c8bb556ddc72745de459c45ee8f40cb34b4a26))
+* **home:** correct what getLastSeen() actually distinguishes ([577b400](https://github.com/joe-bor/FamilyHub/commit/577b4004c38b9c52ef286669c8d7136380c10757))
+
+
+### Tests
+
+* **calendar:** cover mobile period navigation in all views ([160cf4f](https://github.com/joe-bor/FamilyHub/commit/160cf4f7eb4013acf255539d2e4da0c4755255f8))
+* **ui:** ban lg:-only touch-target sizing ([4f8dcf1](https://github.com/joe-bor/FamilyHub/commit/4f8dcf1658af2fd9cf97b7ac30aa72fff88c4305))
+* **ui:** close two holes in the touch-target rule ([563814e](https://github.com/joe-bor/FamilyHub/commit/563814e81be287a073607e8a7307b657b21982cc))
+
+## [0.3.25](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.24...family-hub-v0.3.25) (2026-07-25)
+
+
+### Features
+
+* **calendar:** add large-screen month view states ([dd3193d](https://github.com/joe-bor/FamilyHub/commit/dd3193d905c123c46dda8b8f0cbc9f44cbca59f6))
+* **calendar:** add large-screen schedule gutter composition ([740f188](https://github.com/joe-bor/FamilyHub/commit/740f188415bcda2c784d5a645d725cb551075c06))
+* **calendar:** add month day cell with gridcell semantics ([bd208f3](https://github.com/joe-bor/FamilyHub/commit/bd208f3678179e5083cfc0d2fbfa2ea538b0dd07))
+* **calendar:** add month event chip with run edge geometry ([e1a399c](https://github.com/joe-bor/FamilyHub/commit/e1a399c8bee85cad27502f62b615cbaeba341604))
+* **calendar:** add month overflow popover ([d9105b3](https://github.com/joe-bor/FamilyHub/commit/d9105b318ec6f582177d1127f427fe0c5b1bbf3f))
+* **calendar:** add month slot capacity helper ([0e32b6e](https://github.com/joe-bor/FamilyHub/commit/0e32b6ea19a8350dc37646d4f435b5ce6d1b4d21))
+* **calendar:** add month slot planning with multi-day reservation ([0fd40bf](https://github.com/joe-bor/FamilyHub/commit/0fd40bf20d0e746bebb7527f37109a22c1258f65))
+* **calendar:** add schedule row grouping with gap runs ([234f970](https://github.com/joe-bor/FamilyHub/commit/234f970e6271a3f7c508d989825b8ca383a4176d))
+* **calendar:** correct schedule empty states and migrate tests ([acc2460](https://github.com/joe-bor/FamilyHub/commit/acc2460573962f7235947a3d45a86893cf14038e))
+* **calendar:** fetch the rendered grid range for large-screen month ([768f8d4](https://github.com/joe-bor/FamilyHub/commit/768f8d42077b0382ea27f34101999a53ac2185a9))
+* **calendar:** fill viewport in large-screen month grid ([f510a50](https://github.com/joe-bor/FamilyHub/commit/f510a50e728c3065724c001f8e104ee2494a3c35))
+* **calendar:** large-screen month and schedule ([10489e4](https://github.com/joe-bor/FamilyHub/commit/10489e425c958e29f34b16a301c5f0768bc7df29))
+
+
+### Bug Fixes
+
+* **calendar:** bound the month day popover to the viewport ([cc8f7e8](https://github.com/joe-bor/FamilyHub/commit/cc8f7e81c743e5e28cdc3de03ae38456bcff0b11))
+* **calendar:** clamp and centre the month overflow summary slot ([83e535b](https://github.com/joe-bor/FamilyHub/commit/83e535bf63dbd0cfea4811b02ccbeb7e9bb1e544))
+* **calendar:** honour prefers-reduced-motion in day auto-scroll ([f208774](https://github.com/joe-bor/FamilyHub/commit/f208774a98d330b9e0271dadfa89ff539d23c6f9))
+* **calendar:** keep the offline month explanation honest ([91421d0](https://github.com/joe-bor/FamilyHub/commit/91421d06fbfc4d26ea7dee06f7c91c61f91f0fb1))
+* **calendar:** name a removed member on large-screen Schedule rows ([4b1da75](https://github.com/joe-bor/FamilyHub/commit/4b1da7556d909771f5dfb8cd71295e1e324faa3d))
+* **calendar:** raise the month overflow summary to AA contrast ([90427da](https://github.com/joe-bor/FamilyHub/commit/90427da3bb5bdcceaaef323541b111ddafbb91b2))
+* **calendar:** resolve the Schedule member border below 1024px ([e90ee90](https://github.com/joe-bor/FamilyHub/commit/e90ee9058c3b36e9dbf58bdbb82bf0f3d061839b))
+* **test:** scope setViewportWidth's matchMedia override to width queries ([5bcbdbb](https://github.com/joe-bor/FamilyHub/commit/5bcbdbb65f52d6cd847dc694b19b61c6f52acb2b))
+
+
+### Code Refactoring
+
+* **calendar:** move month matrix helpers out of day-rail ([212e858](https://github.com/joe-bor/FamilyHub/commit/212e8589ddaad7db9dd9fa1e835c9520d1654b1d))
+
+
+### Tests
+
+* **calendar:** add large-screen month E2E coverage ([bb89f8c](https://github.com/joe-bor/FamilyHub/commit/bb89f8c5d2ed2427939bfc2db860d1ecc7e6465b))
+* **calendar:** add large-screen schedule E2E coverage ([e203cb1](https://github.com/joe-bor/FamilyHub/commit/e203cb19940fbc84ea5016e8107809618a77a8ca))
+* **calendar:** add the month deterministic visual harness ([1ac13e9](https://github.com/joe-bor/FamilyHub/commit/1ac13e9bdf3014a7a43a454b071b67446eb05b18))
+* **calendar:** extend the visual harness with schedule evidence ([f7c0bf6](https://github.com/joe-bor/FamilyHub/commit/f7c0bf6386e977985f7bb3901ab2abedef18836d))
+* **calendar:** extract shared setViewportWidth helper ([ff05cb0](https://github.com/joe-bor/FamilyHub/commit/ff05cb0e5eb5d57b1df27cd163d92114223ab920))
+* **calendar:** fold the duplicated large-schedule describe block ([0a0438d](https://github.com/joe-bor/FamilyHub/commit/0a0438dbc279b0ac27a2f7481c2c62cc64cb9709))
+* **calendar:** make the preservation capture deterministic ([68a08b9](https://github.com/joe-bor/FamilyHub/commit/68a08b992ce61d3b9b926491bcaff32356501dd8))
+* **calendar:** pin month geometry and preservation evidence ([2264dcc](https://github.com/joe-bor/FamilyHub/commit/2264dcc620fc60064c7f977e51939053d4f5a7d3))
+* **calendar:** pin the month large-screen breakpoint boundary ([0c9229e](https://github.com/joe-bor/FamilyHub/commit/0c9229e41597e849a7896737215310ce3eb3ca73))
+* **calendar:** pin the schedule window, step and resolved border ([b1c08e5](https://github.com/joe-bor/FamilyHub/commit/b1c08e5d8f0874a3baac502e63d34154c837fbd1))
+* **calendar:** prove the month gridcell gaps in the browser ([cc2c92b](https://github.com/joe-bor/FamilyHub/commit/cc2c92baac1160263f2916bc032ed54738fb0b5f))
+
+## [0.3.24](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.23...family-hub-v0.3.24) (2026-07-21)
+
+
+### Bug Fixes
+
+* **calendar:** keep the event form dialog inside the viewport ([1c24708](https://github.com/joe-bor/FamilyHub/commit/1c24708c1247e9b8c7ee03abe8fe2878ac4762a7))
+* **calendar:** stop the event form clipping time labels ([afb1aa6](https://github.com/joe-bor/FamilyHub/commit/afb1aa60a3c399352d3b6ffd6681514ecd611d48))
+* **ui:** bound every dialog to the viewport by default ([e74c5c7](https://github.com/joe-bor/FamilyHub/commit/e74c5c737c77aa2285ac83e2c523093cea7a3216))
+
+## [0.3.23](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.22...family-hub-v0.3.23) (2026-07-16)
+
+
+### Features
+
+* **calendar:** add day mini-month rail and toolbar toggle ([86824a6](https://github.com/joe-bor/FamilyHub/commit/86824a65c343bec30af105edaf9db66ffd56def9))
+* **calendar:** add day-rail fit math and persisted rail toggle state ([e07ef90](https://github.com/joe-bor/FamilyHub/commit/e07ef904ae5056bdbba4931725d02fd06c02388a))
+* **calendar:** add shared hour-grid geometry and useIsLargeScreen ([0c7268d](https://github.com/joe-bor/FamilyHub/commit/0c7268d7f9de0ec8255aed4ba01f6885c9fc5973))
+* **calendar:** add useAutoScrollToMinutes for now-or-first-event scroll ([dd1a174](https://github.com/joe-bor/FamilyHub/commit/dd1a174f74bd0d2f9cbec494c46b991f8ffaaa4f))
+* **calendar:** collapse week day headers to one line and densify lg+ rows ([eea7939](https://github.com/joe-bor/FamilyHub/commit/eea7939f6b3e96b3ee5b1c9b7f45a3cb1f7da3e6))
+* **calendar:** merge date navigation into single desktop toolbar row ([b034da2](https://github.com/joe-bor/FamilyHub/commit/b034da26f57f337f070e61750ab5328dc1dccf70))
+* **calendar:** render per-member day lanes with optional rail on lg+ ([f1ee2a8](https://github.com/joe-bor/FamilyHub/commit/f1ee2a8c9071a6a33c21e25bb37761e07a1b172a))
+* **chores:** add fillHeight/emphasis/className to ChoreScopeColumn ([7b9ca58](https://github.com/joe-bor/FamilyHub/commit/7b9ca5859108ed39310071541a26beb0611b3b46))
+* **chores:** add full-height Today-weighted large-screen board ([69ad251](https://github.com/joe-bor/FamilyHub/commit/69ad2512f42585bcf7e70c36c976563476d738a9))
+* **chores:** grow checkoff target to 44px on large screens ([d945e90](https://github.com/joe-bor/FamilyHub/commit/d945e9024039b2af6f310ca0e3e2af15a34e0fd2))
+* **chores:** render full-height board on large screens ([55e3953](https://github.com/joe-bor/FamilyHub/commit/55e3953ea0d014d3458cf70df5504e039ce4b84a))
+* **home:** add large home navigation intents ([3731f4c](https://github.com/joe-bor/FamilyHub/commit/3731f4cf7a6e493844c65ec53532913c04e19a3e))
+* **home:** add large home selectors ([1e82b1e](https://github.com/joe-bor/FamilyHub/commit/1e82b1ef7f16c158085e77251cc0d37e79a7a040))
+* **home:** add large screen dashboard layout ([8ad140c](https://github.com/joe-bor/FamilyHub/commit/8ad140cf1bc542165cdd1e9e97073b8e0a495592))
+* **home:** make home reachable on large screens ([650b733](https://github.com/joe-bor/FamilyHub/commit/650b73359fada6df8174dab024bd65a20459fd35))
+* **home:** return large screens to home after idle ([fce9c4e](https://github.com/joe-bor/FamilyHub/commit/fce9c4ef2501cfe8eb53e5f94d1f7410dde33a76))
+* **lists:** add ListRailRow with selected state ([2dbfaa0](https://github.com/joe-bor/FamilyHub/commit/2dbfaa0c4976eade80b9f0beee034b08db61f4cf))
+* **lists:** add ListsLargeScreen two-pane layout ([400f5fd](https://github.com/joe-bor/FamilyHub/commit/400f5fdf8e69001d20910bdc348b8348116e3318))
+* **lists:** add ListsRail container ([785904e](https://github.com/joe-bor/FamilyHub/commit/785904ee20d5627aa2ef7c85b26269979a4b9f68))
+* **lists:** add showBackButton prop to ListDetailView ([a60a959](https://github.com/joe-bor/FamilyHub/commit/a60a959e37fb152f513d00de5df56e8f2bb0b79d))
+* **lists:** route Lists to two-pane layout at lg+ ([9ead5d7](https://github.com/joe-bor/FamilyHub/commit/9ead5d73df7c7b79582497e943127a4da7968ecb))
+* **meals:** add actions slot to WeekHeader toolbar ([4d59759](https://github.com/joe-bor/FamilyHub/commit/4d59759b4e3d82478172365db52c32d14ef62aaf))
+* **meals:** add grid banner slot card with tinted placeholder band ([f34867e](https://github.com/joe-bor/FamilyHub/commit/f34867ea656d72caa2f87cc2fdf12da08ee27813))
+* **meals:** add meal-type accent tokens ([97d9b59](https://github.com/joe-bor/FamilyHub/commit/97d9b59c55c4a84e71b92d27d3c2f9647fff10d9))
+* **meals:** add meal-type icon and tint class helpers ([f2b0509](https://github.com/joe-bor/FamilyHub/commit/f2b0509b1e627dfd6d0831e906a7a7ee18c1345c))
+* **meals:** full-width week board with one-line headers and today highlight ([afb9032](https://github.com/joe-bor/FamilyHub/commit/afb9032ec71b3818b5d25d43dd4e4e578201d4fd))
+* **meals:** merge board actions into toolbar and widen large-screen cap ([ffc0fad](https://github.com/joe-bor/FamilyHub/commit/ffc0fad879015f8de002c4af86420c8c6799a165))
+* **meals:** rebuild week board as ARIA grid with sideways rail ([211e85b](https://github.com/joe-bor/FamilyHub/commit/211e85bd12396082ef922f5974c402c3d962c66d))
+* **meals:** stretch week board to fill large-screen viewport ([60148f5](https://github.com/joe-bor/FamilyHub/commit/60148f5aadd06df590bc5437c38e403b1f1fb58a))
+* **recipes:** center empty and no-results states in wide grid ([e70cbd2](https://github.com/joe-bor/FamilyHub/commit/e70cbd2bdaacbbada715f0f0b1d47599938e48d9))
+* **recipes:** compose large-screen controls into one toolbar ([e46e56e](https://github.com/joe-bor/FamilyHub/commit/e46e56e5a21de4e90ae424fd1df9c37b6cea9c55))
+* **recipes:** responsive card grid on large screens ([fe91123](https://github.com/joe-bor/FamilyHub/commit/fe91123f3d060eaf4c0e70a9356529be2f45f497))
+* **recipes:** widen large-screen index without stretching detail ([c5b24e0](https://github.com/joe-bor/FamilyHub/commit/c5b24e021087fc7e09e5b41bb4786216694bdcdd))
+* **shell:** slim desktop app header to one row, drop fake weather ([259eebd](https://github.com/joe-bor/FamilyHub/commit/259eebdfb1511321a113def5be94bd8e0ab91625))
+
+
+### Bug Fixes
+
+* **calendar:** address large-screen calendar review polish ([dd225f3](https://github.com/joe-bor/FamilyHub/commit/dd225f3953a1b23fd111cce0075e37cc031001fc))
+* **calendar:** align rail arrow navigation with focused day ([b8a9db6](https://github.com/joe-bor/FamilyHub/commit/b8a9db68054542c4f8921ee275fe7e6cfda338c0))
+* **calendar:** keep merged toolbar to one row at the lg boundary ([a01827f](https://github.com/joe-bor/FamilyHub/commit/a01827fe22637ea9df7990491cfa9efd90bc1c13))
+* **home:** clamp hero title so extreme titles keep the state strip visible ([6ea1de8](https://github.com/joe-bor/FamilyHub/commit/6ea1de8a2c4ee6155f850532bddf9f6fe2f4504c))
+* **home:** harden navigation intents against stale boards and unmatched events ([2a7bf45](https://github.com/joe-bor/FamilyHub/commit/2a7bf4564f8c12a1ef4748661fe1a498d5912153))
+* **home:** keep desktop e2e landing on calendar reachable via named nav rail ([a543455](https://github.com/joe-bor/FamilyHub/commit/a5434552a6dafcffd8738eac2e6c94beb032daae))
+* **home:** large dashboard review fixes (coming-up header, stable grid, a11y, tests) ([d21a233](https://github.com/joe-bor/FamilyHub/commit/d21a2330e2b018de028920f180a65df289902d32))
+* **home:** update offline e2e for home landing, settle-clear meal intents ([5121a46](https://github.com/joe-bor/FamilyHub/commit/5121a464f22e3188fcd788f57fa82686c53f069d))
+* **lists:** ensure large-screen detail touch targets ([342accf](https://github.com/joe-bor/FamilyHub/commit/342accf43b335c9bbe58022d0544e73143f839ed))
+* **meals:** order grid empty-slot accessible labels ([15f1c6d](https://github.com/joe-bor/FamilyHub/commit/15f1c6dd7724aae313f2d9f7c47ecc710d1f8f06))
+* **meals:** prevent meal-card eyebrow overflow ([443ebde](https://github.com/joe-bor/FamilyHub/commit/443ebdef73345f4c23b2c1c8018212e5db223f29))
+* **meals:** recover mobile meal image after src change ([5cb2e0c](https://github.com/joe-bor/FamilyHub/commit/5cb2e0cf77fea7333294abeb402697d1a131eef2))
+* **meals:** stop short extras chips from stretching ([74ee50b](https://github.com/joe-bor/FamilyHub/commit/74ee50bbcd957c756610cb38a54a293a12286df3))
+* **recipes:** preserve four-column grid at 1440 ([4604c7c](https://github.com/joe-bor/FamilyHub/commit/4604c7c66aa4ece39131fac0e8e0a1df29f869c1))
+* **recipes:** preserve responsive filter accessibility ([1be875d](https://github.com/joe-bor/FamilyHub/commit/1be875deb03068c02dc0f962618f7adfde57875b))
+* stabilize large-screen home e2e ([7efbb31](https://github.com/joe-bor/FamilyHub/commit/7efbb3165402542aff544fbf9912aad8bdf3fc22))
+
+
+### Code Refactoring
+
+* **calendar:** extract shared day overlap layout ([3e37f00](https://github.com/joe-bor/FamilyHub/commit/3e37f001be449e89cd756cf2fba96510250a0586))
+* **calendar:** toolbar review polish (pill wrap, icon-lg, label helper) ([2985a67](https://github.com/joe-bor/FamilyHub/commit/2985a67b817a9f5037f9a3117b8e304fe6260e72))
+* **home:** dedupe event comparators and dinner-slot lookup, document selectors ([6e29a1e](https://github.com/joe-bor/FamilyHub/commit/6e29a1e9bc29466fc7dec74ef61a136ba6833a16))
+* **home:** idle-return polish (contract docs, no-op guards, re-arm coverage) ([c0ea90e](https://github.com/joe-bor/FamilyHub/commit/c0ea90e26fadfaf536eb97ca105d4c737a90efb3))
+* **home:** split mobile home dashboard ([77aaf54](https://github.com/joe-bor/FamilyHub/commit/77aaf54aabc490b286b49aa94617fab0851c23b1))
+* **lists:** extract ListsMobileView from ListsView ([6c5c633](https://github.com/joe-bor/FamilyHub/commit/6c5c6334eabb4fb47da7c34aeac8bbe1b410ef82))
+* **lists:** extract shared empty and error state cards ([67bf630](https://github.com/joe-bor/FamilyHub/commit/67bf630b8f2ef339f665bd67047b55fbdc7d6579))
+* **lists:** extract shared list-kind metadata ([2f68bce](https://github.com/joe-bor/FamilyHub/commit/2f68bce08fb286f7bed7a083b7d077f1e9f7064c))
+* **meals:** extract shared MealBoardActions ([a14dc2b](https://github.com/joe-bor/FamilyHub/commit/a14dc2b4ea88005de977ff3a8f36dd3a797cfc21))
+* **meals:** extract shared slot accessible-label helpers ([7812f3a](https://github.com/joe-bor/FamilyHub/commit/7812f3a75e05cdeec0c1a70930ed9bcf90422fe1))
+* **shell:** apply header review polish (icon-lg variant, nowrap date, cn dots) ([a4cb894](https://github.com/joe-bor/FamilyHub/commit/a4cb8947b06386a2727815b2e33d4e8fafb54f36))
+
+
+### Documentation
+
+* **meals:** document contain:size grid-cell sizing ([da19e17](https://github.com/joe-bor/FamilyHub/commit/da19e173b278963c899b1c57414207a247cf3a32))
+
+
+### Tests
+
+* **chores:** pass callbacks to checkoff size test ([f0ae919](https://github.com/joe-bor/FamilyHub/commit/f0ae9191b14f890012573dbc77eb05a6601f10d1))
+* **chores:** verify only Today is emphasized ([083e860](https://github.com/joe-bor/FamilyHub/commit/083e8605bbc2fcf1c5a9e0a864232ecb2e39c1af))
+* **home:** cover large screen home experience ([b4c7c59](https://github.com/joe-bor/FamilyHub/commit/b4c7c59c8350646d8a3cc177f4aee9cb9c675de4))
+* **home:** cover selector edge cases (ended events, all-day order, fallbacks) ([9483b55](https://github.com/joe-bor/FamilyHub/commit/9483b55e446786ecdb2c8f982e2d622be0d54039))
+* **meals:** assert full-height board geometry and refresh visual matrix ([6a91c2e](https://github.com/joe-bor/FamilyHub/commit/6a91c2e051890bcdcfd6fee7eab9cb9d7ca712f0))
+* **meals:** assert long-name today state at each width ([b2ed8d1](https://github.com/joe-bor/FamilyHub/commit/b2ed8d1b547e984fa22fd5337b2396215da671f0))
+* **meals:** avoid creating empty offline cache database ([838f1f0](https://github.com/joe-bor/FamilyHub/commit/838f1f09d47b71188946bd9838e345a61a479965))
+* **meals:** complete large-screen visual matrix assertions ([8a38e94](https://github.com/joe-bor/FamilyHub/commit/8a38e94cec3eb83fb21c53b57eac33fab47aa222))
+* **meals:** verify large-screen board geometry and visual matrix ([e97872a](https://github.com/joe-bor/FamilyHub/commit/e97872a0b881baf353f96bc9eda06d6c025b3118))
+* **recipes:** cover large-screen grid geometry and screenshots ([32324e8](https://github.com/joe-bor/FamilyHub/commit/32324e8f57d00439181ffbc1013b2a7bba890ec6))
+
+## [0.3.22](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.21...family-hub-v0.3.22) (2026-07-06)
+
+
+### Features
+
+* **lists:** add bulk item append contract and hook ([116332b](https://github.com/joe-bor/FamilyHub/commit/116332b06e2cf446b4d9b79cb74d7dec95510c79))
+* **meals:** add ingredients review sheet ([48e99e4](https://github.com/joe-bor/FamilyHub/commit/48e99e491e9f85b9dd688580da1f3bbf769ac6fe))
+* **meals:** add ingredients-to-grocery-list action and append flow ([7f82ba9](https://github.com/joe-bor/FamilyHub/commit/7f82ba9ace1d8d5d18b226153c553f4cb10a6a39))
+* **meals:** add recipe-ingredient extraction helpers ([4b8aad8](https://github.com/joe-bor/FamilyHub/commit/4b8aad82bea7be15957c801cea3b899e05430457))
+* **meals:** guard bulk append with the shared item schema (100-item cap) ([95f4533](https://github.com/joe-bor/FamilyHub/commit/95f453350cddcf762df2064f76b1c3f09345c4c0))
+
+
+### Bug Fixes
+
+* **meals:** harden ingredients review flow ([d8c7c9a](https://github.com/joe-bor/FamilyHub/commit/d8c7c9a64dfb2e1db2c256eda0cdbb109a6a47f7))
+
+
+### Tests
+
+* **meals:** e2e for ingredients-to-grocery-list append ([814f43a](https://github.com/joe-bor/FamilyHub/commit/814f43a4214f6343fb31da635c1ca7a10f2b97dd))
+
+## [0.3.21](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.20...family-hub-v0.3.21) (2026-07-03)
+
+
+### Features
+
+* **calendar:** add location input behind Add details expander ([d654fe3](https://github.com/joe-bor/FamilyHub/commit/d654fe3d652f581e087bb08a6956d765cd1a7659))
+* **calendar:** preserve event duration when changing start time ([e2e0259](https://github.com/joe-bor/FamilyHub/commit/e2e0259a14080b8db15df4cb0ed9dc2d8d4766ad))
+* **lists:** keep add item sheet open for multi-add ([89517a7](https://github.com/joe-bor/FamilyHub/commit/89517a7dc1ffcb4f920a3c1eb68b5f10c8bcffc7))
+* **meals:** add focused planning save contract ([0596071](https://github.com/joe-bor/FamilyHub/commit/0596071b51c7521da5b749cece47daa8cf6ea583))
+* **meals:** add focused planning session UI ([8a16ab9](https://github.com/joe-bor/FamilyHub/commit/8a16ab9d698a22a78ba6b90f393828b1c795c1ca))
+* **meals:** add planning session helpers ([8dfabc9](https://github.com/joe-bor/FamilyHub/commit/8dfabc96cb3b7b458d2034f13b931a65fc1add9c))
+* **meals:** save focused plans with conflict handling ([8123069](https://github.com/joe-bor/FamilyHub/commit/8123069c7d7dce268d7ca700c1ad727503bf06c6))
+
+
+### Bug Fixes
+
+* **build:** fail bundle check on inline module scripts ([6fd1a49](https://github.com/joe-bor/FamilyHub/commit/6fd1a492179ef99107d359b60a85f4734e035372))
+* **calendar:** keep end nudge after start time ([235de1b](https://github.com/joe-bor/FamilyHub/commit/235de1b06c09930f69ebf4212cbcc0cf889d3e34))
+* **calendar:** keep start nudge valid near midnight ([fb0adc5](https://github.com/joe-bor/FamilyHub/commit/fb0adc53c0fc81843925b19c74d0471aa388c7ed))
+* **calendar:** keep start picker valid near midnight ([285394c](https://github.com/joe-bor/FamilyHub/commit/285394cdce4b71ae0c4c806130bf334034a4e94e))
+* **family:** break import cycle that skipped boot localStorage hydration ([6cfa466](https://github.com/joe-bor/FamilyHub/commit/6cfa466a73cf1c95cb716873831ba978cb24c945))
+* **lists:** reset add item done label on reopen ([4028171](https://github.com/joe-bor/FamilyHub/commit/4028171cf1475974775ac48d789ececa1438e7eb))
+* **meals:** assert future week in planning e2e ([0521021](https://github.com/joe-bor/FamilyHub/commit/052102170f7b3eaf841c7ddd54b572efa6a47123))
+* **meals:** guard extras-only editor edge cases ([3f1dff2](https://github.com/joe-bor/FamilyHub/commit/3f1dff2fc672dd370faa3cb0a6fb7fac4273d502))
+* **meals:** harden planning session projections ([ac8f262](https://github.com/joe-bor/FamilyHub/commit/ac8f262ee65d87014a1a433fdd43de9ab6c40416))
+* **meals:** harden planning session UI states ([c34f8b7](https://github.com/joe-bor/FamilyHub/commit/c34f8b79657898eb82bc9ddd94b59e68d80f48c8))
+* **meals:** preserve drafts during planning conflicts ([8f3416a](https://github.com/joe-bor/FamilyHub/commit/8f3416af4012efbf92a49a5cdbe94650a76515ba))
+* **meals:** preserve extras when adding primary ([d32e0df](https://github.com/joe-bor/FamilyHub/commit/d32e0df39ea357ed8cd9f9156a8b32eb0d9b1f6e))
+* **meals:** render extras-only meal slots as context ([cf0711c](https://github.com/joe-bor/FamilyHub/commit/cf0711ce36deda28a5d483308d336766f63a5bf8))
+* **meals:** tighten focused planning save contract tests ([3d9969a](https://github.com/joe-bor/FamilyHub/commit/3d9969a623669c45de63f1a791875bd8098336f6))
+* **meals:** validate planning drafts and extras collisions ([16d3a3e](https://github.com/joe-bor/FamilyHub/commit/16d3a3e2c021bba7b58e1e1c7712b703472729dd))
+
+
+### Performance Improvements
+
+* **build:** split react and vendor deps out of the entry chunk ([4c1fb8e](https://github.com/joe-bor/FamilyHub/commit/4c1fb8e4bc98394cd334982088a7a399fa3008e5))
+
+
+### Code Refactoring
+
+* **calendar:** drop redundant start-nudge guard and wrap description field ([31364bf](https://github.com/joe-bor/FamilyHub/commit/31364bfba015556daa3b131433680d144a0e03b3))
+
+
+### Tests
+
+* **build:** add zero-dep entry-chunk size budget check ([39e04ef](https://github.com/joe-bor/FamilyHub/commit/39e04efe6a3fa1590bfb756b571a4f1ee6351bf8))
+* **e2e:** cover grocery multi-add and event location quick-capture flows ([fcba991](https://github.com/joe-bor/FamilyHub/commit/fcba991c84b17de79f72b03cae67b4b62c4c29cf))
+* **e2e:** dismiss add-item sheet via Done in managed-categories flow ([897df08](https://github.com/joe-bor/FamilyHub/commit/897df08f84e541cfc8f21babffed1cd7cccb80b7))
+* **e2e:** scope quick-capture location assertion to the detail dialog ([0f7b5f9](https://github.com/joe-bor/FamilyHub/commit/0f7b5f90044eb3b0f5b9557c06aaff7ad21d0eba))
+* **e2e:** update google-calendar spec for Add details rename ([77e7b83](https://github.com/joe-bor/FamilyHub/commit/77e7b8363fd4794524720b1e5694f0ad77d5b9f7))
+* **meals:** cover focused planning session on mobile ([8a69aac](https://github.com/joe-bor/FamilyHub/commit/8a69aacfeddf5600d64befe4864bab4a1e157a31))
+
+## [0.3.20](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.19...family-hub-v0.3.20) (2026-07-01)
+
+
+### Features
+
+* **lists:** add accessible batched category reorder ([48b3758](https://github.com/joe-bor/FamilyHub/commit/48b3758cec036b6a880bffb1f5d8de7e044dcea9))
+* **lists:** add family category manager ([1bd798e](https://github.com/joe-bor/FamilyHub/commit/1bd798ec1179421d8921e717cedeccaa83df0c5e))
+* **lists:** consume managed category catalog contract ([656f7dd](https://github.com/joe-bor/FamilyHub/commit/656f7ddf74bf5afc088525fc060442e74619770c))
+* **lists:** create categories inline without losing item drafts ([09f953f](https://github.com/joe-bor/FamilyHub/commit/09f953f31fd4564821b8b8890060b00eb2660f12))
+* **lists:** enable categories for every list kind ([97207f3](https://github.com/joe-bor/FamilyHub/commit/97207f3f4a2522b9ff49dd06bc1b1b501f432d71))
+
+
+### Bug Fixes
+
+* **lists:** add ref guard to onOpenChange as fallback for cascade ([692ba81](https://github.com/joe-bor/FamilyHub/commit/692ba81ede6fe52c3c144aafabfee666d29dcc1d))
+* **lists:** associate manager form errors and generalize confirm dialog ([d9abbf5](https://github.com/joe-bor/FamilyHub/commit/d9abbf582af7612fb5bdaddda0b3823c6d58868b))
+* **lists:** clear manager handoff pending on options reopen ([1cf8bea](https://github.com/joe-bor/FamilyHub/commit/1cf8bea9c9034ad55682617d8f4345e779ada5c0))
+* **lists:** clear stale item-save error after successful inline create ([574bb95](https://github.com/joe-bor/FamilyHub/commit/574bb952b0202fa5496865e526df5130fbfbf6c6))
+* **lists:** hand off mobile category manager without stacking ([a4250d7](https://github.com/joe-bor/FamilyHub/commit/a4250d71ea88a953edf16bad92dda1791cb500c3))
+* **lists:** harden option saves and manager handoff ([1bdced0](https://github.com/joe-bor/FamilyHub/commit/1bdced06f9124bc5a1175df9514b2cc7b2304763))
+* **lists:** import useOnlineStatus from module path to preserve test mock isolation ([102e750](https://github.com/joe-bor/FamilyHub/commit/102e75002dc6bd8196628dda74fc5cab418edca9))
+* **lists:** prevent unchanged category rename submits ([378802c](https://github.com/joe-bor/FamilyHub/commit/378802cd1142f904962de6a42b7399d4f1cfd348))
+* **lists:** recover stale categories on item create ([0c7563e](https://github.com/joe-bor/FamilyHub/commit/0c7563e6b6f83efc33db466838a0760aad145419))
+* **lists:** rely on cache convergence for inline-created category (no duplicate option) ([42552f3](https://github.com/joe-bor/FamilyHub/commit/42552f3d6f6e046238a1568fee1bd0ff5de23ffa))
+* **lists:** replace timer-based nested-dialog guard with deterministic ref approach ([c6ae05f](https://github.com/joe-bor/FamilyHub/commit/c6ae05f16cfa4be1ef45a3dfd92623e681f47425))
+* **lists:** stabilize mobile category manager drawers ([de14ff9](https://github.com/joe-bor/FamilyHub/commit/de14ff9a5cf08764ccf9f3d13555f9862aa2606c))
+* **lists:** surface category manager failures ([5414d8d](https://github.com/joe-bor/FamilyHub/commit/5414d8d9ce86ba59d47ede88e9904d6a492ed7f7))
+* **ui:** align responsive dialog breakpoint ([e6e5424](https://github.com/joe-bor/FamilyHub/commit/e6e5424b5fea564a56074032e9691a16dc7bbf70))
+* **ui:** let passive toasts pass pointer events ([6f93b24](https://github.com/joe-bor/FamilyHub/commit/6f93b24c5ba067f1f9988471d364a36d24f031c6))
+* **ui:** prevent detached-target pointer-down-outside from closing drawer ([b63ee70](https://github.com/joe-bor/FamilyHub/commit/b63ee707fe67b67ed35666db84833c43978f3c29))
+* **ui:** stabilize nested mobile sheet closes ([7116394](https://github.com/joe-bor/FamilyHub/commit/7116394676e9eb7fe909f3bc857e7ca2cd210cc8))
+
+
+### Performance Improvements
+
+* **lists:** memoize list detail sections ([b02ebb7](https://github.com/joe-bor/FamilyHub/commit/b02ebb7e64fbe2ce491761b07faaeb4c92475adb))
+
+
+### Code Refactoring
+
+* **lists:** canonicalize reorder 409 detection via ApiException guard ([f7aa8b6](https://github.com/joe-bor/FamilyHub/commit/f7aa8b628caaed744fafffb6e8cadd74f991538a))
+
+
+### Documentation
+
+* **readme:** rewrite as product page with fresh screenshots ([f6b286b](https://github.com/joe-bor/FamilyHub/commit/f6b286bb79186184152e544e4f0436592ac6219a))
+
+
+### Tests
+
+* **e2e:** stabilize managed category flows ([0e1f96c](https://github.com/joe-bor/FamilyHub/commit/0e1f96cec31168423ccba2534acafb029a205305))
+* **lists:** align General grouped mock with released 409 contract and cover opt-in ([110533b](https://github.com/joe-bor/FamilyHub/commit/110533be51507d3f72728d5dfd67b84f7f7c6c80))
+* **lists:** align mock category catalog contracts ([8e0acda](https://github.com/joe-bor/FamilyHub/commit/8e0acdae13c7eeadd68dc69785a2bb1dc78c9c02))
+* **lists:** assert category create preserves list display mode ([6df15eb](https://github.com/joe-bor/FamilyHub/commit/6df15ebc632827f44772057a884ffca7e4181b70))
+* **lists:** assert mobile manager opens post-animation and desktop focus return ([5d2b6b2](https://github.com/joe-bor/FamilyHub/commit/5d2b6b29b69d78c3e82d5584fee4698a7e9ffea3))
+* **lists:** cover category cache decrement and offline guards ([2161c2b](https://github.com/joe-bor/FamilyHub/commit/2161c2b87d1e1116abfe9e70974a120c57e0e0ad))
+* **lists:** cover manager offline entry, authoritative delete count, and visible flatten ([8e46234](https://github.com/joe-bor/FamilyHub/commit/8e4623445d234757756e2e3371d76eafdf95207c))
+* **lists:** enforce category reorder validation ([eae33d4](https://github.com/joe-bor/FamilyHub/commit/eae33d43361447ad416f0e748c81e1ec0dc8322a))
+* **lists:** harden reorder-order assertion and CI fail-closed guard ([660e324](https://github.com/joe-bor/FamilyHub/commit/660e324d671fb5606d0f03818901451db0b839bc))
+* **lists:** verify managed categories against released backend ([68b481e](https://github.com/joe-bor/FamilyHub/commit/68b481e1a7fbe9d6915bb9398f71eb1139b72280))
+
+## [0.3.19](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.18...family-hub-v0.3.19) (2026-06-25)
+
+
+### Features
+
+* **chores:** use shared FAB for add chore on mobile ([e451979](https://github.com/joe-bor/FamilyHub/commit/e45197939bb5280401ea3877a71a6189f5861d7e))
+* **fab:** extract shared FloatingActionButton used by calendar ([ff33d39](https://github.com/joe-bor/FamilyHub/commit/ff33d39fbbdbbb74cf5fb725cf399d15767e1dc7))
+* **home:** ActivityFeed component with expand/collapse + divider ([1181986](https://github.com/joe-bor/FamilyHub/commit/11819868612d023fd5ad2fe4675312d9f6e2cf0a))
+* **home:** build coalesced activity feed with divider and cap ([b95671f](https://github.com/joe-bor/FamilyHub/commit/b95671ff4207b4a8bd6244f53e7c38a7b23fceb3))
+* **home:** coalesce, reconcile, and prune the activity change log ([70a98e5](https://github.com/joe-bor/FamilyHub/commit/70a98e5897b05fd91cf50fc082caba2a975fac36))
+* **home:** derive state line (chores remaining + tonight's dinner) ([1bce48c](https://github.com/joe-bor/FamilyHub/commit/1bce48c66d5e2e07f06183cb6fe19233c93b70cd))
+* **home:** diff activity snapshots into added/edited/removed items ([3ae70f6](https://github.com/joe-bor/FamilyHub/commit/3ae70f6e815f66ca869a3736cf77a089d4b0116e))
+* **home:** entity deep-links + mobile-gated state line & activity feed ([730de65](https://github.com/joe-bor/FamilyHub/commit/730de6523e2a816e01949ca98c9f60164724305c))
+* **home:** meaningful-open detection + lastSeen/hiddenAt markers ([a03af73](https://github.com/joe-bor/FamilyHub/commit/a03af731adbcd3088f4106db315f79905a0249e0))
+* **home:** normalize calendar+list data into activity snapshot ([c82ea50](https://github.com/joe-bor/FamilyHub/commit/c82ea50ea873ba82de3d4129ffcbada5f1570979))
+* **home:** orchestration hook wiring diff cycle to queries + storage ([cba897d](https://github.com/joe-bor/FamilyHub/commit/cba897dab4d1bda09c848021a6d18baef78d4c82))
+* **home:** persist activity snapshot+log to a dedicated idb store ([fe587ee](https://github.com/joe-bor/FamilyHub/commit/fe587ee161a31b9e4a98e15933ec98c6b736c881))
+* **home:** StateLine component ([39f1749](https://github.com/joe-bor/FamilyHub/commit/39f17499d36aa13c58bb718c93bcc32d330ed1ec))
+* **lists:** use shared FAB for add item on mobile detail ([4dd9b76](https://github.com/joe-bor/FamilyHub/commit/4dd9b7686d7d8c4adc9885c259682a6a6f1a92f4))
+* **lists:** use shared FAB for create on mobile landing ([52df4f1](https://github.com/joe-bor/FamilyHub/commit/52df4f108642a58d7bb3abe0e2e14656aa039904))
+* **recipes:** use shared FAB for add recipe on mobile ([e5906fe](https://github.com/joe-bor/FamilyHub/commit/e5906fee6fc8644076288c06492341d2fc4dbcef))
+
+
+### Bug Fixes
+
+* **chores:** optimistically update current-period completion ([34c23aa](https://github.com/joe-bor/FamilyHub/commit/34c23aa17ac97f75f04724d97a695b6a30ef905f))
+* **home:** clear persisted activity (store + markers) on logout and 401 ([c7a8213](https://github.com/joe-bor/FamilyHub/commit/c7a8213e3790bf8e70f5106f1c9705fbb57e30fd))
+* **home:** diff refetched data in the return-to-visible cycle ([37461d8](https://github.com/joe-bor/FamilyHub/commit/37461d8333b60b3a109e87ce3b24b8ae3f17c6cf))
+* **home:** resolve feed deep-links against the family-wide openable set ([384f302](https://github.com/joe-bor/FamilyHub/commit/384f30259747a965dac9e5d99defe741581a938a))
+* **meals:** give collision dialog actions a 44px touch target ([caf612b](https://github.com/joe-bor/FamilyHub/commit/caf612bdf0f47dd6eead6f421229d8cda12578c4))
+* **meals:** send the remove-slot payload in the DELETE request body ([fc68807](https://github.com/joe-bor/FamilyHub/commit/fc68807964c6bca4b5a8a55b077644b3ea3f629b))
+* **shared:** make module-switch fade opacity-only so fixed FABs stay anchored ([891bc7e](https://github.com/joe-bor/FamilyHub/commit/891bc7e08bebd3a92eeda139f5aec244f7ce98c4))
+* **ui:** reserve dialog gutters so centered dialogs fit narrow viewports ([e33855a](https://github.com/joe-bor/FamilyHub/commit/e33855a73939d54f69136197fca2b3282f028371))
+
+
+### Documentation
+
+* **fab:** add implementation plan for shared mobile creation FAB ([9ecd8b1](https://github.com/joe-bor/FamilyHub/commit/9ecd8b10a289c7f334ffde945777317c36d574a6))
+* **fab:** add spec for shared mobile creation FAB ([81c8126](https://github.com/joe-bor/FamilyHub/commit/81c81269e3e5c792d54dc63c6fcedda63a077248))
+* **fab:** address plan-review findings before execution ([82e9659](https://github.com/joe-bor/FamilyHub/commit/82e965924d763590835993373eeab0ff4f13278c))
+* **fab:** import FAB scroll-padding token from shared barrel ([9ed9b7b](https://github.com/joe-bor/FamilyHub/commit/9ed9b7b036a1b34c14997cbbd0cebeb2efea2788))
+* **home:** clarify in-window deep-link set is the 3-day dashboard window ([3625eea](https://github.com/joe-bor/FamilyHub/commit/3625eea7b34a6fc34d4ee3dd9c13100316cd382c))
+
+
+### Tests
+
+* **chores:** verify immediate completion feedback and persistence ([e742c90](https://github.com/joe-bor/FamilyHub/commit/e742c90f8e3f9e4a5a6d9f2b6d214ea1c7f4d27c))
+* **e2e:** cover mobile FAB creation flows and nav clearance ([5dde65e](https://github.com/joe-bor/FamilyHub/commit/5dde65e597670854b25559ab7b17f3a261c4654b))
+* **e2e:** cover occupied-slot collision dialog fit on narrow viewports ([52cd297](https://github.com/joe-bor/FamilyHub/commit/52cd2970354a360e0f34ce7612e22bc68a9ca98c))
+* **e2e:** cover Remove meal persisting after a board reload ([a8e2f04](https://github.com/joe-bor/FamilyHub/commit/a8e2f04c1e09e1794ee059ece392f1c01faf2eff))
+* **e2e:** disambiguate Home add-event assertion now that the activity feed surfaces the event ([e4bb75d](https://github.com/joe-bor/FamilyHub/commit/e4bb75df151668c45c712d52bf0c4829db91d446))
+* **e2e:** gate mobile sheet interactions on waitForSheetSettled ([0c25f39](https://github.com/joe-bor/FamilyHub/commit/0c25f397c05b84b147475582908eb4d85665dcae))
+* **e2e:** wait for offline cache to persist timezone before reload ([0e58703](https://github.com/joe-bor/FamilyHub/commit/0e587031fd95eeaf67c729e0fb539ad189c12e27))
+* **home:** cover the visibility hide branch records hiddenAt ([2d92fae](https://github.com/joe-bor/FamilyHub/commit/2d92faec46662c8f4715b7e549e5e0e95b3d3c02))
+* **lists:** assert list-detail Add item is the FAB on mobile ([9e1b064](https://github.com/joe-bor/FamilyHub/commit/9e1b064be7542f257c42625a0159fa54424c32d8))
+
+## [0.3.18](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.17...family-hub-v0.3.18) (2026-06-19)
+
+
+### Features
+
+* **back-button:** add useAndroidBackButton popstate interceptor ([6d24f6d](https://github.com/joe-bor/FamilyHub/commit/6d24f6d051a1df35621475afd22820b4db60a616))
+* **back-button:** add useBackHandler registration seam ([1f7b673](https://github.com/joe-bor/FamilyHub/commit/1f7b6737fb2b7c03dce87dbd4d409df8c09e5cb9))
+* **back-button:** add useBackStack dismiss registry ([d8b28c7](https://github.com/joe-bor/FamilyHub/commit/d8b28c7379ff48c6c0cbde3e26e3c7f199fd8ddc))
+* **back-button:** mount the interceptor in the authenticated shell ([31de74f](https://github.com/joe-bor/FamilyHub/commit/31de74f71778914436b119f05610601cb9df825c))
+* **back-button:** register list and recipe detail back handlers ([a65aa5a](https://github.com/joe-bor/FamilyHub/commit/a65aa5a8d1bcb8463bcd50bde66ec89d92d791d3))
+* **back-button:** register raw dialog close handlers ([2d8d45e](https://github.com/joe-bor/FamilyHub/commit/2d8d45edfb6587ed860f8b59902ade8ce7ba9be9))
+* **back-button:** register sheet/side-sheet close handlers ([8dccae2](https://github.com/joe-bor/FamilyHub/commit/8dccae215ae1adfd9f746f736d73875cb5c87fbe))
+* **haptics:** add capability-gated Haptics preferences section ([dc33877](https://github.com/joe-bor/FamilyHub/commit/dc338777ddbc04d2c1bf6a418507d87060ab0900))
+* **haptics:** add centralized haptics helper + canVibrate ([b9136ae](https://github.com/joe-bor/FamilyHub/commit/b9136aec23597e73a0f2a8e3b327db1032a9698b))
+* **haptics:** add useHapticsPreference persisted store ([fd65190](https://github.com/joe-bor/FamilyHub/commit/fd651908e7f463ec7c6552ce4cb10f3513d7b59c))
+* **haptics:** fire back haptic on handled back-dismiss ([b3f4b18](https://github.com/joe-bor/FamilyHub/commit/b3f4b18abd61929e43d7954aca521192e5b8ce63))
+* **haptics:** fire success haptic on list and chore completion ([b503e0b](https://github.com/joe-bor/FamilyHub/commit/b503e0b9c8ffb340a366c141ed3417d235f3c7a0))
+* **haptics:** fire tap haptic from the usePressable seam ([5dbc21f](https://github.com/joe-bor/FamilyHub/commit/5dbc21f708266ac1f686b687a046c233d5b7f295))
+* **ui:** add Switch primitive over @radix-ui/react-switch ([b2fb574](https://github.com/joe-bor/FamilyHub/commit/b2fb57479be76d2af01a95b624e22095266de4e6))
+
+
+### Bug Fixes
+
+* **haptics:** gate canVibrate on a coarse pointer ([8340b76](https://github.com/joe-bor/FamilyHub/commit/8340b76357227f51c33ec74f227aa5e0816ecc2d))
+* **haptics:** type vibration patterns as mutable VibratePattern ([d5150ac](https://github.com/joe-bor/FamilyHub/commit/d5150aca904709361533c04f6bedfa9366668d6f))
+
+
+### Documentation
+
+* clarify Zustand store reset is by-name, not generic ([392e10d](https://github.com/joe-bor/FamilyHub/commit/392e10d8e8525b993cb38e3f358513c310d939e5))
+* **haptics:** drop stale (later) from usePressable comment ([71db2cb](https://github.com/joe-bor/FamilyHub/commit/71db2cbd079f3d7f39b546fadb8fc91e8ea19c0d))
+
+
+### Tests
+
+* **back-button:** cover iOS-standalone gate exclusion ([4c42752](https://github.com/joe-bor/FamilyHub/commit/4c427524f33b31129d2ed27e89e8031d9c3c9bb6))
+* **haptics:** guard the no-double-pulse throttle coupling ([92406e3](https://github.com/joe-bor/FamilyHub/commit/92406e343153f17ce8feeeeb2a787432427ad4c2))
+* **haptics:** reset the fire throttle clock in resetAllStores ([731917a](https://github.com/joe-bor/FamilyHub/commit/731917a11188d157174472e99985d1b79b2b3aa8))
+
+## [0.3.17](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.16...family-hub-v0.3.17) (2026-06-17)
+
+
+### Features
+
+* **motion:** add ScreenTransition primitive ([c9afb4a](https://github.com/joe-bor/FamilyHub/commit/c9afb4a42c4ff21df662178a49fb6720406a6b25))
+* **motion:** add usePrefersReducedMotion hook ([3b3a0b9](https://github.com/joe-bor/FamilyHub/commit/3b3a0b9e5ac4087fa336b4dd331da7c1ada869f9))
+* **motion:** add usePressable press-feedback primitive ([451c861](https://github.com/joe-bor/FamilyHub/commit/451c861f8321def5e8151541adc2dfe763a26412))
+* **motion:** fade-through on module switch ([27d0ec4](https://github.com/joe-bor/FamilyHub/commit/27d0ec4d0ea1f0da40b92e2b1e21de921aae83a2))
+* **motion:** shared-axis slide for list and recipe detail ([2754dec](https://github.com/joe-bor/FamilyHub/commit/2754decd5f2a3157fdfe12de07a628d068047f93))
+* **offline:** enforce read-only writes and clear cache on logout/401 ([51014b0](https://github.com/joe-bor/FamilyHub/commit/51014b06df3bca13592088ab8d34fa855b938295))
+* **offline:** honest offline banner and empty states for cached data ([09326b6](https://github.com/joe-bor/FamilyHub/commit/09326b683ed6dfa9f131d83d62c913b9e769e216))
+* **offline:** persist read query cache to IndexedDB ([e0f2b7b](https://github.com/joe-bor/FamilyHub/commit/e0f2b7b81bfcdb30310e33a649ffaa810a7f8d7a))
+* **ui:** apply press feedback to Button ([f684286](https://github.com/joe-bor/FamilyHub/commit/f6842869ba1a6941a1f4571e341426c95b3d58e3))
+* **ui:** press feedback on nav, sidebar, and rows ([d7d9cd1](https://github.com/joe-bor/FamilyHub/commit/d7d9cd1990c1ebe97a2052582264f77c3ecb0c11))
+
+
+### Bug Fixes
+
+* **offline:** accept null member email/avatar in persisted family validators ([e0db264](https://github.com/joe-bor/FamilyHub/commit/e0db2640c6461f7cd4285e7c9c4f1194fbe4f177))
+* **offline:** clear in-memory query cache on 401 to prevent cross-account re-leak ([77c2210](https://github.com/joe-bor/FamilyHub/commit/77c2210c3671d283b7aba24d0a7be0c60e66b564))
+* **offline:** drop malformed entries, not whole collections, on restore ([53eb6e7](https://github.com/joe-bor/FamilyHub/commit/53eb6e7b1d3bc5c4f00bbd593f7a423b43177c67))
+* **offline:** make OfflineWriteError an ApiException and surface offline writes in calendar ([911b236](https://github.com/joe-bor/FamilyHub/commit/911b236ff939c1161ddce631ae3bb485cce132f4))
+* **offline:** show offline empty state when a lazy-module chunk fails to load ([1375b5f](https://github.com/joe-bor/FamilyHub/commit/1375b5f561290b09ecd9ffb1dcea63f1a6c8d982))
+* **offline:** strip data: URL recipe images before persisting ([65b4d87](https://github.com/joe-bor/FamilyHub/commit/65b4d876428858ad9ad2192bd707baee3bd15a05))
+* **offline:** tolerate backend enum drift in persisted-response validators ([fb78b8b](https://github.com/joe-bor/FamilyHub/commit/fb78b8b4775bd2bc33603802a56d231dbec3f310))
+* **pwa:** claim clients on activation for first-session offline ([fb1cb52](https://github.com/joe-bor/FamilyHub/commit/fb1cb52e1ce97b0b3d03ddd014e7b5ad3e7a14d7))
+
+
+### Documentation
+
+* **offline:** mark Workbox /api note superseded by Query persistence ([c206324](https://github.com/joe-bor/FamilyHub/commit/c206324284373e064d0397a3381e64755c63dc6f))
+
+
+### Tests
+
+* **calendar:** provide usePressable in event-detail-modal hooks mock ([605637d](https://github.com/joe-bor/FamilyHub/commit/605637d5ff627e1ef6db44e8f56a9f9a60a9472d))
+* **offline:** cover __APP_VERSION__ buster invalidation ([ecccd02](https://github.com/joe-bor/FamilyHub/commit/ecccd02a860f4ca88d62119dc4981f21a313f59d))
+* **offline:** cover first-session and evicted-chunk offline paths ([89a33ea](https://github.com/joe-bor/FamilyHub/commit/89a33eaa5ba488eb66e81f2e9458b16e82ed07ff))
+* **offline:** e2e offline-reads coverage against build + preview ([0eb4e2b](https://github.com/joe-bor/FamilyHub/commit/0eb4e2b84a5963ec647ac8e12e1928a169d6d38d))
+* **offline:** guard the offline-reload test with service worker readiness ([638bff8](https://github.com/joe-bor/FamilyHub/commit/638bff8b57e023ef0a512d8ea56bba03c34e227f))
+* **offline:** poll IndexedDB instead of a fixed wait for the persister flush ([fd5a5d6](https://github.com/joe-bor/FamilyHub/commit/fd5a5d6e87bb7c01242d11a2276bf0f9280821bb))
+* **offline:** post 12-hour times and target the nav button in offline e2e ([44934c6](https://github.com/joe-bor/FamilyHub/commit/44934c6557fcb0f558c4a4d3fd13f23878a43ebf))
+* **offline:** wait for service worker control before going offline ([d652207](https://github.com/joe-bor/FamilyHub/commit/d652207ee58d7da659c65e3f58458711ab6c8995))
+
+## [0.3.16](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.15...family-hub-v0.3.16) (2026-06-14)
+
+
+### Bug Fixes
+
+* **pwa:** capture beforeinstallprompt at app root so the sidebar offers one-tap install on Chromium ([45a53e2](https://github.com/joe-bor/FamilyHub/commit/45a53e2820356da8afd45857879be05fee488124))
+
+## [0.3.15](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.14...family-hub-v0.3.15) (2026-06-13)
+
+
+### Features
+
+* **hooks:** add useInstallPrompt ([59b869a](https://github.com/joe-bor/FamilyHub/commit/59b869a397813c7a791aed2413a1060cf852fcbd))
+* **hooks:** add useOnlineStatus ([b884483](https://github.com/joe-bor/FamilyHub/commit/b8844838329bde8c6263d7421583d8bdc28ccc40))
+* **pwa:** add sidebar Install app row (one-tap install / manual instructions / hidden when installed) ([6730ba4](https://github.com/joe-bor/FamilyHub/commit/6730ba4319905e4528dc6baba828a7c4d1e4bdd2))
+* **pwa:** add standalone + iOS detection helpers ([b30901b](https://github.com/joe-bor/FamilyHub/commit/b30901bbe5cb0ef548745abdacc599499434cf58))
+* **pwa:** prompt before applying service worker updates instead of silent reload ([7ec2117](https://github.com/joe-bor/FamilyHub/commit/7ec21170e0a2706049509d54e38ff57412dabb0f))
+* **pwa:** show offline banner above the bottom nav ([597088b](https://github.com/joe-bor/FamilyHub/commit/597088b97acf0caf6499f7159716be7089c8aa1c))
+* **shared:** add accessible offline banner ([8cf6617](https://github.com/joe-bor/FamilyHub/commit/8cf6617caad4320486e9b3143153300a67580fc9))
+* **shared:** add manual install-instructions sheet ([1686f07](https://github.com/joe-bor/FamilyHub/commit/1686f0797e2f1603f0c3a1c1f504334e6ff94cb8))
+* **ui:** support optional sticky duration on toast ([d820dba](https://github.com/joe-bor/FamilyHub/commit/d820dba210d8cc7f900b126f81afadfc9fbff790))
+
+
+### Bug Fixes
+
+* **pwa:** reconcile metadata, unlock orientation, keep bundle stats + dead font rules out of the build ([9d6e8f2](https://github.com/joe-bor/FamilyHub/commit/9d6e8f2dc16b0c37aef3076b50254617486d9d7a))
+
+
+### Documentation
+
+* **pwa:** record config cleanups; scope offline data to Option C ([8cd32de](https://github.com/joe-bor/FamilyHub/commit/8cd32def25633424a029b58951a42bae335ec003))
+
+## [0.3.14](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.13...family-hub-v0.3.14) (2026-06-13)
+
+
+### Features
+
+* **family:** carry timezone through family types, Zod layer, and update mutation ([0afa8e2](https://github.com/joe-bor/FamilyHub/commit/0afa8e204bc0e48b17518cee43c2d98786ed9c85))
+* **settings:** add PreferencesSheet with BE-backed family timezone ([9988994](https://github.com/joe-bor/FamilyHub/commit/9988994c03d813e4ee14c6f9215c743dd823a3b5))
+* **sidebar:** add Preferences row between Family Settings and Sign Out ([ea4bfc5](https://github.com/joe-bor/FamilyHub/commit/ea4bfc5b0dd5546ee54b679c427db64ba3b33a11))
+
+
+### Bug Fixes
+
+* **e2e:** wait for sheets to settle before forced clicks inside them ([88d9463](https://github.com/joe-bor/FamilyHub/commit/88d9463d783d49a2b2a8a9f5f17606c35c8f7d35))
+
+
+### Tests
+
+* **e2e:** cover Preferences timezone change, BE persistence, and stub rows ([9fee111](https://github.com/joe-bor/FamilyHub/commit/9fee111cce3e75b58250c541066a7666435d70db))
+
+## [0.3.13](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.12...family-hub-v0.3.13) (2026-06-12)
+
+
+### Features
+
+* **mobile:** family settings opens as a full-height bottom sheet ([295c4c6](https://github.com/joe-bor/FamilyHub/commit/295c4c6c14e5bca06b90d96ec3e644e709de7430))
+* **mobile:** member profile and member form open as bottom sheets ([6c3098f](https://github.com/joe-bor/FamilyHub/commit/6c3098f22ccf11f4ab62016fbdc242c2fdcd1237))
+* **mobile:** module-aware app header with calendar context and Today ([5db0340](https://github.com/joe-bor/FamilyHub/commit/5db03401717ed6397d1dc431fab1ae8579989da0))
+* **mobile:** render shared header on calendar; slim mobile toolbar to controls row ([9a1108e](https://github.com/joe-bor/FamilyHub/commit/9a1108e37b1032a4c7464ae7cb68667fc4aded15))
+* **ui:** add responsive form dialog (sheet on mobile, dialog on desktop) ([91e0a7e](https://github.com/joe-bor/FamilyHub/commit/91e0a7ea0df105d1d9c67d40445c543b07c656ad))
+
+
+### Bug Fixes
+
+* **mobile:** compact horizontal recipe cards on mobile ([871e853](https://github.com/joe-bor/FamilyHub/commit/871e8538f739f989d1b1e2dfdb4779d0b298774c))
+* **mobile:** drop redundant chores period heading on mobile ([4dd37e4](https://github.com/joe-bor/FamilyHub/commit/4dd37e45c9f2aee2619cd171b62d9e74d3b8a8eb))
+* **mobile:** gate module titles with useIsMobile to avoid 768px duplicate ([07c85c2](https://github.com/joe-bor/FamilyHub/commit/07c85c231f049fcc2f3c0bb7c9ce8aed259c607e))
+* **mobile:** hide Meals week-header title duplicated by the module-aware header ([dded5d6](https://github.com/joe-bor/FamilyHub/commit/dded5d6604ef45f2e010a183697b0d00f7b714cb))
+* **mobile:** keep calendar chrome height parity with the old two-row toolbar ([a4aa03a](https://github.com/joe-bor/FamilyHub/commit/a4aa03a662722164f38e6e7c65a45fc89988399a))
+* **mobile:** keep settings dialogs desktop at md breakpoint ([dba4dcf](https://github.com/joe-bor/FamilyHub/commit/dba4dcf3b7a9e0b82d47f67007b8e776f29284a5))
+* **mobile:** move list options into a half-height sheet ([01468a4](https://github.com/joe-bor/FamilyHub/commit/01468a429d5cbc84e089a2f8e01dc841be67c9b7))
+* **mobile:** remove module titles duplicated by the module-aware header ([5156f42](https://github.com/joe-bor/FamilyHub/commit/5156f423da9f518f4c9bcf7fee73b8e8e0e0d688))
+
+
+### Code Refactoring
+
+* **calendar:** extract context label util ([ba76b58](https://github.com/joe-bor/FamilyHub/commit/ba76b58814cdceef52cb1bec568c5616d3b94413))
+* **lists:** extract list options controls component ([1c43995](https://github.com/joe-bor/FamilyHub/commit/1c4399509a3d3bff24fda53d37feff41204289d0))
+
+
+### Tests
+
+* **e2e:** cover mobile settings bottom sheets and stacking flow ([2e08617](https://github.com/joe-bor/FamilyHub/commit/2e08617ef96476994ce68d35c67bbda67a8b1ed5))
+* **e2e:** drive list options through the mobile options sheet ([542944d](https://github.com/joe-bor/FamilyHub/commit/542944d97828369c2a0a361424cf2650e9102ed2))
+* **mobile:** assert full Today date and live calendar label updates ([08a25cb](https://github.com/joe-bor/FamilyHub/commit/08a25cbf15d6b4da6688b45b0f0c2dd6ee21dbcb))
+* **mobile:** update chores e2e for hidden scope heading ([a7a4111](https://github.com/joe-bor/FamilyHub/commit/a7a4111a0e5ed71247a31aeb4c92d19f2ce9d3d2))
+
+## [0.3.12](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.11...family-hub-v0.3.12) (2026-06-11)
+
+
+### Features
+
+* **mobile:** collapse bottom nav to five slots with More overflow ([1d16544](https://github.com/joe-bor/FamilyHub/commit/1d16544ef5bee0bf3ad54f431c99739ee0c690a9))
+* **mobile:** open short forms as half-height sheets ([e7e3eff](https://github.com/joe-bor/FamilyHub/commit/e7e3eff4e2bbea15c9ec2d2ad43145d1f6601a65))
+* **mobile:** rebuild sidebar as accessible side sheet with sign-out confirm ([70016b3](https://github.com/joe-bor/FamilyHub/commit/70016b397ec38d93909e78e8131cd40de997791e))
+* **ui:** rebuild MobileSheet as an expandable bottom sheet on vaul ([abb13c8](https://github.com/joe-bor/FamilyHub/commit/abb13c86468a26fa4d8e4ff11f312133b896625c))
+
+
+### Bug Fixes
+
+* **auth:** harden logout against storage-removal failure ([872a1f1](https://github.com/joe-bor/FamilyHub/commit/872a1f180a12d3237bf685502c26450eadae9e6a))
+* **calendar:** enlarge mobile toolbar menu button to 44px touch target ([c6af6fa](https://github.com/joe-bor/FamilyHub/commit/c6af6fa1483047871626eb29cfb987a719df7cd7))
+* **family:** block member edit/remove until optimistic add confirms ([3d7d1b5](https://github.com/joe-bor/FamilyHub/commit/3d7d1b584ba5ab52f8b496621174535f00b296c9))
+* **mobile:** bound member profile modal height with scroll ([a0fcbf5](https://github.com/joe-bor/FamilyHub/commit/a0fcbf5d6f1f3fbd04eb3b8fff1d6fa47e8b93d9))
+* **mobile:** gate onboarding family-name autofocus off on mobile ([c2a3518](https://github.com/joe-bor/FamilyHub/commit/c2a3518c1a48292923350352c4565d06a52993a8))
+* **mobile:** keep auth form inputs above the keyboard ([f195695](https://github.com/joe-bor/FamilyHub/commit/f195695136492fe6416c5a7fbd8a726b6d59047e))
+* **mobile:** manage focus for sheets and inert the nav behind More ([e73fc0c](https://github.com/joe-bor/FamilyHub/commit/e73fc0c702d937c8d6548d7c68d5aaf73f058310))
+* **mobile:** meet 44px touch targets and use dvh on onboarding + settings surfaces ([d8c546e](https://github.com/joe-bor/FamilyHub/commit/d8c546e4c3730548d8e091f6dd079de9685807d3))
+* **mobile:** remove dead settings button from app header ([979428d](https://github.com/joe-bor/FamilyHub/commit/979428d528b4b37bc53491043085df2f2b801635))
+* **mobile:** require horizontal intent before swipe-closing the side sheet ([dd11c48](https://github.com/joe-bor/FamilyHub/commit/dd11c48a4cebf1191927430ea508b7c104ccdd65))
+* **mobile:** use dvh + safe-area on auth, onboarding, and shell ([aa33983](https://github.com/joe-bor/FamilyHub/commit/aa3398373e503cd56eb09e33f780aab3a6ccbea8))
+* **ui:** ignore drag-retargeted clicks on the sheet handle ([956eeda](https://github.com/joe-bor/FamilyHub/commit/956eeda35a0c57b5cede1c934a125336f3875ae9))
+
+
+### Code Refactoring
+
+* **header:** drop dead colorMap fallback ([52c0b84](https://github.com/joe-bor/FamilyHub/commit/52c0b841ce3e16f964ec8216690a58bce17537bd))
+* **recipes:** consolidate add-recipe flow into one sheet instance ([6a8b50a](https://github.com/joe-bor/FamilyHub/commit/6a8b50a2d7646017bad2ae5f5e4e95833868eb16))
+
+
+### Tests
+
+* **e2e:** cover mobile menu sidebar and More overflow ([6fcaec3](https://github.com/joe-bor/FamilyHub/commit/6fcaec3c20b32a925398f43d39be5c6dd7484160))
+* **e2e:** exact-match the Recipes heading assertion ([4eb3375](https://github.com/joe-bor/FamilyHub/commit/4eb337571703634189c8b6d6fb94b44d70eeb7f5))
+* **e2e:** locate the sidebar as a dialog after the side-sheet rebuild ([4d66c36](https://github.com/joe-bor/FamilyHub/commit/4d66c3629a785df7b95904e2f8adf1fb48b50f75))
+* **family:** cover the add-then-edit temp-id race in FamilySettingsModal ([5b913d9](https://github.com/joe-bor/FamilyHub/commit/5b913d93056cb48f6880860b623e768095b0f2c8))
+
+## [0.3.11](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.10...family-hub-v0.3.11) (2026-06-08)
+
+
+### Features
+
+* **meals:** add API-backed weekly meal planning ([c272423](https://github.com/joe-bor/FamilyHub/commit/c2724237281d1cba31e7600ac3a3cbf033bddc76))
+* **meals:** add day/meal-type destination picker for move and duplicate ([b7cd8a4](https://github.com/joe-bor/FamilyHub/commit/b7cd8a481ff025d7a1b1f6e80ae3214fcbd7f793))
+* **meals:** add extra-intent mode to the meal composer ([323150d](https://github.com/joe-bor/FamilyHub/commit/323150dca862f4bb0eaabf1e23b2866a8fc58d00))
+* **meals:** add frontend meal contracts ([a417ce5](https://github.com/joe-bor/FamilyHub/commit/a417ce5f98f131857187384c0be9755aadaaec91))
+* **meals:** add mobile meal planning board ([9ccb3d8](https://github.com/joe-bor/FamilyHub/commit/9ccb3d8a6b44407f6cffe127aa16e33edd2ed02d))
+* **meals:** add Replace meal and Add extra editor actions ([fdd3812](https://github.com/joe-bor/FamilyHub/commit/fdd38120daf5f4e13ba4719714cd75a46cfc40ab))
+* **meals:** add slot management controls ([b0b5480](https://github.com/joe-bor/FamilyHub/commit/b0b548076f28752060c6fec3898d745d85cd6a14))
+* **meals:** edit the slot-level meal note from the editor ([42c6cda](https://github.com/joe-bor/FamilyHub/commit/42c6cda31ec8c1f87ada8c9526c409c27673df79))
+* **meals:** remove extras from the planned-meal editor ([838fde6](https://github.com/joe-bor/FamilyHub/commit/838fde6f6d5f3bfab75e1531b8b1deac85250a15))
+* **recipes:** add a CTA button to the empty recipe library state ([bd354e0](https://github.com/joe-bor/FamilyHub/commit/bd354e0a7988546d93a82de0adc75af99d002e1a))
+* **recipes:** add cook-first recipe detail ([d913696](https://github.com/joe-bor/FamilyHub/commit/d913696cdba2ef84b081a4ec536d21bad9e1f2ed))
+* **recipes:** add frontend recipe contracts ([34e3c5e](https://github.com/joe-bor/FamilyHub/commit/34e3c5eafcad4671ccba6fba7578668f251eee5b))
+* **recipes:** add meals handoff draft ([cd3f6d3](https://github.com/joe-bor/FamilyHub/commit/cd3f6d314849bbc3feb75f4526ba129c3a9fd022))
+* **recipes:** add recipe create and import flows ([86af699](https://github.com/joe-bor/FamilyHub/commit/86af69995ca9d69e77627a1caf112bd251459fe3))
+* **recipes:** add recipe library ([317005d](https://github.com/joe-bor/FamilyHub/commit/317005df55cffb7b69adb0418cd05caedabf01e3))
+* **recipes:** allow removing ordered recipe rows ([50f8fa4](https://github.com/joe-bor/FamilyHub/commit/50f8fa4f4cd3a751f9e0d1b362f33572082684b5))
+* **recipes:** register recipes module ([63ac1bf](https://github.com/joe-bor/FamilyHub/commit/63ac1bfd7c55bdfb932a0364ba4e0a8b8a857ea2))
+
+
+### Bug Fixes
+
+* **lists:** preserve items when list-setting PATCH resolves after an item mutation ([14f5a9b](https://github.com/joe-bor/FamilyHub/commit/14f5a9bce6ffcbdb75df5a63d44b5da1b65425a4))
+* **meals:** add a retry action to the board error state ([108b76d](https://github.com/joe-bor/FamilyHub/commit/108b76d13449728cda156d31b329b28df366839d))
+* **meals:** allow opening past occupied slots for read-only review ([3bddb73](https://github.com/joe-bor/FamilyHub/commit/3bddb735c65e88b12046b71fdcf84aec4e5ab9e5))
+* **meals:** clear stale validation error when resolving a composer collision ([cf86261](https://github.com/joe-bor/FamilyHub/commit/cf86261323f7dac0c493b482c4e94da4961df7bb))
+* **meals:** close editor when live slot disappears ([ace88a0](https://github.com/joe-bor/FamilyHub/commit/ace88a064701575c83bf34a591b7235a8794e4f6))
+* **meals:** compute day dates from weekStartDate in fixture ([4bc7130](https://github.com/joe-bor/FamilyHub/commit/4bc7130ff25b3476b753b8251a1cf05d2ffc762b))
+* **meals:** drive the meal editor from live board data so saves and collisions are accurate ([15be07a](https://github.com/joe-bor/FamilyHub/commit/15be07a5857cbeeceb670a3d7368af86bf4502be))
+* **meals:** keep recipe placement draft when switching weeks ([18e37dc](https://github.com/joe-bor/FamilyHub/commit/18e37dc4b9c371d04c0e874985975ac77acc8863))
+* **meals:** keep the slot in context when browsing the full recipe library ([9e465a9](https://github.com/joe-bor/FamilyHub/commit/9e465a969adf2d54fb95a9a641100a5f60981e94))
+* **meals:** make in-editor recipe view review-only instead of showing dead actions ([63e3f6e](https://github.com/joe-bor/FamilyHub/commit/63e3f6e02c604b8234940c6a7aff5cf82c71ad83))
+* **meals:** move/duplicate from Saturday targets next week Sunday ([f896d60](https://github.com/joe-bor/FamilyHub/commit/f896d602cd66a5c22b0ddf90ba9bea8f2b8da4b8))
+* **meals:** satisfy strict slot type narrowing ([722f96f](https://github.com/joe-bor/FamilyHub/commit/722f96fd4743f3b761a31d17944c893afef81138))
+* **meals:** send remove-slot identifiers as query params ([cfa7d77](https://github.com/joe-bor/FamilyHub/commit/cfa7d778d57ad3b05859ade3150fa74f8d9cda8d))
+* **meals:** show placeholder when meal image fails to load ([dff619a](https://github.com/joe-bor/FamilyHub/commit/dff619a9e4bad8861d43bdfb3d9de427990d1646))
+* **meals:** snapshot board at editor open to survive query revalidation ([01b1c4d](https://github.com/joe-bor/FamilyHub/commit/01b1c4d96724c0cee6dbdc3c696b16581c3682f8))
+* **meals:** sort favorite and recent recipe lists by updatedAt desc ([f4fb4df](https://github.com/joe-bor/FamilyHub/commit/f4fb4df3fc079297123c78b682d44116f9699458))
+* **meals:** surface mutation errors in composer and editor ([92c43f6](https://github.com/joe-bor/FamilyHub/commit/92c43f67ef938092cc9c86e404b92a52f9411a0f))
+* **meals:** switch day-card/grid layout at lg to close tablet gap ([de03458](https://github.com/joe-bor/FamilyHub/commit/de03458ba3d8c686f61c47dc413c74e4508c2cf4))
+* **meals:** validate composer payloads with meal schemas and keep typed notes ([043aff5](https://github.com/joe-bor/FamilyHub/commit/043aff51c7a8282592a779a7ba93b5e9054e857c))
+* **recipes:** address final review findings ([e41cea1](https://github.com/joe-bor/FamilyHub/commit/e41cea1e3e077b15dfecc425edb0277c1ada14fc))
+* **recipes:** address remaining review findings ([b229be1](https://github.com/joe-bor/FamilyHub/commit/b229be1bd5dfd9e65389413859e7667b269b4413))
+* **recipes:** address review feedback ([208cd66](https://github.com/joe-bor/FamilyHub/commit/208cd662326dea5af79e7ea9c985a714da924210))
+* **recipes:** align recipe url guardrails ([69b77d0](https://github.com/joe-bor/FamilyHub/commit/69b77d0818e49d2033298242cfad6a906b548d53))
+* **recipes:** clear meals creation draft on cancel ([31b2c34](https://github.com/joe-bor/FamilyHub/commit/31b2c34eb89ffc961259a3a49656e1a33acaff9f))
+* **recipes:** clear the meals draft when dismissing the create chooser ([a7405f5](https://github.com/joe-bor/FamilyHub/commit/a7405f538aa626c5f87c69d269da86eb1a815161))
+* **recipes:** expose URL import in the meals-origin recipe creation flow ([7f1a1d5](https://github.com/joe-bor/FamilyHub/commit/7f1a1d5a4233376654b20a1df74d48baea01e9bc))
+* **recipes:** keep detail actions after cooking content ([06b9042](https://github.com/joe-bor/FamilyHub/commit/06b9042400cc68002072e492d23356e1453e5c0a))
+* **recipes:** keep library discovery-only ([c0af476](https://github.com/joe-bor/FamilyHub/commit/c0af476c1c9cfae640414891f45956762d1a891d))
+* **recipes:** keep mobile nav destinations visible ([b800bfa](https://github.com/joe-bor/FamilyHub/commit/b800bfaa8cc800fa22c0632c9beae0ced95ba2fe))
+* **recipes:** normalize library filters ([b739b75](https://github.com/joe-bor/FamilyHub/commit/b739b75d7344018167e19fa74a6f9ee7fdad79f4))
+* **recipes:** resolve build typing issues ([d785f65](https://github.com/joe-bor/FamilyHub/commit/d785f651aed0ea10186fe5c076bb5b14d8f86007))
+* **recipes:** show a placeholder when a recipe image fails to load ([d03936b](https://github.com/joe-bor/FamilyHub/commit/d03936b1b00650a0f2f647e1c8bb9487ac4f7036))
+* **recipes:** show manual create errors ([f4399a8](https://github.com/joe-bor/FamilyHub/commit/f4399a84d28e317dcb1f2df148e6d7a31113ad2e))
+* **recipes:** sync import mock tags ([6474d10](https://github.com/joe-bor/FamilyHub/commit/6474d109673d6900071bc58fb3f2ba5adb1b6561))
+* **test:** throw on out-of-bounds access in findMealSlot mock ([402b7ba](https://github.com/joe-bor/FamilyHub/commit/402b7baf8be764367449ee00d1c16c545078afef))
+
+
+### Code Refactoring
+
+* **meals:** extract shared formatMealType utility ([1220a71](https://github.com/joe-bor/FamilyHub/commit/1220a717415acb70a573f06b98f4c0e10caa0681))
+* **meals:** rely on board refetch after meal upserts ([11f388f](https://github.com/joe-bor/FamilyHub/commit/11f388fd52b66b89ded3c0e5dbf50324429cf396))
+
+
+### Documentation
+
+* **meals:** add consolidated Recipes/Meals review-fixes implementation plan ([edf222b](https://github.com/joe-bor/FamilyHub/commit/edf222bbd6149d19e7daa0897d252297c8b53a85))
+* **meals:** clarify consolidated review-fixes plan ([566a4be](https://github.com/joe-bor/FamilyHub/commit/566a4be9eb55dbca90a636d32b25370a21fdb587))
+* **meals:** clarify consolidated review-fixes plan ([de2dade](https://github.com/joe-bor/FamilyHub/commit/de2dade95e91f2f0d3a122479a282ae1cad2b157))
+* **meals:** record spec-drift fix plan and triage ([f9aa0d5](https://github.com/joe-bor/FamilyHub/commit/f9aa0d52cb308254666029d470790f66a06fb99d))
+* **recipes:** record final verification ([2bc25ef](https://github.com/joe-bor/FamilyHub/commit/2bc25efee95739b702ba73ebfe61f514be66895c))
+* refresh README module status and fix the roadmap link ([5443734](https://github.com/joe-bor/FamilyHub/commit/54437340b736b6fd19e087472f648808824c151b))
+
+
+### Tests
+
+* **e2e:** disambiguate recipe form field locators ([023847d](https://github.com/joe-bor/FamilyHub/commit/023847dec738d5531b8d886abb951f531309d66f))
+* **lists:** await list mutations and target category heading to fix flake ([63a8baf](https://github.com/joe-bor/FamilyHub/commit/63a8baf27fce9b8f265678e04c9d42d170f918a3))
+* **lists:** drop waitForResponse workarounds that masked the cache-clobber race ([b699ca1](https://github.com/joe-bor/FamilyHub/commit/b699ca1a6fdacb774806749b2dd34423b91a644f))
+* **meals:** cover cross-week move and duplicate from Saturday ([729d306](https://github.com/joe-bor/FamilyHub/commit/729d30644823056c71defc1c8f373c9af0c496fc))
+* **meals:** cover mobile weekly planning ([204d2a8](https://github.com/joe-bor/FamilyHub/commit/204d2a8d3b67128ceecf253b159a2a531ff79264))
+* **meals:** scope weekly-board heading assertions to fix CI strict-mode failure ([3b24e13](https://github.com/joe-bor/FamilyHub/commit/3b24e139798c70017ff6a88d65c202bf4e8ea28c))
+* **recipes:** add mobile recipe e2e coverage ([2bae01c](https://github.com/joe-bor/FamilyHub/commit/2bae01cebd46fbd30121b91b43a0e4e674d93ff8))
+
+## [0.3.10](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.9...family-hub-v0.3.10) (2026-05-21)
+
+
+### Features
+
+* **chores:** add present-focused board UI ([ebc2b57](https://github.com/joe-bor/FamilyHub/commit/ebc2b57257d6497c3b878a359485a5ae3bb80e0a))
+* **chores:** reset frontend chores contract ([41c4710](https://github.com/joe-bor/FamilyHub/commit/41c47100ccb3c162ec5815cc9aba9825fb6da66c))
+* **chores:** wire recurring chore interactions ([a63996d](https://github.com/joe-bor/FamilyHub/commit/a63996d5f0e07055a49fca87611a847fbfa393dc))
+
+
+### Bug Fixes
+
+* **chores:** harden recurring board recovery ([f865195](https://github.com/joe-bor/FamilyHub/commit/f865195a7e53bd3d93aa7163b3c3fd72a1ab68d7))
+* **chores:** refresh board cache after period changes ([5cd7a25](https://github.com/joe-bor/FamilyHub/commit/5cd7a25675d764381a6ff81f102d8867af23df43))
+* force-ignore frontend worktrees in biome ([0cf42ea](https://github.com/joe-bor/FamilyHub/commit/0cf42ea5abcba9f299cdacb6e94be8e8ed134ead))
+
+
+### Tests
+
+* **chores:** cover mobile recurring chore flow ([83f2ae8](https://github.com/joe-bor/FamilyHub/commit/83f2ae8d51e8a45526f3f9fb459f698ebd7b3007))
+
+## [0.3.9](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.8...family-hub-v0.3.9) (2026-05-10)
+
+
+### Features
+
+* add mobile home dashboard ([68ca7c1](https://github.com/joe-bor/FamilyHub/commit/68ca7c1e848c2d2da0daa2d6c3cb91fe73eaa0f0))
+* add persistent mobile bottom nav shell ([432a7c1](https://github.com/joe-bor/FamilyHub/commit/432a7c191ef4ac46eaeada9619695b823dedf4f1))
+* **chores:** add assignee lane board ([f393cc7](https://github.com/joe-bor/FamilyHub/commit/f393cc75948019e4167d2b2078c6f61dc47291a7))
+* **chores:** add frontend chore data hooks ([ce77823](https://github.com/joe-bor/FamilyHub/commit/ce77823ac0a28041a0fcb17bd18ec3aea1191803))
+* **chores:** add mobile chore create flow ([40d77e3](https://github.com/joe-bor/FamilyHub/commit/40d77e379b105bdd799b33d8cdaa38fff1f0a25c))
+* **chores:** add mobile chores e2e coverage ([b220399](https://github.com/joe-bor/FamilyHub/commit/b220399355025d22942f392a3e8530f239ee36b4))
+* **lists:** add frontend lists data hooks ([9445194](https://github.com/joe-bor/FamilyHub/commit/9445194c3f104d756ebf10838c0b079a53051566))
+* **lists:** add list detail interactions ([c1b76d7](https://github.com/joe-bor/FamilyHub/commit/c1b76d740704b3003b15e7a79d71ebba59652964))
+* **lists:** add lists hub and create flow ([b162614](https://github.com/joe-bor/FamilyHub/commit/b1626141ea1fb63a575558da495e4fcdf52769b8))
+* **ui:** align placeholder module surfaces ([2ca813d](https://github.com/joe-bor/FamilyHub/commit/2ca813da5afa1913b26329e612d85e4d6d3a4ddd))
+* **ui:** polish mobile calendar surfaces ([7aeec38](https://github.com/joe-bor/FamilyHub/commit/7aeec388677fe21955fff19baa4db141fa331ac4))
+* **ui:** refine home dashboard visual rhythm ([174e12d](https://github.com/joe-bor/FamilyHub/commit/174e12dcf70ae84be52caccc57031bb899d94a3e))
+* **ui:** refine mobile shell chrome ([b00cc4f](https://github.com/joe-bor/FamilyHub/commit/b00cc4f273073bb43117bd8978effd5461dee41a))
+* **ui:** tighten shared visual primitives ([ebaa714](https://github.com/joe-bor/FamilyHub/commit/ebaa71454fab2471880d3ea6c05d7821ca6aac76))
+
+
+### Bug Fixes
+
+* **calendar:** preserve mobile event tap clearance ([8569dbb](https://github.com/joe-bor/FamilyHub/commit/8569dbbcae5607c6816928025c647e9974ecf3b2))
+* **chores:** keep completed lanes and form input stable ([40f080a](https://github.com/joe-bor/FamilyHub/commit/40f080a55ca2fcc06c1e243a95d100f839e0b3cb))
+* **chores:** restore active lanes and optimistic create ([84f043d](https://github.com/joe-bor/FamilyHub/commit/84f043d3660d3ad78b84e4fb52256a93abbd8c01))
+* **ci:** sort biome imports ([a7d6ac7](https://github.com/joe-bor/FamilyHub/commit/a7d6ac75da39780236c9e9d4c3bb45cbd92994e1))
+* **lists:** block clear completed during item updates ([c553203](https://github.com/joe-bor/FamilyHub/commit/c553203ac8ae9d9a1b9a4ba973d099fa3cf5b78d))
+* **lists:** handle load failures and form submit ([09b6ffc](https://github.com/joe-bor/FamilyHub/commit/09b6ffc8264e9cf2f6106353ee76965b004b59ef))
+* **lists:** keep detail usable without preferences ([80b7476](https://github.com/joe-bor/FamilyHub/commit/80b74769e32dc386cb383583feb0e86a2bc5a04f))
+* **lists:** optimistically add list items ([33871fd](https://github.com/joe-bor/FamilyHub/commit/33871fd8aa80930b2f5725858262dff6d27f22be))
+* resolve dashboard review findings and e2e regressions ([2bf59e6](https://github.com/joe-bor/FamilyHub/commit/2bf59e6caf1c58b6404b4e7a70bb2808047414d9))
+* **test:** stabilize mobile calendar readiness ([869e2ac](https://github.com/joe-bor/FamilyHub/commit/869e2ac8dccc05eaae3b558eb5c20e46f8f58ea6))
+
+
+### Documentation
+
+* **ui:** add visual identity screenshot evidence ([e9345f8](https://github.com/joe-bor/FamilyHub/commit/e9345f864d58c9e92590a59e0dd42a6392bd748d))
+
+
+### Tests
+
+* add mobile bottom nav e2e coverage ([ff27d93](https://github.com/joe-bor/FamilyHub/commit/ff27d93d2162e92a26475fe0e9b8b79f8724b473))
+* align member chip opacity expectation ([2362b04](https://github.com/joe-bor/FamilyHub/commit/2362b0413f1cac148c52e8b2ef503cf6ce4e5991))
+* **e2e:** scope onboarding dashboard assertions ([eedd6b7](https://github.com/joe-bor/FamilyHub/commit/eedd6b708a24981837d0d51049350812878a650a))
+* harden calendar navigation e2e dialog waits ([e047745](https://github.com/joe-bor/FamilyHub/commit/e0477451d1c4983d1a3432f4e38db2eae1b3981e))
+* **lists:** add mobile lists e2e coverage ([9105913](https://github.com/joe-bor/FamilyHub/commit/9105913c1688982beeca23e12234a5f2552a6e85))
+* stabilize mobile bottom nav e2e ([2948140](https://github.com/joe-bor/FamilyHub/commit/2948140990960f5ad6b9847d529b4de0288fe277))
+* stabilize recurring event e2e flows ([57f79a7](https://github.com/joe-bor/FamilyHub/commit/57f79a7c18aa41f7f3c3ff1e156dca5d74303a99))
+
+## [0.3.8](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.7...family-hub-v0.3.8) (2026-04-25)
+
+
+### Bug Fixes
+
+* unblock frontend release lint ([99174b1](https://github.com/joe-bor/FamilyHub/commit/99174b161c90835e48939f28c1d0adbe329eed07))
+* unblock frontend release lint ([a555bc9](https://github.com/joe-bor/FamilyHub/commit/a555bc995bdf9214b57f082fed48721f55e74280))
+
+## [0.3.7](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.6...family-hub-v0.3.7) (2026-04-25)
+
+
+### Features
+
+* **api:** add Google Calendar service layer ([8f0668c](https://github.com/joe-bor/FamilyHub/commit/8f0668c1487199dd40db90be350baac37ec8cde0))
+* **api:** add Google Calendar TanStack Query hooks ([1f3ea61](https://github.com/joe-bor/FamilyHub/commit/1f3ea61bb05de04823952f9cabadb7bb6f6b7092))
+* **auth:** add Google OAuth return handler with state restoration ([003f6b5](https://github.com/joe-bor/FamilyHub/commit/003f6b558072264bf0a87aae58bdec6d25e41f1d))
+* **calendar:** add collapsible description field to event form ([bc95ca0](https://github.com/joe-bor/FamilyHub/commit/bc95ca01e0b908d98033b39ee2e911240e5e657f))
+* **calendar:** add description, Google link, and edit/delete guard to event detail ([ac1494b](https://github.com/joe-bor/FamilyHub/commit/ac1494b9d3c5dae363379dd3e9f9185d66d35e0d))
+* **calendar:** add Google event guard at orchestrator level and description in mutations ([adfbd61](https://github.com/joe-bor/FamilyHub/commit/adfbd61c929ec7938715726b3dcfd2967ef5e22e))
+* **calendar:** add Google icon badge to event cards ([2ac9e3b](https://github.com/joe-bor/FamilyHub/commit/2ac9e3b37a92be5929aafbc60bfad31da6488677))
+* **calendar:** add member avatars and responsive spacing to schedule view ([2eb53c4](https://github.com/joe-bor/FamilyHub/commit/2eb53c479155ff776a1524c1e497329c2531b331))
+* **calendar:** add MemberAvatar component for member identity display ([f3a1ecb](https://github.com/joe-bor/FamilyHub/commit/f3a1ecbc0a5bc79e188aec9503ec38accee9b742))
+* **calendar:** add MobileDailyView with 60px rows and swipe navigation ([f825d91](https://github.com/joe-bor/FamilyHub/commit/f825d91a48df6e251b6ccdf31934afad303045e6))
+* **calendar:** add MobileEventDetail full-screen view with colored header ([1a330dc](https://github.com/joe-bor/FamilyHub/commit/1a330dce8a617df5f12e59c3d2849d01add73e86))
+* **calendar:** add MobileEventSheet full-screen form wrapper ([e80db98](https://github.com/joe-bor/FamilyHub/commit/e80db9859e37e1c11f73b20edd20807f30c7e934))
+* **calendar:** add MobileMonthlyView with dot grid and day event list ([7d310cf](https://github.com/joe-bor/FamilyHub/commit/7d310cf7776921dc64b7c24171650dc0c1d75555))
+* **calendar:** add MobileToolbar compact 2-row toolbar ([4f53e02](https://github.com/joe-bor/FamilyHub/commit/4f53e0243bf117a39a2af6631409a8abaa2d40de))
+* **calendar:** add MobileWeeklyView with date strip and event list ([125f308](https://github.com/joe-bor/FamilyHub/commit/125f308c8144840bc1e23fbf42c893cc100ee836))
+* **calendar:** add SwipeContainer gesture handler for mobile navigation ([1a75530](https://github.com/joe-bor/FamilyHub/commit/1a755301857ea0503fe549e049623d1ec1c63247))
+* **calendar:** wire mobile views into CalendarModule with responsive branching ([37a0372](https://github.com/joe-bor/FamilyHub/commit/37a037213676f98f8245f03c27ddbdf42f403989))
+* **settings:** add Google Calendar connection section to member profile ([59b853e](https://github.com/joe-bor/FamilyHub/commit/59b853e07b774b9c0af6e776bebc83bf9946db13))
+* **settings:** add Google Calendar picker modal ([94145a6](https://github.com/joe-bor/FamilyHub/commit/94145a6477543b00063846af171b051241874c63))
+* **types:** add Google Calendar types and description field ([d71ca5a](https://github.com/joe-bor/FamilyHub/commit/d71ca5a410d7fc3530b78c837b1f6ab09fb615bb))
+* **ui:** add toast notification component using Radix Toast ([a5eaaa1](https://github.com/joe-bor/FamilyHub/commit/a5eaaa14916caeb8dd210e2a1a091332a1c2b27f))
+
+
+### Bug Fixes
+
+* **calendar:** initialize member filter on mobile and use hideCancelButton ([afaea96](https://github.com/joe-bor/FamilyHub/commit/afaea9627cd27cd55bce68a5128cf6a8a270ab01))
+* **calendar:** parameterize ROW_HEIGHT in CurrentTimeIndicator for mobile ([4dd6b33](https://github.com/joe-bor/FamilyHub/commit/4dd6b335f2281be6dd979db90c9b04fa4a360fdd))
+* **calendar:** pass description to edit form so textarea auto-expands ([45b3daf](https://github.com/joe-bor/FamilyHub/commit/45b3dafe5687dea0728910a9972b79fa1a7b4dc9))
+* **calendar:** show Google badge on monthly view event pills ([1661866](https://github.com/joe-bor/FamilyHub/commit/16618665fee262c2b188061ef6ab56c629681f74))
+* **ci:** pin actions/add-to-project to v1.0.2 (no v1 tag exists) ([#142](https://github.com/joe-bor/FamilyHub/issues/142)) ([843132f](https://github.com/joe-bor/FamilyHub/commit/843132f67e11b0c41ea6a74db895abba0047e7b5))
+* **e2e:** add TOKEN_ENCRYPTION_KEY to docker-compose.e2e.yml ([edbfe4a](https://github.com/joe-bor/FamilyHub/commit/edbfe4a4477281671bbf79776fd30740255badf8))
+* **e2e:** resolve mobile-chrome test failures from calendar redesign ([d35f7c2](https://github.com/joe-bor/FamilyHub/commit/d35f7c2f4877a0b40a0c56e625e8fa03c3a983d6))
+* **e2e:** resolve strict mode violations from description field ([1e9da85](https://github.com/joe-bor/FamilyHub/commit/1e9da85183130aa15b2e48a85b99c4bb3e985a65))
+* **e2e:** use valid 32-byte TOKEN_ENCRYPTION_KEY for AES-256 ([5ec583e](https://github.com/joe-bor/FamilyHub/commit/5ec583e418266712e9abd35bbd83ecdb8b19643c))
+* prevent picker modal selection reset and toast memory leak ([baff20b](https://github.com/joe-bor/FamilyHub/commit/baff20b38457680698c30cca33ef4f2a9de97cd2))
+* remove unused GoogleConnectionStatus type import ([4d11af9](https://github.com/joe-bor/FamilyHub/commit/4d11af91b1acf1ca08d41d557bfb8503938e440f))
+* resolve duplicate buttons on mobile and CodeQL string replacement warnings ([fe999c1](https://github.com/joe-bor/FamilyHub/commit/fe999c11618849b4a82830f35f8ec0fc1c65d209))
+* **test:** use 202 with JSON body for syncCalendar test ([7d53608](https://github.com/joe-bor/FamilyHub/commit/7d53608edfaf07ed76a63991cc82247e3b3df72b))
+
+
+### Code Refactoring
+
+* **calendar:** consolidate hex colors, DAY_INITIALS, and fix cross-month label ([472c4c3](https://github.com/joe-bor/FamilyHub/commit/472c4c37c0b99dabd76a99b4fe3251243dae0aa2))
+
+
+### Documentation
+
+* add cross-repo pointer to product source of truth ([#143](https://github.com/joe-bor/FamilyHub/issues/143)) ([cb47698](https://github.com/joe-bor/FamilyHub/commit/cb4769811547746f117b49ae0508f433759b8f58))
+* add Google Calendar FE integration design spec ([749ad1f](https://github.com/joe-bor/FamilyHub/commit/749ad1f4dd9269069b1f3d9cd2bd74ec8453c5c7))
+* add Google Calendar FE integration implementation plan ([8583e6d](https://github.com/joe-bor/FamilyHub/commit/8583e6d495b049e7772541f5b4c87e958358b61e))
+* add mobile calendar redesign implementation plan ([618565e](https://github.com/joe-bor/FamilyHub/commit/618565e242b24a421f53b456ea8b003d2fb16f96))
+* add mobile calendar redesign spec ([2475c71](https://github.com/joe-bor/FamilyHub/commit/2475c719cd660ceefd20167f844b9dd924a74e78))
+* added AGENTS.md for codex ([c246348](https://github.com/joe-bor/FamilyHub/commit/c24634824e90efad26d55bfc14b4793d2e5d8f22))
+* address spec review — type mapping, naming, cache invalidation, error states ([3677074](https://github.com/joe-bor/FamilyHub/commit/367707456bd40cafcda57aa97447c5f3a642af0a))
+* address spec review feedback (critical + important items) ([19e1c8e](https://github.com/joe-bor/FamilyHub/commit/19e1c8e08d6c172c4c349cb608278cc8cc44471e))
+* confirm BE OAuth redirect params in spec ([42053b0](https://github.com/joe-bor/FamilyHub/commit/42053b09a5d4fc414a35463fecdb407c450e4426))
+
+
+### Tests
+
+* add default MSW handlers for Google Calendar endpoints ([88b0c41](https://github.com/joe-bor/FamilyHub/commit/88b0c41b19f9a17f4538fe9af990856d8e66678d))
+* add getCalendars service test ([c6e625c](https://github.com/joe-bor/FamilyHub/commit/c6e625c2d134427590b0d8c59e6c64bc6252fccc))
+* add syncCalendar service test ([79ee74a](https://github.com/joe-bor/FamilyHub/commit/79ee74a424ddf735843b71ce94d8e2e8c26ce8f0))
+* add updateCalendars service test with body assertion ([68c83db](https://github.com/joe-bor/FamilyHub/commit/68c83db38699713fb2dc527b0dc59d95362a6f6d))
+* **e2e:** add Google Calendar integration E2E tests ([40363d4](https://github.com/joe-bor/FamilyHub/commit/40363d4b5ade9244f28059365eb8516e7d2360ad))
+* **e2e:** add mobile calendar E2E tests for views, forms, and navigation ([d5e4e73](https://github.com/joe-bor/FamilyHub/commit/d5e4e739ecc26df555d812888b7b48c835886bc7))
+
+## [0.3.6](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.5...family-hub-v0.3.6) (2026-03-14)
+
+
+### Features
+
+* **calendar:** add edit scope dialog and instance-level API routing ([02c7fac](https://github.com/joe-bor/FamilyHub/commit/02c7fac14b0eac561d2338b7feabed2f3b042c79))
+* **calendar:** add RecurrencePicker component and extend form schema ([3bcbd0a](https://github.com/joe-bor/FamilyHub/commit/3bcbd0a659d833d23314a26134b8f68b20a88fe5))
+* **calendar:** add recurring events support ([cdd52ba](https://github.com/joe-bor/FamilyHub/commit/cdd52baf8c86ecc395b224a29f211c7cb1d9be65))
+* **calendar:** integrate RecurrencePicker into EventForm ([683136b](https://github.com/joe-bor/FamilyHub/commit/683136b94ddf100a95f5b7d8e03fc8852122b306))
+* **calendar:** show recurrence info in detail modal and event cards ([5e1b976](https://github.com/joe-bor/FamilyHub/commit/5e1b97680d2cb7f93756a1c0488146c332210105))
+* **recurrence:** add RRULE builder, parser, and label formatter ([3b6312f](https://github.com/joe-bor/FamilyHub/commit/3b6312fb7370d7e6b2420c10bf12803b7aab5192))
+* **types:** extend CalendarEvent for recurring events and add getEventKey utility ([9489a17](https://github.com/joe-bor/FamilyHub/commit/9489a17483ce6d5f3e42cb5be05722b376668eb4))
+
+
+### Bug Fixes
+
+* **calendar:** guard against null id in optimistic update comparison ([d45c2fc](https://github.com/joe-bor/FamilyHub/commit/d45c2fc55bdac4b07deb4a420868c34b51c474b6))
+* **calendar:** remove console.error, add runtime guards, clear stale delete errors ([75d4e95](https://github.com/joe-bor/FamilyHub/commit/75d4e953cf13912764dafe773ed384d018326598))
+* **calendar:** remove RRULE: prefix from buildRRule output ([fdf090a](https://github.com/joe-bor/FamilyHub/commit/fdf090a16d90cf76a924d89f5785df4ec1d064fa))
+* **calendar:** reset EditScopeDialog scope to 'this' on reopen ([fd7cb96](https://github.com/joe-bor/FamilyHub/commit/fd7cb969e61db08a389c36cb2e54bc1813da2628))
+* **docs:** update tech debt tracking and validate family data on rehydration ([42545c7](https://github.com/joe-bor/FamilyHub/commit/42545c7b2973faf79b56ed89d83438c59560d1b6))
+* **e2e:** fix selector issues and document edit-all recurrence bug ([e6d6417](https://github.com/joe-bor/FamilyHub/commit/e6d6417037d87ed7faaefa3bff1c26f9d9dc29a7))
+* **e2e:** resolve mobile-chrome FAB overlap in weekly view ([cab683c](https://github.com/joe-bor/FamilyHub/commit/cab683ca53cca7ee2fbda5103f198f6b2dd255ea))
+* **e2e:** strengthen recurring event assertions after BE PR [#21](https://github.com/joe-bor/FamilyHub/issues/21) ([18e64f8](https://github.com/joe-bor/FamilyHub/commit/18e64f8d70f711b54daf0837d766421c49fc6f2e))
+* **e2e:** use exact match for "Daily" recurrence label assertion ([eb3be1d](https://github.com/joe-bor/FamilyHub/commit/eb3be1de8de33120f3e4858ec22a66c6500d265e))
+* **settings:** show validation errors for avatar upload ([d649b8c](https://github.com/joe-bor/FamilyHub/commit/d649b8c333e6dcb7f99b1891adadf400f8e42b37))
+* **test:** use explicit dates in endDate form tests to avoid validation failure ([051747b](https://github.com/joe-bor/FamilyHub/commit/051747b8c8d1321ebf993674c8f3dcb960beb28d))
+* **types:** make isAllDay required in CalendarEvent ([fb700d5](https://github.com/joe-bor/FamilyHub/commit/fb700d5b4da354fce5923d846422f101bf70308a))
+* **types:** resolve build errors from id/params type changes ([ec13076](https://github.com/joe-bor/FamilyHub/commit/ec13076610aa6fb4b639a0a43d75644281dd6325))
+
+
+### Code Refactoring
+
+* **calendar:** deduplicate getOrdinalSuffix, use formatLocalDate in RecurrencePicker ([a1eb31f](https://github.com/joe-bor/FamilyHub/commit/a1eb31f535d176aacd614329b668bc3c5753929e))
+
+
+### Documentation
+
+* add recurring events tech debt items from PR [#117](https://github.com/joe-bor/FamilyHub/issues/117) review ([c412ccf](https://github.com/joe-bor/FamilyHub/commit/c412ccfeb3f51d9b2b5634318a299d8a15dd821c))
+* mark resolved tech debt items as completed ([125aaef](https://github.com/joe-bor/FamilyHub/commit/125aaef525307435651049c7fd4c0e4d2a725280))
+* move recurring events E2E item to completed in TECHNICAL-DEBT.md ([c0d05e0](https://github.com/joe-bor/FamilyHub/commit/c0d05e076c5b6df07818d361acd0087888363269))
+* move resolved recurring event tech debt items to completed ([22733ee](https://github.com/joe-bor/FamilyHub/commit/22733ee1e2f6f16a9c87da7715b46f4533fc34b3))
+
+
+### Tests
+
+* **e2e:** add recurring events E2E test suite ([f989d9f](https://github.com/joe-bor/FamilyHub/commit/f989d9f49e160cfdb409d27c66fd469ea52d2708))
+* **settings:** add MemberProfileModal mutation payload tests ([f0e3d6a](https://github.com/joe-bor/FamilyHub/commit/f0e3d6a8b4a1c99e343be85270ee3ebaac0bc5e9))
+
+## [0.3.5](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.4...family-hub-v0.3.5) (2026-03-08)
+
+
+### Features
+
+* add all-day event row above time grid in weekly view ([0b23bd7](https://github.com/joe-bor/FamilyHub/commit/0b23bd7b81b73ed3625eb071f94793309e507048))
+* add all-day event section above time grid in daily view ([7c78f89](https://github.com/joe-bor/FamilyHub/commit/7c78f89b582290badf827cc803cc1a872f460d0f))
+* add all-day toggle to event form ([cc2f4f5](https://github.com/joe-bor/FamilyHub/commit/cc2f4f5b018e6d10bf6cf534fc99e4abc16f4812))
+* add compareEventsAllDayFirst utility and show "All day" label on event cards ([f663b92](https://github.com/joe-bor/FamilyHub/commit/f663b92c2db54fd543d6bd776ddc7366d657472e))
+* **calendar:** render multi-day events across all views and detail modal ([c1e259c](https://github.com/joe-bor/FamilyHub/commit/c1e259cf115dcdd55877469c6c2c71680ee6eec5))
+* **form:** add end date picker for multi-day all-day events ([989ed82](https://github.com/joe-bor/FamilyHub/commit/989ed822b3547d8249b9dfbb2864928d1f3a9897))
+* show "All day" label and sort all-day events first in schedule view ([490d45c](https://github.com/joe-bor/FamilyHub/commit/490d45cff6635435dafcda7ed7c6b1983a29e0d6))
+* sort all-day events first and add visual distinction in monthly view ([07f25a3](https://github.com/joe-bor/FamilyHub/commit/07f25a3e625c651b229d45ed96f38dde62d96d71))
+* **time-utils:** add isEventOnDate for multi-day range checking ([cbc84f9](https://github.com/joe-bor/FamilyHub/commit/cbc84f9049bc1a45925a872b14c6611c2a4700a6))
+* **types:** add endDate to calendar event types and service mapping ([70cdf0f](https://github.com/joe-bor/FamilyHub/commit/70cdf0f5e5d5c15533dd33ed37b7b7d4d5d58450))
+* **validation:** add endDate with cross-field validation to event schema ([e763b2b](https://github.com/joe-bor/FamilyHub/commit/e763b2b9c0feff51d37abc2b8ba7534d759ee35d))
+
+
+### Bug Fixes
+
+* address PR review — normalize dates, clear stale endDate, fix cross-year display ([8a6309c](https://github.com/joe-bor/FamilyHub/commit/8a6309c42b17241d576f5647f770658aa71dd6ec))
+* **ci:** add debug step to trace .lighthouseci/ directory ([d7e7dd7](https://github.com/joe-bor/FamilyHub/commit/d7e7dd7af885aec9a3a98a886eec91812b3351f4))
+* **ci:** enable include-hidden-files for Lighthouse artifact upload ([b39a5c5](https://github.com/joe-bor/FamilyHub/commit/b39a5c52a5620de83f2f37c1d19a6d8f9783a17b))
+* **ci:** split lhci autorun to preserve .lighthouseci/ for artifact upload ([182dc4e](https://github.com/joe-bor/FamilyHub/commit/182dc4e6f0e1c2995b1be72c9d1e4f078fea704a))
+* correct indentation after Profiler wrapper removal ([ad52e72](https://github.com/joe-bor/FamilyHub/commit/ad52e72d94b217eeba7544333850f1645999d04f))
+* improve accessibility and touch targets for all-day event pills ([e369e17](https://github.com/joe-bor/FamilyHub/commit/e369e17525b5433b94b55108b5ea6401e4bd5dd1))
+* make husky pre-commit hook executable ([c578482](https://github.com/joe-bor/FamilyHub/commit/c57848220f50fda1975c4b26ae10c30b47c7c365))
+* stretch all-day event pills to fill weekly view column cells ([bed01d4](https://github.com/joe-bor/FamilyHub/commit/bed01d4a50f678f39ba8886c8b8f0741dd092d3f))
+
+
+### Performance Improvements
+
+* remove React Profiler wrapper from CalendarModule ([c63f317](https://github.com/joe-bor/FamilyHub/commit/c63f317f85f27b8cffbbf54c20abaf797902e197))
+* self-host Nunito font to eliminate external request chain ([44399b6](https://github.com/joe-bor/FamilyHub/commit/44399b627b131b6391b7f268fef09e80943e64f3))
+
+
+### Code Refactoring
+
+* **services:** remove USE_MOCK_API branching ([f370363](https://github.com/joe-bor/FamilyHub/commit/f3703639744ad4b8d5a3dbc016d7dd2616e2c1d3))
+
+
+### Documentation
+
+* fix perf-utils description in CLAUDE.md ([32c5235](https://github.com/joe-bor/FamilyHub/commit/32c523535dec0129921c8ede0d930a98f9e0f821))
+* update env example and clean up mock references ([54a5855](https://github.com/joe-bor/FamilyHub/commit/54a58557a30655fc518cd619ab6f05aeef6697d1))
+* update stale mock references in CLAUDE.md and .env.example ([bc27ea5](https://github.com/joe-bor/FamilyHub/commit/bc27ea5ebd9c4cb1d75fa6bea31dd1cc92c51856))
+
+
+### Tests
+
+* add tests for all-day event comparator, validation bypass, and form toggle ([f38acfe](https://github.com/joe-bor/FamilyHub/commit/f38acfe2df636c6ad6f695bd9ba8df4fd5696f51))
+* add tests for multi-day event support ([52afec5](https://github.com/joe-bor/FamilyHub/commit/52afec53b6651e5c8c0d9bab1b18b23e0cce24b5))
+* **e2e:** remove dual-mode toggle and mock seeders ([2446428](https://github.com/joe-bor/FamilyHub/commit/2446428d4418d6a3fe82529e20139a64f2ca75c8))
+
+## [0.3.4](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.3...family-hub-v0.3.4) (2026-03-05)
+
+
+### Bug Fixes
+
+* **e2e:** run mock E2E before real-backend E2E in CI ([7e19a26](https://github.com/joe-bor/FamilyHub/commit/7e19a26338da73db4ef061b1d1e83fa8a6cf0d74))
+* **e2e:** use BE-compliant usernames in registration helpers ([83065b6](https://github.com/joe-bor/FamilyHub/commit/83065b6bcc3c452fd39e081bf4d050a652b056fe))
+* **validations:** add avatarUrl max length to member schema ([726aa0c](https://github.com/joe-bor/FamilyHub/commit/726aa0cbe93b43a8ee7686b1a187b7cb39206b18))
+* **validations:** add email max length to member schemas ([2cf96c8](https://github.com/joe-bor/FamilyHub/commit/2cf96c8760827560cf538765821309bdcd7d2a3b))
+
+
+### Documentation
+
+* **validations:** add BE DTO alignment references ([cf374ad](https://github.com/joe-bor/FamilyHub/commit/cf374ad1cef1374c1e546ba981fe54519c4460e8))
+
+
+### Tests
+
+* **e2e:** add API-based test helpers for real backend ([13edf55](https://github.com/joe-bor/FamilyHub/commit/13edf5572d3a7680d868f503e254a100f77199aa))
+* **e2e:** update specs for dual-mode (mock + real backend) ([c935544](https://github.com/joe-bor/FamilyHub/commit/c93554439978ec2b6847f6af40937fd870cf630a))
+
+## [0.3.3](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.2...family-hub-v0.3.3) (2026-02-28)
+
+
+### Bug Fixes
+
+* **a11y:** suppress Radix dialog description warnings ([deb16d5](https://github.com/joe-bor/FamilyHub/commit/deb16d53b1b6969ad41ff6b090f4fd503d184630))
+* **api:** resolve relative base URL in HTTP client ([3d3a5a5](https://github.com/joe-bor/FamilyHub/commit/3d3a5a500fe68d696e56bf7997302de41162c346))
+* **calendar:** detect stale member IDs in persisted filter ([a8350ed](https://github.com/joe-bor/FamilyHub/commit/a8350ed0c01ea198aabdbc6dd28b74ffa30fe69d))
+* **validations:** add location max length to event form schema ([51a9ec5](https://github.com/joe-bor/FamilyHub/commit/51a9ec5e3b1258d0c3010ad9c335bdcea89b4425))
+* **validations:** align username max length with backend (30 → 20) ([6f86f7a](https://github.com/joe-bor/FamilyHub/commit/6f86f7ac1f544d2ad27d2e3cd4a08b4028f7c40c))
+
+
+### Code Refactoring
+
+* **api:** remove id from update request body types ([2c479c2](https://github.com/joe-bor/FamilyHub/commit/2c479c249659f63e73903d53aa84c62d279e4b18))
+
+
+### Documentation
+
+* **env:** update VITE_USE_MOCK_API comment to reflect current architecture ([cc9e5ca](https://github.com/joe-bor/FamilyHub/commit/cc9e5ca578eebb4edd89ea9518c148bbe20173c7))
+
+
+### Tests
+
+* **validations:** add username max length boundary tests ([78efab2](https://github.com/joe-bor/FamilyHub/commit/78efab2d031aedbb964bcbfc478d070e99f40d70))
+
+## [0.3.2](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.1...family-hub-v0.3.2) (2026-02-23)
+
+
+### Features
+
+* **api:** add CalendarEventResponse type and service-layer date mapper ([8750619](https://github.com/joe-bor/FamilyHub/commit/8750619519011e709272e0d2498fec415643e56c))
+
+
+### Bug Fixes
+
+* **api:** change calendar event update from PATCH to PUT ([b97770d](https://github.com/joe-bor/FamilyHub/commit/b97770decaa2233a822b92efc306b9bf4098c5d8))
+* **api:** enforce true PUT semantics in mock handlers ([2715aa9](https://github.com/joe-bor/FamilyHub/commit/2715aa9d1365909b4a2dd38ae11864cbe3ed6e9f))
+* **api:** fix URL path resolution for real backend ([bcba8f4](https://github.com/joe-bor/FamilyHub/commit/bcba8f4c8af5d27e68d92b8824d7c652d97958cc))
+* **api:** map HTTP 400 to VALIDATION_ERROR ([cceab86](https://github.com/joe-bor/FamilyHub/commit/cceab862c837b7b4bdac9ecfb5884932ced5147b))
+* **api:** prevent useFamily query from firing before auth ([93c8c5b](https://github.com/joe-bor/FamilyHub/commit/93c8c5b337c96df19e2fe864f7df15dd9ddf5d47))
+* **api:** return string dates from mock and MSW handlers ([9cbf60a](https://github.com/joe-bor/FamilyHub/commit/9cbf60ad37bde1b4103535e2d2c5a29660bcf108))
+* **calendar:** coerce null location to undefined for Zod compatibility ([ba9049f](https://github.com/joe-bor/FamilyHub/commit/ba9049f752be4556135fb28a16f7c3a2a7adfab1))
+* **calendar:** read editingEvent from store at call time to avoid stale closure ([6b22798](https://github.com/joe-bor/FamilyHub/commit/6b22798f5698756dbc333024e261e8a377a30fe7))
+* **e2e:** scope dialog checks and switch to Day view for reliable clicks ([253bb77](https://github.com/joe-bor/FamilyHub/commit/253bb770cbc324d6d1f0b1adc758d614790220d5))
+* **e2e:** seed empty calendar to prevent mock event overlap in CRUD test ([bcfc927](https://github.com/joe-bor/FamilyHub/commit/bcfc9273fc021b047dbed3512a1073bd535bf960))
+* **test:** use formatLocalDate and remove dead interceptor code ([e304d05](https://github.com/joe-bor/FamilyHub/commit/e304d05da742fcd24a2df176096899c840254dc2))
+
+
+### Code Refactoring
+
+* **calendar:** remove dead instanceof Date fallback ([f1e0f1e](https://github.com/joe-bor/FamilyHub/commit/f1e0f1ef81dabb67b72561b57d429a7a7e2fbbe3))
+* **types:** derive CalendarEventResponse via Omit to reduce duplication ([49aacf1](https://github.com/joe-bor/FamilyHub/commit/49aacf14b1c6d4b254b3f6b0ead98b5341cbfcf1))
+
+
+### Documentation
+
+* **api:** clarify why useSetupComplete needs auth guard ([4c2d158](https://github.com/joe-bor/FamilyHub/commit/4c2d1585b64dab0e2d48742f55a6c17b8c0d48f5))
+* update API contract references for calendar PUT endpoint ([66c1628](https://github.com/joe-bor/FamilyHub/commit/66c1628fbbe8dd86cb8e2ca934a18e3cdbab482e))
+
+
+### Tests
+
+* **api:** add PUT full-replacement verification tests ([7138a69](https://github.com/joe-bor/FamilyHub/commit/7138a694477cf19db278d82fbd23de17a81bb6b7))
+* **calendar:** add integration test for PUT optional field preservation ([de29ada](https://github.com/joe-bor/FamilyHub/commit/de29adacf33a4a987dac19d09f1308244b3f4d02))
+* **fixtures:** add createUpdateRequest helper for PUT tests ([4b9c19c](https://github.com/joe-bor/FamilyHub/commit/4b9c19cdf302d2853ec440e5316b439b6a713aac))
+* **fixtures:** add wire-format fixtures and update tests for string dates ([08c99b5](https://github.com/joe-bor/FamilyHub/commit/08c99b52d7b827149a7b39cd386ccbc603c65fa2))
+
+## [0.3.1](https://github.com/joe-bor/FamilyHub/compare/family-hub-v0.3.0...family-hub-v0.3.1) (2026-02-17)
+
+
+### Features
+
+* **a11y:** add data-testid and aria-labels for E2E testing ([8393d79](https://github.com/joe-bor/FamilyHub/commit/8393d79224f2b0c204b9a4cd483505a07a854d72))
+* add /tech-debt skill for workflow enforcement ([5769d9e](https://github.com/joe-bor/FamilyHub/commit/5769d9e3bbdee2786a069fcd29db0bcf0bf6c090))
+* **api:** add API foundation with TanStack Query setup ([ced18b5](https://github.com/joe-bor/FamilyHub/commit/ced18b58d92e0d34deee3b7a0478a381a439e5dd))
+* **api:** add auth hooks with TanStack Query ([4c974a7](https://github.com/joe-bor/FamilyHub/commit/4c974a7444a9061e60cb1e09f49e65b1408f371b))
+* **api:** add auth mock handlers ([bf67057](https://github.com/joe-bor/FamilyHub/commit/bf6705792f769f86a0632c109ce0ad3c10911298))
+* **api:** add auth service ([0728f24](https://github.com/joe-bor/FamilyHub/commit/0728f245cf88e39c3f3b744695dbcf150583fa56))
+* **api:** add calendar service and TanStack Query hooks ([d3fea76](https://github.com/joe-bor/FamilyHub/commit/d3fea768555b979c3997800fc66ac94248b8397e))
+* **api:** add family service layer with TanStack Query hooks ([847ed89](https://github.com/joe-bor/FamilyHub/commit/847ed893fd47c38e2c7410fe89aa789c656b19ef))
+* **api:** add mock infrastructure with calendar handlers ([8ff7a7e](https://github.com/joe-bor/FamilyHub/commit/8ff7a7e3e4f0819885884cbf4ccb85e720d5b9d8))
+* **api:** inject auth header in http client ([8ecbace](https://github.com/joe-bor/FamilyHub/commit/8ecbace9deaf43ccd32d40b0330f26bac8200395))
+* **app:** add conditional onboarding flow rendering ([62a687d](https://github.com/joe-bor/FamilyHub/commit/62a687d2e7ac1c2e8005403d30da495840ac6839))
+* **app:** render HomeDashboard when activeModule is null ([ad4109f](https://github.com/joe-bor/FamilyHub/commit/ad4109f6f5d1754d918ca61d0a67c7a38915b9b0))
+* **app:** update conditional rendering for auth ([474da6f](https://github.com/joe-bor/FamilyHub/commit/474da6ff373f7a5c2f95f92035a4086cfbb32984))
+* **auth:** add login flow components ([919fd0f](https://github.com/joe-bor/FamilyHub/commit/919fd0f7a9496f5957764eff78f80b342fbb882c))
+* **calendar:** add CalendarNavigation component ([8b7c19f](https://github.com/joe-bor/FamilyHub/commit/8b7c19f1904bbeb8e66064580a8c73a606107cdb))
+* **calendar:** add event detail modal state to store ([fddee8c](https://github.com/joe-bor/FamilyHub/commit/fddee8c3c49d1d477a696030d1fee323d21aaa19))
+* **calendar:** add EventFormModal combining Dialog + EventForm ([db4e919](https://github.com/joe-bor/FamilyHub/commit/db4e9192342194117819ef4b63f184a520eec388))
+* **calendar:** add hasUserSetView flag for smart view defaulting ([2fc15f4](https://github.com/joe-bor/FamilyHub/commit/2fc15f4aa0e10b4a1c0e61583af09e42167707e2))
+* **calendar:** add inline delete confirmation ([d18151d](https://github.com/joe-bor/FamilyHub/commit/d18151d493575eda6816506c164ad46251f87e00))
+* **calendar:** add uniform month grid with adjacent dates ([2829801](https://github.com/joe-bor/FamilyHub/commit/28298018b11503c4f1153b5eb2b69744ac305c0c))
+* **calendar:** auto-default to Schedule view on mobile ([4df9fe6](https://github.com/joe-bor/FamilyHub/commit/4df9fe64661b8800e167a53d43282e1f993bb3f2))
+* **calendar:** create EventDetailModal component ([238f4a2](https://github.com/joe-bor/FamilyHub/commit/238f4a24ff73238cc941ababda0f43a8b981f7c7))
+* **calendar:** generate sample events with real family member IDs ([163ad68](https://github.com/joe-bor/FamilyHub/commit/163ad680577eb22b0522850d4abb7349775f65bd))
+* **calendar:** integrate edit mode with EventFormModal ([c78966d](https://github.com/joe-bor/FamilyHub/commit/c78966da20b7d74099f65e498d99bc9e3357d917))
+* **calendar:** integrate Zod validation in AddEventModal ([fd0595f](https://github.com/joe-bor/FamilyHub/commit/fd0595fda27a5bbf93b5744b033139eb48409d24))
+* **calendar:** wire event click to detail modal ([cf47f12](https://github.com/joe-bor/FamilyHub/commit/cf47f128ddaba6b614b42b7820d71047c3672389))
+* **ci:** add Lighthouse CI for performance tracking ([9afd934](https://github.com/joe-bor/FamilyHub/commit/9afd93413bc1b91075bbde741b461896f7f5c968))
+* **ci:** add PWA tracking and document optimization opportunities ([08a86de](https://github.com/joe-bor/FamilyHub/commit/08a86dead38a3fe67b26f1557fc670e33fdbcb73))
+* **deploy:** add pre-deploy safety guards ([b10add0](https://github.com/joe-bor/FamilyHub/commit/b10add047e081de6487ef7b592d6b1ecd274403a))
+* **family:** add cross-tab sync and improve mobile responsiveness ([43102e5](https://github.com/joe-bor/FamilyHub/commit/43102e57610c9f7e431e4cc3060c1237097d45d4))
+* **family:** add family store and update type definitions ([c84a5e4](https://github.com/joe-bor/FamilyHub/commit/c84a5e4a144a6b71810c1ba732f3b0c1f5cc7b35))
+* **header:** add Home button for mobile navigation ([0920885](https://github.com/joe-bor/FamilyHub/commit/092088591bc65d4d43423fdb74cd2a95190ded43))
+* **home:** add HomeDashboard component ([da0a5b1](https://github.com/joe-bor/FamilyHub/commit/da0a5b1624b37fcafdc9b644f80efe74731f1857))
+* **hooks:** add useDebounce hook ([c11c760](https://github.com/joe-bor/FamilyHub/commit/c11c7603c67be949a71850a669734d7bac51fe63))
+* **hooks:** add useIsMobile hook for responsive detection ([3174d82](https://github.com/joe-bor/FamilyHub/commit/3174d82ae853e63504ea04d25e9513d90d957381))
+* **nav:** hide NavigationTabs on mobile ([04f7243](https://github.com/joe-bor/FamilyHub/commit/04f7243cb731133c02c7a4936f9601eec55c4f88))
+* **onboarding:** add credentials step ([3355218](https://github.com/joe-bor/FamilyHub/commit/3355218e42152f1bd30899f4da345f6663a264cd))
+* **onboarding:** add error handling to registration mutation ([befe8b9](https://github.com/joe-bor/FamilyHub/commit/befe8b9c9f0153672cd402afa49f2da98ce30f43))
+* **onboarding:** add error prop to OnboardingCredentials ([8806a38](https://github.com/joe-bor/FamilyHub/commit/8806a381b79921ae4abf020d2e2f68a957797393))
+* **onboarding:** add family setup wizard components ([5a37575](https://github.com/joe-bor/FamilyHub/commit/5a375755a6b9d422a7d3a9ceb92ded650cf9b411))
+* **providers:** seed family cache from localStorage on startup ([6f163de](https://github.com/joe-bor/FamilyHub/commit/6f163de10a69ba6a097961b7d75ec7c54326abd6))
+* **pwa:** add app icons and favicons ([bd10537](https://github.com/joe-bor/FamilyHub/commit/bd10537adb0d1c4aa8ea46ad44a9f4259ca64ad8))
+* **pwa:** add PWA meta tags to index.html ([13f0aa3](https://github.com/joe-bor/FamilyHub/commit/13f0aa30a093cdef8afb35ded1ff4aeeb61acc2a))
+* **pwa:** configure vite-plugin-pwa ([9ed0e05](https://github.com/joe-bor/FamilyHub/commit/9ed0e05e0a3c5c4b9ba92c37db9c1626e1537caa))
+* **settings:** add family settings modal with member management ([a51970b](https://github.com/joe-bor/FamilyHub/commit/a51970b6f0b652b16c24a7f188aeadc4c0447f2b))
+* **settings:** add MemberProfileModal component ([12a66db](https://github.com/joe-bor/FamilyHub/commit/12a66dbf4eeac4778aac8e6d94a343b3ecca9f7e))
+* **sidebar:** add logout button ([8dacb57](https://github.com/joe-bor/FamilyHub/commit/8dacb57e89e375c0b69ddff181c553e8dea265f4))
+* **sidebar:** wire member buttons to open profile modal ([e245b26](https://github.com/joe-bor/FamilyHub/commit/e245b260504fbf8de77b36f50435eb94cde89e1e))
+* **store:** allow null activeModule for home dashboard ([e49685f](https://github.com/joe-bor/FamilyHub/commit/e49685fff6acf1ee1061a0e8e08049e189660880))
+* **stores:** add auth store for token hydration ([47e220a](https://github.com/joe-bor/FamilyHub/commit/47e220ab5217740ddfff6f3467ea65ec47f5c263))
+* **stores:** add Zustand state management ([0cacf78](https://github.com/joe-bor/FamilyHub/commit/0cacf78050d59ddd0c0f6a5181fd34a239d95d84))
+* **test:** add cross-browser and mobile testing to Playwright ([1cb1658](https://github.com/joe-bor/FamilyHub/commit/1cb165865e3eeddc608c3e2142ca551f7308852c))
+* **test:** add MSW scaffolding for API mocking ([123d26f](https://github.com/joe-bor/FamilyHub/commit/123d26f28876412c4fedeebc2decfd250e40421a))
+* **time-utils:** add getSmartDefaultTimes for visible calendar range ([f2ea03e](https://github.com/joe-bor/FamilyHub/commit/f2ea03ea18e9f7a801e0dfeb2bd6b2da6431c2bc))
+* **types:** add auth types and validation schemas ([b7cfe3c](https://github.com/joe-bor/FamilyHub/commit/b7cfe3cc236914b272a8b0a26775d745247c6cc8))
+* **types:** add family API request/response types ([0fd86af](https://github.com/joe-bor/FamilyHub/commit/0fd86af7aa19f2b59fb25a70e67469110a8a665c))
+* **ui:** add Calendar component with react-day-picker ([77b1883](https://github.com/joe-bor/FamilyHub/commit/77b18839116d02ee083c353dacae598220a0bb20))
+* **ui:** add DatePicker component ([023676a](https://github.com/joe-bor/FamilyHub/commit/023676acb4fa861b9fa50925eabfe34d69c7f095))
+* **ui:** add Dialog component with Radix primitives ([bed9d8c](https://github.com/joe-bor/FamilyHub/commit/bed9d8c12d6dc746206db955b5b8fb88f287bc20))
+* **ui:** add FormError component for form validation display ([f99e479](https://github.com/joe-bor/FamilyHub/commit/f99e4794881f3f4f5ab8e9208e651ee9a23cf454))
+* **ui:** add MemberSelector with fixed pill styling ([3569c9b](https://github.com/joe-bor/FamilyHub/commit/3569c9b22771b6a34a78d5c28b0b7bda6fed1716))
+* **ui:** add Popover component for dropdowns ([5313ce2](https://github.com/joe-bor/FamilyHub/commit/5313ce2243ca82501dc71e582917ade0da812629))
+* **ui:** add TimePicker component ([75c0250](https://github.com/joe-bor/FamilyHub/commit/75c0250fa04e01e088c5e8c1b25ce1427953a8df))
+* **ui:** display app version in sidebar ([2c6d913](https://github.com/joe-bor/FamilyHub/commit/2c6d913949815ca8a3c9567d974589746167e58e))
+* **ui:** enhance time picker with infinite scroll and touch support ([e68b89f](https://github.com/joe-bor/FamilyHub/commit/e68b89f53f5b32713caae7b9c6edc01379e27bb7))
+* **ui:** replace time picker with wheel-style selector ([3ed4e2b](https://github.com/joe-bor/FamilyHub/commit/3ed4e2b585c15fca2c996e11e9b6f238c43a98bd))
+* **validation:** add Zod schema for calendar event forms ([f71dfbe](https://github.com/joe-bor/FamilyHub/commit/f71dfbe1fa0732073932cd39e79571291a4d47ce))
+
+
+### Bug Fixes
+
+* **a11y:** add aria-label to onboarding back buttons ([0da53fe](https://github.com/joe-bor/FamilyHub/commit/0da53feca1cfb4bb19b493f7534c64b9c5b9d0f7))
+* **api:** add ValidationError type for backend alignment ([55b21fd](https://github.com/joe-bor/FamilyHub/commit/55b21fd57349179556b3d07a5c8e0906e1de81d2))
+* **api:** allow null avatarUrl in UpdateMemberRequest for explicit deletion ([d9f9d11](https://github.com/joe-bor/FamilyHub/commit/d9f9d11ec6cb518908fae3d7a5163f41f9726e9d))
+* **api:** map backend errors array in parseErrorResponse ([bbf66c0](https://github.com/joe-bor/FamilyHub/commit/bbf66c0fbf0ca61a9305b64529a5585dcbbce985))
+* **biome:** added ignore list ([07a3398](https://github.com/joe-bor/FamilyHub/commit/07a3398b21152152cc268423a5c538b1bda4e32f))
+* **calendar:** clamp day when navigating months to avoid overflow ([#20](https://github.com/joe-bor/FamilyHub/issues/20)) ([5c69e93](https://github.com/joe-bor/FamilyHub/commit/5c69e9394ad6fa7b3fc58908ff7c6485dbfed9aa))
+* **calendar:** improve event display in day and week views ([ed14eaa](https://github.com/joe-bor/FamilyHub/commit/ed14eaa2ef2b89cdfd234402173b83bfbdb4f625))
+* **calendar:** improve navigation touch targets and responsiveness ([6910f5c](https://github.com/joe-bor/FamilyHub/commit/6910f5c93740ba5b8b4b671ff20781bd7ade03f0))
+* **calendar:** improve schedule view styling vibrancy ([9e581e3](https://github.com/joe-bor/FamilyHub/commit/9e581e306ed43d6c61cb6bf1021bc6b5536dc78b))
+* **calendar:** improve schedule view UI/UX ([a5ef94e](https://github.com/joe-bor/FamilyHub/commit/a5ef94ec17491d0c54fcb9583b94656934551fa4))
+* **calendar:** optimize monthly view for mobile screens ([bade718](https://github.com/joe-bor/FamilyHub/commit/bade718e14bfa290f83463773589a491662401cc))
+* **calendar:** persist mock events to localStorage ([bf27d76](https://github.com/joe-bor/FamilyHub/commit/bf27d76a18af076731c58b8fbdb3b97c745a296b))
+* **calendar:** prevent weekly/daily view breakage on narrow screens ([a39e4b4](https://github.com/joe-bor/FamilyHub/commit/a39e4b482c9d6a64abe9e22c449fccb59dbd8895))
+* **calendar:** resolve time format and avatar display bugs ([b9456e1](https://github.com/joe-bor/FamilyHub/commit/b9456e1a17089c066281c790386fe75640fb0267))
+* **calendar:** resolve timezone bug in date picker default ([b72595e](https://github.com/joe-bor/FamilyHub/commit/b72595ec5c6f94a76a4821c27f823137874744ae))
+* **calendar:** resolve timezone issues in date filtering and event creation ([e6be8f8](https://github.com/joe-bor/FamilyHub/commit/e6be8f821809df4643dcec19f5d3da1fbbc393d7))
+* **calendar:** resolve toISOString timezone bug in mutations ([d2a18f9](https://github.com/joe-bor/FamilyHub/commit/d2a18f91e1eaa2370b5d1590d7571900b5dedb01))
+* **calendar:** use local timezone for date formatting in edit mode ([96c5d68](https://github.com/joe-bor/FamilyHub/commit/96c5d68b1e01d7c48fbf37b2a0d9b8bc8bde6e85))
+* **calendar:** use parseLocalDate in mock handlers ([6a342d5](https://github.com/joe-bor/FamilyHub/commit/6a342d5eb69e21a034a3702016faa192adc66be5))
+* **calendar:** use parseLocalDate in optimistic update ([2cfe3d5](https://github.com/joe-bor/FamilyHub/commit/2cfe3d545e73c7080e7e7326f3883c622761dba1))
+* **calendar:** use safe local date parsing in form ([a6f3a60](https://github.com/joe-bor/FamilyHub/commit/a6f3a6022b36a790e8f7339037dd7ec04be1f431))
+* **calendar:** use stable React keys in schedule view ([e15c024](https://github.com/joe-bor/FamilyHub/commit/e15c024dd374a5470df1bd4f8dc1c1fe0d5ec1b6))
+* **ci:** add PR number to Lighthouse artifact name for traceability ([610c96b](https://github.com/joe-bor/FamilyHub/commit/610c96b90b0d65972751a679e4184455bdb856ee))
+* **ci:** remove invalid preset option from Lighthouse config ([9218fcc](https://github.com/joe-bor/FamilyHub/commit/9218fcc0e79e51406f04fbeda784464d0ce7615f))
+* **ci:** remove lighthouse:no-pwa preset to use warn-only assertions ([662ca0f](https://github.com/joe-bor/FamilyHub/commit/662ca0f6872a74d31479d2a90a4dcc41267b4237))
+* **ci:** rename lighthouserc.js to .cjs for ES module compatibility ([f8a66b5](https://github.com/joe-bor/FamilyHub/commit/f8a66b5c8f9f9ee09821d6333a64a64f737a0cec))
+* **docs:** update README version from v0.2.0 to v0.3.0 ([24d4609](https://github.com/joe-bor/FamilyHub/commit/24d4609087df88fbdb39534fe296097c15ee66f5))
+* **docs:** update README version from v0.2.0 to v0.3.0 ([a317e58](https://github.com/joe-bor/FamilyHub/commit/a317e58c593a3d33dd1d260dfca3d970808269bc))
+* **e2e:** disable Query DevTools and optimize CI browser matrix ([85b019d](https://github.com/joe-bor/FamilyHub/commit/85b019d85cc0a34ac5ecac3c3ccf4e98e8bd5c6f))
+* **e2e:** handle mobile home dashboard in tests ([1b6b61a](https://github.com/joe-bor/FamilyHub/commit/1b6b61a8504a49b7599a9765037ca63f9e94adb6))
+* **e2e:** improve CI stability for calendar CRUD test ([#34](https://github.com/joe-bor/FamilyHub/issues/34)) ([c21ba6c](https://github.com/joe-bor/FamilyHub/commit/c21ba6ce20b257794c9948b193aba52b788420d9))
+* **e2e:** improve test selector robustness ([785d6c4](https://github.com/joe-bor/FamilyHub/commit/785d6c4708cae8b4a5ecd6a1a3d631860cc1e801))
+* **e2e:** improve test stability for parallel execution ([a717088](https://github.com/joe-bor/FamilyHub/commit/a717088317a675a8a80f488d457813e18948f8b9))
+* **e2e:** reduce test flakiness with robust helpers and config ([575f09b](https://github.com/joe-bor/FamilyHub/commit/575f09b6e047a5cdb7e843c72d5c8167b6540b29))
+* **e2e:** resolve cross-browser flaky tests ([#29](https://github.com/joe-bor/FamilyHub/issues/29)) ([a8fadcf](https://github.com/joe-bor/FamilyHub/commit/a8fadcf045a624bed6debb44ffac8ae927cfe5b8))
+* **e2e:** resolve mobile-chrome and webkit test failures ([5fb2cbe](https://github.com/joe-bor/FamilyHub/commit/5fb2cbe081be0378fd5a4c05c75643d39b58d4cd))
+* **e2e:** use button selectors for reliable cross-browser family management tests ([9bd6ce7](https://github.com/joe-bor/FamilyHub/commit/9bd6ce702c381d2f4f892564513d798f617cae14))
+* **e2e:** use Escape key to close dialog and run full browser matrix on PRs ([f561ce0](https://github.com/joe-bor/FamilyHub/commit/f561ce0b889d7e19a984f7a54e2e43500b660c92))
+* **e2e:** use force click for FAB on mobile ([66a2b06](https://github.com/joe-bor/FamilyHub/commit/66a2b06f8b907f12de1fd4f2806e0ca867765788))
+* **family:** add validation and accessibility improvements ([c2e5cb6](https://github.com/joe-bor/FamilyHub/commit/c2e5cb6ffa32322c8c361bb2226cab4cfdbd13d0))
+* **family:** address PR [#10](https://github.com/joe-bor/FamilyHub/issues/10) review issues ([32f80a7](https://github.com/joe-bor/FamilyHub/commit/32f80a799234959b4b14de3d8ff9d86a189c2741))
+* **family:** wrap console.error in DEV check and fix useAddMember cache ([3ed0d0c](https://github.com/joe-bor/FamilyHub/commit/3ed0d0c2ce07473f9cd8e97cf0791b1ea7838446))
+* **header:** clean up mobile header for better UX ([7762a61](https://github.com/joe-bor/FamilyHub/commit/7762a61e445fcb91caddf6729f6bb2697a926cd6))
+* **pwa:** optimize icons and improve manifest configuration ([1c5e1be](https://github.com/joe-bor/FamilyHub/commit/1c5e1bee47cd733337e041db38e3acbf356fcc0e))
+* **release:** remove release-type override so config-file is respected ([d9c2288](https://github.com/joe-bor/FamilyHub/commit/d9c2288dd75d38592db3cd686a1052d026cb8e6c))
+* **settings:** send complete member payload on PUT updates ([b5bf781](https://github.com/joe-bor/FamilyHub/commit/b5bf7812a2eba7bc4874f0d7fb094c7638c40017))
+* **test:** add browser API mocks and store isolation ([21a8d99](https://github.com/joe-bor/FamilyHub/commit/21a8d99f1e83109494007b8fe1ba8db04db8f07e))
+* **test:** remove duplicate assertion in onboarding test ([09f0062](https://github.com/joe-bor/FamilyHub/commit/09f006270a6ff7675e1967912c4be4580f1a5d99))
+* **tests:** resolve form submission race condition in CI ([4af35e2](https://github.com/joe-bor/FamilyHub/commit/4af35e2afa5bcb9533fe3f64b4af008b529a0a95))
+* **tests:** resolve form submission race condition in CI ([b3f2d90](https://github.com/joe-bor/FamilyHub/commit/b3f2d900990d4eb2ccffb85035f591738e4e7ab8))
+* **tests:** use accessible selectors in calendar and onboarding tests ([74440d3](https://github.com/joe-bor/FamilyHub/commit/74440d301116103b61031061dcf3208fdb5c50e1))
+* **time-utils:** handle rounding past visible calendar boundary ([0a67cdc](https://github.com/joe-bor/FamilyHub/commit/0a67cdc5e98afdac1d9d3cfe54bf8d1674dec723))
+* **ui:** reposition calendar nav arrows beside month label ([38a62d2](https://github.com/joe-bor/FamilyHub/commit/38a62d21d4c03f212080de544a5f5c20f1c24ef0))
+* **validations:** reject whitespace-only event titles ([0674201](https://github.com/joe-bor/FamilyHub/commit/067420188d4fdf84d4f05ee3e432ae88cfb0cfbe))
+* **validations:** reject whitespace-only names after trim ([343c6dd](https://github.com/joe-bor/FamilyHub/commit/343c6dd1df7ec8daa7161a02cd914f21e83c74dd))
+
+
+### Performance Improvements
+
+* add bundle analysis and optimization ([bf6a8d4](https://github.com/joe-bor/FamilyHub/commit/bf6a8d4d481b57aca61147c5777e22c2d25bc2d6))
+* **build:** enable React Compiler for automatic memoization ([07573f7](https://github.com/joe-bor/FamilyHub/commit/07573f702502dad3d3d3ebc6a924770ab08a3722))
+* **calendar:** add shared time utilities and O(1) member lookup ([9189080](https://github.com/joe-bor/FamilyHub/commit/91890800ab40c6892652e31bbec6f901b776344e))
+* **calendar:** optimize Zustand selectors with shallow comparison ([01eb176](https://github.com/joe-bor/FamilyHub/commit/01eb176c20f7d54d5ef75c0a90084bb7518999ff))
+* **calendar:** pre-compute events by date in single pass ([652cc65](https://github.com/joe-bor/FamilyHub/commit/652cc65de71bac5d5243d63f8311c384b6fe56ca))
+* **calendar:** use O(1) member lookups throughout ([0e82f8d](https://github.com/joe-bor/FamilyHub/commit/0e82f8d82393f4a449c2ac2ddb4ce073932a88b0))
+* **e2e:** increase CI workers from 1 to 2 ([2c677c0](https://github.com/joe-bor/FamilyHub/commit/2c677c0186a236aa216b969f42329527dd9a9d7c))
+
+
+### Code Refactoring
+
+* **api:** change family update HTTP methods from PATCH to PUT ([47138c0](https://github.com/joe-bor/FamilyHub/commit/47138c0f394b43d7ac629919b75985569890d908))
+* **api:** derive setupComplete from family data ([87ddd1e](https://github.com/joe-bor/FamilyHub/commit/87ddd1e2b27329fc2bc55a23505eca00854f230f))
+* **api:** remove meta field from cache seeding ([cb775d5](https://github.com/joe-bor/FamilyHub/commit/cb775d5d2d2df350fc9ca0b39b5764721f21fdb3))
+* **api:** update callers and hooks for PUT semantics ([ba370c8](https://github.com/joe-bor/FamilyHub/commit/ba370c82557f02a63164df8d9b413f57d35cf377))
+* **api:** update mock handlers for PUT replacement semantics ([22247c6](https://github.com/joe-bor/FamilyHub/commit/22247c6904d701e76fb240536ca08c84f4367684))
+* **app:** simplify App.tsx to layout orchestrator ([45c20b1](https://github.com/joe-bor/FamilyHub/commit/45c20b13b6afeaf36843a802f20016cd147e0f0b))
+* **calendar:** add CalendarModule, update components to use stores ([31629ab](https://github.com/joe-bor/FamilyHub/commit/31629abdffc7da39234bc0775ae2c0c4174287ec))
+* **calendar:** centralize time conversion utilities ([873df2e](https://github.com/joe-bor/FamilyHub/commit/873df2e500dd36e47b37bba5ea2791a4912030fa))
+* **calendar:** extract EventForm from modal structure ([c18a28a](https://github.com/joe-bor/FamilyHub/commit/c18a28ad135e40d2b0d12c54df7defeeebb6f125))
+* **calendar:** improve time validation with numeric comparison ([887bfff](https://github.com/joe-bor/FamilyHub/commit/887bfff39965666b8e06e0190ed59b55a9e65f0a))
+* **calendar:** integrate TanStack Query hooks with CalendarModule ([a7e0279](https://github.com/joe-bor/FamilyHub/commit/a7e0279a3f611e2cef43fe7f7f85ef663676f401))
+* **calendar:** rename CalendarModule.tsx to kebab-case ([6afa8d0](https://github.com/joe-bor/FamilyHub/commit/6afa8d0af955506d21dc5b72a615e3c38c91adeb))
+* **calendar:** replace AddEventModal with EventFormModal ([ecb6110](https://github.com/joe-bor/FamilyHub/commit/ecb61109619b523d2431ba5b85565bea3fd08bf8))
+* **calendar:** update views to use CalendarNavigation ([b970008](https://github.com/joe-bor/FamilyHub/commit/b970008613aa1d8dc5996c282345c7ebd6f7f53e))
+* **calendar:** use getSmartDefaultTimes in EventForm ([48bd657](https://github.com/joe-bor/FamilyHub/commit/48bd657784873974cc2061306c09f2a9803d4203))
+* **calendar:** use shared CALENDAR_START_HOUR in view components ([3d9a20d](https://github.com/joe-bor/FamilyHub/commit/3d9a20dc32f73948309d0fdba7cf62ae13c51979))
+* **calendar:** wire navigation props through CalendarModule ([aac4e21](https://github.com/joe-bor/FamilyHub/commit/aac4e21a3fbd06badca1b3e191d99cd1abc0bb06))
+* **components:** migrate to family API hooks ([258ddca](https://github.com/joe-bor/FamilyHub/commit/258ddcab098b72c4767e6f78cda6b65fc9684565))
+* **family:** extract STORAGE_KEY to shared constants ([34acc92](https://github.com/joe-bor/FamilyHub/commit/34acc92bdf3108e35833ebb5963517691edd2c68))
+* **imports:** use explicit @/api imports for family hooks ([8593b05](https://github.com/joe-bor/FamilyHub/commit/8593b0516ba072ef1404f62b1a5bbea940a1fcfd))
+* migrate components to use dynamic family data from store ([7adc3f7](https://github.com/joe-bor/FamilyHub/commit/7adc3f7399ab6e4a115914942f3882994533afb4))
+* **mocks:** simplify response helpers to match unified type ([c67a6c6](https://github.com/joe-bor/FamilyHub/commit/c67a6c6cac997945eff0c4e5922bd49b54a49ec5))
+* modularized components ([23eff3b](https://github.com/joe-bor/FamilyHub/commit/23eff3b5c88f8eb712ffeffbcc991f6ce956c3d4))
+* **onboarding:** update for wrapped UsernameCheckResponse ([5e8f13f](https://github.com/joe-bor/FamilyHub/commit/5e8f13f003bb70eb71853ad8dd72830554d462cf))
+* **shared:** remove calendar navigation from app-header ([ebe6608](https://github.com/joe-bor/FamilyHub/commit/ebe66088234672dc7dec61380fcf14e45925a0ff))
+* **shared:** update layout components to use stores ([63b857d](https://github.com/joe-bor/FamilyHub/commit/63b857d44833d6e6d900a20277c263ea828d25af))
+* **sidebar:** remove non-functional menu items ([00ca11b](https://github.com/joe-bor/FamilyHub/commit/00ca11b40f3dd7ea1a8fe4fcfd30cf9b3593742b))
+* **store:** simplify family-store to hydration-only ([044602f](https://github.com/joe-bor/FamilyHub/commit/044602fbaeeca8f9ffc673c9f227ad533e0d6e32))
+* **test:** align test utilities with unified response type ([6c89482](https://github.com/joe-bor/FamilyHub/commit/6c894820eff3767d4699123250e3845a5f06dfcf))
+* **test:** extend seedCalendarStore to support all state fields ([74e099e](https://github.com/joe-bor/FamilyHub/commit/74e099e54abb4b2ea59d955f939cc6cae76d377a))
+* **test:** remove redundant afterEach cleanup ([62c4b41](https://github.com/joe-bor/FamilyHub/commit/62c4b410a9eb7de7d000356dc21d0422835687bb))
+* **tests:** use TEST_TIMEOUTS and helpers in form tests ([1bab248](https://github.com/joe-bor/FamilyHub/commit/1bab248efee0879416f73c60c10d6e78e81e6812))
+* **test:** use standard patterns in app-store tests ([47b7561](https://github.com/joe-bor/FamilyHub/commit/47b75612412a840607764d144af03a13bc3eb64a))
+* **test:** use standard seeders in calendar-store tests ([88a43a2](https://github.com/joe-bor/FamilyHub/commit/88a43a2aba9f460f0c33820a2e63a8fdc095399a))
+* **test:** use standard seeders in family-store tests ([5d85d24](https://github.com/joe-bor/FamilyHub/commit/5d85d24ccd73cd5ab226b0fe0a7c3ca5128cf339))
+* **types:** add unified ApiResponse type ([c08a283](https://github.com/joe-bor/FamilyHub/commit/c08a2838b242c20968206ffd48520c13312d7e88))
+* **types:** migrate to unified ApiResponse type ([4b01e2b](https://github.com/joe-bor/FamilyHub/commit/4b01e2b687f117db5bdeaf5b6869851bc98689ff))
+* **validations:** move member profile schema to validations ([49ea980](https://github.com/joe-bor/FamilyHub/commit/49ea980faa263f4e8902cdea104b483bcfff4326))
+* **views:** update module views to use centralized types ([fb2e621](https://github.com/joe-bor/FamilyHub/commit/fb2e62132ae4d04c14fd4b1666c1560e31e857f8))
+
+
+### Documentation
+
+* add before/after screenshots for onboarding feature ([8c79dce](https://github.com/joe-bor/FamilyHub/commit/8c79dce278f2e14cba89cf8d575f60545d05eadf))
+* add env example and document familyService tech debt ([c8cd9fb](https://github.com/joe-bor/FamilyHub/commit/c8cd9fba8fbca880942177d4d8b15b613a6be3ee))
+* add event card click pattern and update browser matrix info ([2746071](https://github.com/joe-bor/FamilyHub/commit/27460711c712654f668893e5eb29582b089b02e6))
+* add getSmartDefaultTimes and calendar constants to CLAUDE.md ([51117a6](https://github.com/joe-bor/FamilyHub/commit/51117a6e4b7ac7f73883d2d01057b7e329325da4))
+* add missing onboarding error handling to tech debt ([19ed7cb](https://github.com/joe-bor/FamilyHub/commit/19ed7cbf2fb16a896d43389e8b365077f6dbda72))
+* add mutation hook testing pattern to CLAUDE.md ([d62759b](https://github.com/joe-bor/FamilyHub/commit/d62759b7f74c67ab152915f4701bacc59cbf836f))
+* add prerequisites and testing sections ([41d7568](https://github.com/joe-bor/FamilyHub/commit/41d75683b02973e41618729619d3630a5373a9a1))
+* add prompt for test pattern standardization task ([346750d](https://github.com/joe-bor/FamilyHub/commit/346750dd60fc1a96e17b3344e203dd370c1e46ea))
+* add PWA planning prompt for Sprint 5 ([9e190c8](https://github.com/joe-bor/FamilyHub/commit/9e190c826e91a19b84fae71ea1fda51acbe98acb))
+* add race condition pattern for Zustand store testing ([667ece7](https://github.com/joe-bor/FamilyHub/commit/667ece746bb8a544cca4d9f815eafb844e79aeea))
+* add screenshots and live demo link ([ab3c58c](https://github.com/joe-bor/FamilyHub/commit/ab3c58cd308e4b263486b6515185fe84fecbebde))
+* add sidebar polish items to ROADMAP Sprint 6 ([e31e909](https://github.com/joe-bor/FamilyHub/commit/e31e9092b247d9b34effdd08bd732ae827d0eb21))
+* add tech debt items from PR [#67](https://github.com/joe-bor/FamilyHub/issues/67) review ([d3ca335](https://github.com/joe-bor/FamilyHub/commit/d3ca335dd8c64d566550e8c9b90b7c44da469a82))
+* add technical debt tracking and update roadmap ([15d51c6](https://github.com/joe-bor/FamilyHub/commit/15d51c63a1ed7d0a93ca9ef9b033320b136546c9))
+* add testing commands and patterns to CLAUDE.md ([3b1f1a8](https://github.com/joe-bor/FamilyHub/commit/3b1f1a8a3446352ab349744579ba1b4b4e62ac00))
+* add versioning walkthrough (gitignored) ([e592d83](https://github.com/joe-bor/FamilyHub/commit/e592d83a5a6c89e31baf78db31451759c32b2f77))
+* add visible screenshot placeholders with proper sizing ([4f3a298](https://github.com/joe-bor/FamilyHub/commit/4f3a2983cc2c82a31cfa78a3f480af97ce1f3b8a))
+* add waitForHydration to E2E test pattern example ([cff74ba](https://github.com/joe-bor/FamilyHub/commit/cff74ba8e31434a8841b4554fa91d35d7191f0d6))
+* **claude:** update architecture for Zustand state management ([4ee1b43](https://github.com/joe-bor/FamilyHub/commit/4ee1b4347e487e0f7bde80f57a49ca2f35f716fa))
+* consolidate documentation for efficiency ([99b2237](https://github.com/joe-bor/FamilyHub/commit/99b2237686139b00449bbec264aa074f8f1f0073))
+* created Frontend-specific spec document ([8b01789](https://github.com/joe-bor/FamilyHub/commit/8b017897c35c227cb0aa42db34e5d72097cca299))
+* document versioning setup in CLAUDE.md ([8be5bcd](https://github.com/joe-bor/FamilyHub/commit/8be5bcd331293be4f7e072be47fcb7ebae149cb3))
+* fix query key in mutation test example ([7b6dffd](https://github.com/joe-bor/FamilyHub/commit/7b6dffd76e8e27e9db4b93506df229943e8107d4))
+* **frontend-spec:** update for Zustand refactor and navigation changes ([9d2d564](https://github.com/joe-bor/FamilyHub/commit/9d2d564c36f6322c214bd07a4744291a4a512930))
+* mark family mutation tests as complete ([7ae3d32](https://github.com/joe-bor/FamilyHub/commit/7ae3d3264f20f94b2bb270112d64421f59b12ca1))
+* mark outdated TODOs as completed in technical debt ([3444acb](https://github.com/joe-bor/FamilyHub/commit/3444acbef24c3dd159619fef02cc14fdd4483009))
+* mark Sprint 5 as complete ([f592ea2](https://github.com/joe-bor/FamilyHub/commit/f592ea23897f29c26176f5e7b01483c7b72c07db))
+* mark test pattern standardization as complete ([cef82ca](https://github.com/joe-bor/FamilyHub/commit/cef82cacd924f3b21c2d103cf6f18a1fa772a1f5))
+* mark Zod form validation as complete in roadmap ([66856b3](https://github.com/joe-bor/FamilyHub/commit/66856b3c39d9760da405a0b1ffe84ac97993b8b4))
+* **perf:** document performance optimizations and verification ([bea7f2f](https://github.com/joe-bor/FamilyHub/commit/bea7f2faaaf203a97041595e1f7f2935ca99e04b))
+* **prd:** mark Sprint 4 state management as complete ([240d0a6](https://github.com/joe-bor/FamilyHub/commit/240d0a6a17e79a1bf9211dd0aca59eb5ad9781df))
+* remove useCreateFamily references from CLAUDE.md ([d73bedd](https://github.com/joe-bor/FamilyHub/commit/d73bedd9210f3d7e105265d73694eece7e4f1701))
+* revamp README for public release ([1de9cbf](https://github.com/joe-bor/FamilyHub/commit/1de9cbf2c7cf1d93ce9fd7c9b64febda81213ce2))
+* **security:** add VITE_* client exposure warning ([6563f70](https://github.com/joe-bor/FamilyHub/commit/6563f70c4f73170c089437de552082ef64a3c641))
+* **security:** update to reflect enabled push protection ([28636d7](https://github.com/joe-bor/FamilyHub/commit/28636d742be32f2df6b80df5e0b331e9e575ba88))
+* sync documentation with recent PRs ([121b855](https://github.com/joe-bor/FamilyHub/commit/121b8557d347edb71585d2af2525593e25d2bb11))
+* update API response types to unified ApiResponse&lt;T&gt; ([3d3fd68](https://github.com/joe-bor/FamilyHub/commit/3d3fd6886b3cfcdf7951cbe72446282b803f1925))
+* update CLAUDE.md and TECHNICAL-DEBT.md for auth testing ([b5af429](https://github.com/joe-bor/FamilyHub/commit/b5af4296b0b83b1825614023ac091331358cd0a3))
+* update CLAUDE.md and TECHNICAL-DEBT.md for Lighthouse CI ([2905f2b](https://github.com/joe-bor/FamilyHub/commit/2905f2bfeaaf7515feb3720b8f01800982ee6cb8))
+* update CLAUDE.md for setupComplete removal ([fe98c0e](https://github.com/joe-bor/FamilyHub/commit/fe98c0eabb97737ef2ae940036cc42fc5af1fa90))
+* update CLAUDE.md with API layer architecture ([4983079](https://github.com/joe-bor/FamilyHub/commit/4983079e3e8b5145353c94a6af2d8ea8a1608ac9))
+* update CLAUDE.md with deploy guards, version display, and release-please extra-files ([2869f6b](https://github.com/joe-bor/FamilyHub/commit/2869f6bf0df36b36afa71181cc7a0933f9ede5be))
+* update CLAUDE.md with PR [#29](https://github.com/joe-bor/FamilyHub/issues/29) changes ([83cb69c](https://github.com/joe-bor/FamilyHub/commit/83cb69ce941f16c1e94007c1f64d63219996fe77))
+* update CLAUDE.md with renamed calendar-module.tsx ([030bb66](https://github.com/joe-bor/FamilyHub/commit/030bb660fdb732712cafb3060fdbd6d232a5808e))
+* update documentation for event CRUD and date/time utilities ([582cda6](https://github.com/joe-bor/FamilyHub/commit/582cda61bc427aab720fd65eccecc377aa7a6d9c))
+* update documentation for family API migration ([de019b8](https://github.com/joe-bor/FamilyHub/commit/de019b8417fee89d7c6d7b80b1b79ac06549bbd8))
+* update documentation for TanStack Query API layer ([c98b413](https://github.com/joe-bor/FamilyHub/commit/c98b413b89db82f2e7011079ae91f3d176a0292c))
+* update E2E test patterns and remove dead code ([2945d4a](https://github.com/joe-bor/FamilyHub/commit/2945d4a112abe7f5367f9207f0e00f4d276ccead))
+* update ROADMAP ([c10a3df](https://github.com/joe-bor/FamilyHub/commit/c10a3dfc6b4c9376e6d8528df5da59ae19647724))
+* update roadmap and add E2E test patterns ([80b5a95](https://github.com/joe-bor/FamilyHub/commit/80b5a9520f56de11b054f2a9ab9d0f99c8b48ad8))
+* update roadmap and architecture for responsive changes ([e8ddb17](https://github.com/joe-bor/FamilyHub/commit/e8ddb173f175b504b884a5069a2876f87a549aa2))
+* update ROADMAP for Sprint 6 testing progress ([ab5ad30](https://github.com/joe-bor/FamilyHub/commit/ab5ad301c1e8d04811774dc3ee6e26e14b098633))
+* update technical debt tracking and CLAUDE.md ([41d9d71](https://github.com/joe-bor/FamilyHub/commit/41d9d71556e1220636b6e0e34ffba550820e3cc9))
+* update technical debt with flakiness findings ([1d2e272](https://github.com/joe-bor/FamilyHub/commit/1d2e27226245b8f8f9feec0ecd46e56ddc1ab626))
+* update testing documentation and cleanup ([32f4cc9](https://github.com/joe-bor/FamilyHub/commit/32f4cc98d2705b0932a641c1509c2ba87c4abc9a))
+
+
+### Tests
+
+* add global Zustand store reset to prevent state leakage ([739db87](https://github.com/joe-bor/FamilyHub/commit/739db874e2e61724e0d4b6138f0925726065c672))
+* **api:** add family mutation hook tests ([c434974](https://github.com/joe-bor/FamilyHub/commit/c434974b2d8e820a8d0785675a6779680e3d087e))
+* **api:** update family mutation tests for PUT semantics ([ac00047](https://github.com/joe-bor/FamilyHub/commit/ac0004757074dca6eeaf46f9f446db2f03919385))
+* **app:** add smoke test for app rendering ([7670479](https://github.com/joe-bor/FamilyHub/commit/7670479d6d9c3c6d0a3aaf4b1ee11f396e23ee2e))
+* **auth:** add auth store reset to test setup ([e0d9303](https://github.com/joe-bor/FamilyHub/commit/e0d9303b29f7bd10c6ff24182b6e468b1cf0c781))
+* **auth:** update tests for new auth flow ([e2cb8e6](https://github.com/joe-bor/FamilyHub/commit/e2cb8e619f45ea4908400f8d09bb476ce4830324))
+* **calendar:** add date navigation tests ([d75e41b](https://github.com/joe-bor/FamilyHub/commit/d75e41befea085fc2277a400de551b1e45f26f94))
+* **calendar:** add delete event integration tests ([6fbdd22](https://github.com/joe-bor/FamilyHub/commit/6fbdd221500a649d7ed8165f9d0c7ecfdc5322b3))
+* **calendar:** add edit event integration tests ([10b1631](https://github.com/joe-bor/FamilyHub/commit/10b1631204c0e98561589bc904e9ab007977c724))
+* **calendar:** add event detail modal integration tests ([45be9bc](https://github.com/joe-bor/FamilyHub/commit/45be9bc08aa21185bb58ab68873749b86a0fe1f1))
+* **calendar:** add mobile smart defaults test ([a7a2c77](https://github.com/joe-bor/FamilyHub/commit/a7a2c77944b46ef4542a41ce0bbc6a039a90a0ab))
+* **e2e:** add calendar event CRUD test ([e99637b](https://github.com/joe-bor/FamilyHub/commit/e99637bc36a7f701b1c4604b02df7fb62f07f060))
+* **e2e:** add calendar navigation test ([ae33d79](https://github.com/joe-bor/FamilyHub/commit/ae33d797ad085f5d314f04917ac12ad44ded2cb6))
+* **e2e:** add family management test ([c04cfc4](https://github.com/joe-bor/FamilyHub/commit/c04cfc414156991fd50b5672ed1f6204ea660b61))
+* **e2e:** add onboarding flow test ([ff242e2](https://github.com/joe-bor/FamilyHub/commit/ff242e272c08e643d69994a14e7b594604938c2a))
+* **e2e:** add Playwright test helpers ([6c9a56c](https://github.com/joe-bor/FamilyHub/commit/6c9a56c8809eb972397c6a5fa4940dc0481bb6fd))
+* **e2e:** improve onboarding test stability for mobile ([83e3812](https://github.com/joe-bor/FamilyHub/commit/83e3812cca9273eca1be039c0c7f022bb377121d))
+* **e2e:** update tests for new auth flow ([63b2636](https://github.com/joe-bor/FamilyHub/commit/63b2636c01542052026e8e6c894a963f6026c711))
+* **event-form:** add end time before start time validation test ([d707907](https://github.com/joe-bor/FamilyHub/commit/d7079070761164096ee9fb46fe5b3ca95e4d9bf2))
+* **event-form:** fix race condition with Zustand store propagation ([b2e1302](https://github.com/joe-bor/FamilyHub/commit/b2e130290f854b0664eaab37d7482ec2c82390db))
+* **family:** add mutation tests for family hooks ([578b1f4](https://github.com/joe-bor/FamilyHub/commit/578b1f4cb415cc497389c674643ace4431c2e611))
+* **family:** add tests for use-family hooks ([7216c28](https://github.com/joe-bor/FamilyHub/commit/7216c28c31edffb972fe8bb4da2e6db2cf0513be))
+* **infra:** add MSW handlers and test utilities for family API ([b265348](https://github.com/joe-bor/FamilyHub/commit/b265348a5aa069c1c598e6ca38059ae74f5e1ca0))
+* **onboarding:** add error handling tests for registration ([11c2db3](https://github.com/joe-bor/FamilyHub/commit/11c2db37e4d25f011da0606d61b5b57e8690cf69))
+* **stores:** add comprehensive unit tests for Zustand stores ([#18](https://github.com/joe-bor/FamilyHub/issues/18)) ([618e3fa](https://github.com/joe-bor/FamilyHub/commit/618e3fa197499cfc9f50d0d9b0a405692e2d65c9))
+* **store:** update app-store tests for null initial state ([0781682](https://github.com/joe-bor/FamilyHub/commit/0781682c610ce0507629376757105f603c9e1261))
+* **time-utils:** add comprehensive unit tests ([a5b8055](https://github.com/joe-bor/FamilyHub/commit/a5b8055389f5d0ad01665aff69e3e992f1e80a18))
+* **time-utils:** add tests for getSmartDefaultTimes ([ffac3bd](https://github.com/joe-bor/FamilyHub/commit/ffac3bd334ae671dabf07dbeb6fe12f8a83136d9))
+* update tests for family API migration ([4750141](https://github.com/joe-bor/FamilyHub/commit/4750141d66c7b6ba79a87e0e3c8d019752eb90d9))
+* **validations:** add comprehensive unit tests for Zod schemas ([87c4001](https://github.com/joe-bor/FamilyHub/commit/87c4001b250bc2f36a1a336db4ccbbfcfc759e3c))
+
+## [0.3.0](https://github.com/joe-bor/FamilyHub/compare/v0.2.0...v0.3.0) (2026-02-15)
+
+
+### Features
+
+* add /tech-debt skill for workflow enforcement ([5769d9e](https://github.com/joe-bor/FamilyHub/commit/5769d9e3bbdee2786a069fcd29db0bcf0bf6c090))
+* **ci:** add Lighthouse CI for performance tracking ([9afd934](https://github.com/joe-bor/FamilyHub/commit/9afd93413bc1b91075bbde741b461896f7f5c968))
+* **ci:** add PWA tracking and document optimization opportunities ([08a86de](https://github.com/joe-bor/FamilyHub/commit/08a86dead38a3fe67b26f1557fc670e33fdbcb73))
+
+
+### Bug Fixes
+
+* **api:** allow null avatarUrl in UpdateMemberRequest for explicit deletion ([d9f9d11](https://github.com/joe-bor/FamilyHub/commit/d9f9d11ec6cb518908fae3d7a5163f41f9726e9d))
+* **ci:** add PR number to Lighthouse artifact name for traceability ([610c96b](https://github.com/joe-bor/FamilyHub/commit/610c96b90b0d65972751a679e4184455bdb856ee))
+* **ci:** remove invalid preset option from Lighthouse config ([9218fcc](https://github.com/joe-bor/FamilyHub/commit/9218fcc0e79e51406f04fbeda784464d0ce7615f))
+* **ci:** remove lighthouse:no-pwa preset to use warn-only assertions ([662ca0f](https://github.com/joe-bor/FamilyHub/commit/662ca0f6872a74d31479d2a90a4dcc41267b4237))
+* **ci:** rename lighthouserc.js to .cjs for ES module compatibility ([f8a66b5](https://github.com/joe-bor/FamilyHub/commit/f8a66b5c8f9f9ee09821d6333a64a64f737a0cec))
+* **settings:** send complete member payload on PUT updates ([b5bf781](https://github.com/joe-bor/FamilyHub/commit/b5bf7812a2eba7bc4874f0d7fb094c7638c40017))
+
+## [0.2.0](https://github.com/joe-bor/FamilyHub/compare/v0.1.0...v0.2.0) (2026-01-29)
+
+
+### Features
+
+* **api:** add auth hooks with TanStack Query ([4c974a7](https://github.com/joe-bor/FamilyHub/commit/4c974a7444a9061e60cb1e09f49e65b1408f371b))
+* **api:** add auth mock handlers ([bf67057](https://github.com/joe-bor/FamilyHub/commit/bf6705792f769f86a0632c109ce0ad3c10911298))
+* **api:** add auth service ([0728f24](https://github.com/joe-bor/FamilyHub/commit/0728f245cf88e39c3f3b744695dbcf150583fa56))
+* **api:** inject auth header in http client ([8ecbace](https://github.com/joe-bor/FamilyHub/commit/8ecbace9deaf43ccd32d40b0330f26bac8200395))
+* **app:** update conditional rendering for auth ([474da6f](https://github.com/joe-bor/FamilyHub/commit/474da6ff373f7a5c2f95f92035a4086cfbb32984))
+* **auth:** add login flow components ([919fd0f](https://github.com/joe-bor/FamilyHub/commit/919fd0f7a9496f5957764eff78f80b342fbb882c))
+* **hooks:** add useDebounce hook ([c11c760](https://github.com/joe-bor/FamilyHub/commit/c11c7603c67be949a71850a669734d7bac51fe63))
+* **onboarding:** add credentials step ([3355218](https://github.com/joe-bor/FamilyHub/commit/3355218e42152f1bd30899f4da345f6663a264cd))
+* **onboarding:** add error handling to registration mutation ([befe8b9](https://github.com/joe-bor/FamilyHub/commit/befe8b9c9f0153672cd402afa49f2da98ce30f43))
+* **onboarding:** add error prop to OnboardingCredentials ([8806a38](https://github.com/joe-bor/FamilyHub/commit/8806a381b79921ae4abf020d2e2f68a957797393))
+* **sidebar:** add logout button ([8dacb57](https://github.com/joe-bor/FamilyHub/commit/8dacb57e89e375c0b69ddff181c553e8dea265f4))
+* **stores:** add auth store for token hydration ([47e220a](https://github.com/joe-bor/FamilyHub/commit/47e220ab5217740ddfff6f3467ea65ec47f5c263))
+* **time-utils:** add getSmartDefaultTimes for visible calendar range ([f2ea03e](https://github.com/joe-bor/FamilyHub/commit/f2ea03ea18e9f7a801e0dfeb2bd6b2da6431c2bc))
+* **types:** add auth types and validation schemas ([b7cfe3c](https://github.com/joe-bor/FamilyHub/commit/b7cfe3cc236914b272a8b0a26775d745247c6cc8))
+
+
+### Bug Fixes
+
+* **api:** add ValidationError type for backend alignment ([55b21fd](https://github.com/joe-bor/FamilyHub/commit/55b21fd57349179556b3d07a5c8e0906e1de81d2))
+* **api:** map backend errors array in parseErrorResponse ([bbf66c0](https://github.com/joe-bor/FamilyHub/commit/bbf66c0fbf0ca61a9305b64529a5585dcbbce985))
+* **e2e:** reduce test flakiness with robust helpers and config ([575f09b](https://github.com/joe-bor/FamilyHub/commit/575f09b6e047a5cdb7e843c72d5c8167b6540b29))
+* **tests:** resolve form submission race condition in CI ([4af35e2](https://github.com/joe-bor/FamilyHub/commit/4af35e2afa5bcb9533fe3f64b4af008b529a0a95))
+* **tests:** resolve form submission race condition in CI ([b3f2d90](https://github.com/joe-bor/FamilyHub/commit/b3f2d900990d4eb2ccffb85035f591738e4e7ab8))
+* **time-utils:** handle rounding past visible calendar boundary ([0a67cdc](https://github.com/joe-bor/FamilyHub/commit/0a67cdc5e98afdac1d9d3cfe54bf8d1674dec723))

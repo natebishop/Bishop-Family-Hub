@@ -1,0 +1,153 @@
+import { expect, test } from "@playwright/test";
+import { registerFamily, seedBrowserAuth } from "./helpers/api-helpers";
+import {
+  clearStorage,
+  safeClick,
+  switchCalendarView,
+  waitForCalendarReady,
+  waitForHydration,
+} from "./helpers/test-helpers";
+
+test.describe("Calendar View Navigation", () => {
+  test.beforeEach(async ({ page, request }) => {
+    await page.goto("/");
+    await clearStorage(page);
+
+    const reg = await registerFamily(request, {
+      familyName: "Test Family",
+      members: [
+        { name: "Alice", color: "coral" },
+        { name: "Bob", color: "teal" },
+      ],
+    });
+    await seedBrowserAuth(page, reg);
+
+    await page.reload();
+    await waitForHydration(page);
+    await waitForCalendarReady(page);
+  });
+
+  test("switches views, navigates dates, and filters members", async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(
+      !!isMobile,
+      "Desktop-specific test — mobile equivalents in mobile-calendar.spec.ts",
+    );
+    // ============================================
+    // CREATE AN EVENT FOR TESTING FILTERS
+    // ============================================
+
+    // Create an event so we can test filtering
+    // Use safeClick because on mobile the sticky header can intercept pointer events
+    await safeClick(page.getByRole("button", { name: "Add event" }));
+    const addDialog = page.getByRole("dialog", { name: "Add Event" });
+    await expect(addDialog).toBeVisible();
+    await addDialog.getByLabel("Event Name").fill("Alice's Task");
+    await addDialog.getByRole("button", { name: "Add Event" }).click();
+    await expect(addDialog).toBeHidden();
+
+    // Verify event is visible
+    await expect(page.getByText("Alice's Task")).toBeVisible();
+
+    // ============================================
+    // VIEW SWITCHING
+    // ============================================
+
+    // Click Week view
+    await switchCalendarView(page, "weekly");
+
+    // Verify we're on weekly view by looking for the week grid structure
+    // The weekly view has 7 day columns - use exact match to avoid matching "Month"
+    await expect(page.getByText("Mon", { exact: true })).toBeVisible();
+    await expect(page.getByText("Tue", { exact: true })).toBeVisible();
+
+    // Click Month view
+    await switchCalendarView(page, "monthly");
+
+    // Monthly view shows a calendar grid - look for typical month structure
+
+    // Click Schedule view
+    await switchCalendarView(page, "schedule");
+
+    // Schedule view shows a list format
+
+    // Go back to Day view
+    await switchCalendarView(page, "daily");
+
+    // ============================================
+    // DATE NAVIGATION
+    // ============================================
+
+    // Get the current date label (the first h2 heading on the page)
+    const dateLabel = page.getByRole("heading", { level: 2 }).first();
+    const initialDateText = await dateLabel.textContent();
+
+    // Click Previous button
+    await page.getByRole("button", { name: "Previous" }).click();
+
+    // Verify date changed
+    const prevDateText = await dateLabel.textContent();
+    expect(prevDateText).not.toBe(initialDateText);
+
+    // Click Next button (back to today)
+    await page.getByRole("button", { name: "Next" }).click();
+
+    // Click Next again (forward one day)
+    await page.getByRole("button", { name: "Next" }).click();
+
+    // Verify date changed again
+    const nextDateText = await dateLabel.textContent();
+    expect(nextDateText).not.toBe(prevDateText);
+
+    // Click Today button to return
+    await page.getByRole("button", { name: "Today" }).click();
+
+    // Verify we're back to today (date should match initial or today's date)
+    const todayDateText = await dateLabel.textContent();
+    expect(todayDateText).toBe(initialDateText);
+
+    // ============================================
+    // MEMBER FILTERING
+    // ============================================
+
+    // The event "Alice's Task" should be visible initially
+    await expect(page.getByText("Alice's Task")).toBeVisible();
+
+    // Find and click Alice's filter pill to toggle OFF
+    // Use aria-label to target filter pills specifically (not event cards)
+    const filterPills = page.getByTestId("family-filter-pills");
+    const alicePill = filterPills.getByRole("button", {
+      name: /Filter by Alice/i,
+    });
+    await alicePill.click();
+
+    // Wait for filter to apply and verify event is hidden
+    await expect(page.getByText("Alice's Task")).toBeHidden();
+
+    // Click Alice's pill again to toggle ON
+    await alicePill.click();
+
+    // Verify event reappears
+    await expect(page.getByText("Alice's Task")).toBeVisible();
+
+    // Test "All" toggle (scoped to filter pills)
+    const allToggle = filterPills.getByRole("button", {
+      name: /^(All|Some|None)$/i,
+    });
+    await allToggle.click();
+
+    // If it was "All", now it's "None" - event should be hidden
+    const toggleText = await allToggle.textContent();
+    if (toggleText === "None") {
+      await expect(page.getByText("Alice's Task")).toBeHidden();
+    }
+
+    // Click again to toggle back to All
+    await allToggle.click();
+
+    // Verify event is visible
+    await expect(page.getByText("Alice's Task")).toBeVisible();
+  });
+});

@@ -1,0 +1,73 @@
+import { Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { colorMap, type FamilyMember } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
+interface MemberCardProps {
+  member: FamilyMember;
+  onEdit: () => void;
+  onRemove: () => void;
+  canRemove: boolean;
+  /**
+   * When true, the member has been added optimistically and its create
+   * request has not yet been confirmed by the server. Editing or removing it
+   * would target an id the server does not know about, so the controls are
+   * disabled until the add resolves. Defaults to false.
+   */
+  isPending?: boolean;
+}
+
+export function MemberCard({
+  member,
+  onEdit,
+  onRemove,
+  canRemove,
+  isPending = false,
+}: MemberCardProps) {
+  const colors = colorMap[member.color];
+
+  return (
+    <div className="flex items-center gap-3 p-3 bg-card rounded-xl border border-border">
+      <div
+        className={cn(
+          "w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0",
+          colors?.bg,
+        )}
+      >
+        {member.name.charAt(0).toUpperCase()}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-foreground truncate">{member.name}</p>
+      </div>
+      <div className="flex items-center gap-1">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={onEdit}
+          disabled={isPending}
+          className="h-11 w-11"
+          aria-label={`Edit ${member.name}`}
+        >
+          <Pencil className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={onRemove}
+          disabled={!canRemove || isPending}
+          className={cn(
+            "h-11 w-11",
+            canRemove
+              ? "text-destructive hover:text-destructive"
+              : "text-muted-foreground",
+          )}
+          aria-label={`Remove ${member.name}`}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,71 @@
+export interface CalendarEvent {
+  id: string | null;
+  title: string;
+  startTime: string;
+  endTime: string;
+  date: Date;
+  endDate?: Date;
+  memberId: string;
+  isAllDay: boolean;
+  location?: string;
+  recurrenceRule?: string;
+  recurringEventId?: string;
+  isRecurring?: boolean;
+  // Google Calendar integration
+  source?: "NATIVE" | "GOOGLE";
+  description?: string;
+  htmlLink?: string;
+}
+
+/**
+ * Wire-format type matching the real API JSON response.
+ * `date` is a "yyyy-MM-dd" string — the service layer maps this
+ * to a `CalendarEvent` with a proper Date via `toCalendarEvent()`.
+ */
+export type CalendarEventResponse = Omit<CalendarEvent, "date" | "endDate"> & {
+  date: string;
+  endDate?: string;
+};
+
+export type CalendarViewType = "daily" | "weekly" | "monthly" | "schedule";
+
+export interface FilterState {
+  selectedMembers: string[];
+  showAllDayEvents: boolean;
+}
+
+// API Request/Response Types
+export interface CreateEventRequest {
+  title: string;
+  startTime: string;
+  endTime: string;
+  date: string; // ISO string for API transport
+  endDate?: string | null;
+  memberId: string;
+  isAllDay?: boolean;
+  location?: string;
+  recurrenceRule?: string | null;
+  description?: string;
+}
+
+export interface UpdateEventRequest {
+  title: string;
+  startTime: string;
+  endTime: string;
+  date: string;
+  endDate?: string | null;
+  memberId: string;
+  isAllDay?: boolean;
+  location?: string;
+  recurrenceRule?: string | null;
+  description?: string;
+}
+
+export interface GetEventsParams {
+  startDate: string;
+  endDate: string;
+  memberId?: string;
+}
+
+// Re-export unified response type for backwards compatibility
+export type { ApiResponse } from "./api-response";

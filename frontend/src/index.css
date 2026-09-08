@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* FamilyHub color palette - warm cream/peach tones */
+  --background: oklch(0.98 0.01 85);
+  --foreground: oklch(0.25 0.02 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0.02 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0.02 250);
+  --primary: oklch(0.55 0.18 285);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0.015 85);
+  --secondary-foreground: oklch(0.25 0.02 250);
+  --muted: oklch(0.94 0.02 85);
+  --muted-foreground: oklch(0.5 0.02 250);
+  --accent: oklch(0.94 0.02 85);
+  --accent-foreground: oklch(0.25 0.02 250);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.88 0.02 85);
+  --input: oklch(0.92 0.01 85);
+  --ring: oklch(0.55 0.18 285);
+
+  /* FamilyHub member colors: seven distinct hues with AA white-text contrast. */
+  --color-coral: oklch(0.57 0.135 31);
+  --color-teal: oklch(0.556 0.079 192);
+  --color-green: oklch(0.535 0.095 146);
+  --color-purple: oklch(0.514 0.14 296);
+  --color-yellow: oklch(0.548 0.105 82);
+  --color-pink: oklch(0.551 0.131 354);
+  --color-orange: oklch(0.575 0.119 56);
+
+  /* Meal-type accents: soft banner tints + AA-contrast glyph/label foregrounds.
+     Used only where a meal photo is absent (placeholder band, rail label). */
+  --meal-breakfast: oklch(0.93 0.05 80);
+  --meal-breakfast-foreground: oklch(0.52 0.11 70);
+  --meal-lunch: oklch(0.93 0.05 150);
+  --meal-lunch-foreground: oklch(0.48 0.1 150);
+  --meal-dinner: oklch(0.93 0.05 285);
+  --meal-dinner-foreground: oklch(0.5 0.13 285);
+
+  --radius: 0.75rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.25 0.02 250);
+  --sidebar-primary: oklch(0.55 0.18 285);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.96 0.015 85);
+  --sidebar-accent-foreground: oklch(0.25 0.02 250);
+  --sidebar-border: oklch(0.92 0.01 85);
+  --sidebar-ring: oklch(0.55 0.18 285);
+}
+
+@theme inline {
+  --font-sans: "Nunito", "Nunito Fallback", sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-coral: var(--color-coral);
+  --color-teal: var(--color-teal);
+  --color-green: var(--color-green);
+  --color-purple: var(--color-purple);
+  --color-yellow: var(--color-yellow);
+  --color-pink: var(--color-pink);
+  --color-orange: var(--color-orange);
+  --color-meal-breakfast: var(--meal-breakfast);
+  --color-meal-breakfast-foreground: var(--meal-breakfast-foreground);
+  --color-meal-lunch: var(--meal-lunch);
+  --color-meal-lunch-foreground: var(--meal-lunch-foreground);
+  --color-meal-dinner: var(--meal-dinner);
+  --color-meal-dinner-foreground: var(--meal-dinner-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom scrollbar for FamilyHub */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.85 0.02 85);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.75 0.02 85);
+}
+
+@keyframes home-breathing-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes home-breathing-fade {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe\:animate-home-breathing-pulse {
+    animation: home-breathing-pulse 2.2s ease-in-out infinite;
+  }
+
+  .motion-safe\:animate-home-breathing-fade {
+    animation: home-breathing-fade 2.8s ease-in-out infinite;
+  }
+}
+
+/* Reduce motion for accessibility and CI stability */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

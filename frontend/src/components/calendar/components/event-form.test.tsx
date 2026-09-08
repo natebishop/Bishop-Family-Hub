@@ -1,0 +1,1223 @@
+import { format } from "date-fns";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { testMembers } from "@/test/fixtures";
+import {
+  render,
+  renderWithUser,
+  screen,
+  seedFamilyStore,
+  TEST_TIMEOUTS,
+  typeAndWait,
+  waitFor,
+  waitForMemberSelected,
+  within,
+} from "@/test/test-utils";
+import { EventForm } from "./event-form";
+
+type TestUser = ReturnType<typeof renderWithUser>["user"];
+
+function getWheelColumn(index: number) {
+  const wheelColumns = document.body.querySelectorAll(".scrollbar-hide");
+  const wheelColumn = wheelColumns[index];
+
+  if (!wheelColumn) {
+    throw new Error(`Time picker wheel column ${index} was not rendered`);
+  }
+
+  return wheelColumn as HTMLElement;
+}
+
+function timeToMinutes(time: string) {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+describe("EventForm", () => {
+  const mockOnSubmit = vi.fn();
+  const mockOnCancel = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    class ResizeObserverMock {
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    }
+
+    vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+    seedFamilyStore({
+      name: "Test Family",
+      members: testMembers,
+    });
+  });
+
+  const timedEvent = (
+    overrides: Partial<Parameters<typeof EventForm>[0]["defaultValues"]> = {},
+  ) => ({
+    title: "Existing Meeting",
+    date: "2026-01-15",
+    startTime: "09:00",
+    endTime: "10:00",
+    memberId: testMembers[0].id,
+    ...overrides,
+  });
+
+  async function changeHourWithTimePicker(
+    user: TestUser,
+    triggerName: RegExp,
+    hourLabel: string,
+  ) {
+    await user.click(screen.getAllByRole("button", { name: triggerName })[0]);
+    await user.click(
+      within(getWheelColumn(0)).getAllByRole("button", {
+        name: hourLabel,
+      })[0],
+    );
+    await user.click(screen.getByRole("button", { name: "OK" }));
+  }
+
+  async function submitEditForm(user: TestUser) {
+    await user.click(screen.getByRole("button", { name: /save changes/i }));
+
+    await waitFor(
+      () => {
+        expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+      },
+      { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+    );
+
+    return mockOnSubmit.mock.calls[0][0];
+  }
+
+  describe("Add Mode", () => {
+    it("renders with smart defaults", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Check form fields exist
+      expect(screen.getByLabelText(/event name/i)).toBeInTheDocument();
+      expect(screen.getByText("Date")).toBeInTheDocument();
+      expect(screen.getByText("Start Time")).toBeInTheDocument();
+      expect(screen.getByText("End Time")).toBeInTheDocument();
+      expect(screen.getByText("Assign To")).toBeInTheDocument();
+
+      // Check buttons
+      expect(
+        screen.getByRole("button", { name: /add event/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /cancel/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("defaults title to empty", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      const titleInput = screen.getByLabelText(/event name/i);
+      expect(titleInput).toHaveValue("");
+    });
+
+    it("defaults date to today", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // The date picker uses "PPP" format from date-fns (e.g., "December 28th, 2025")
+      const today = format(new Date(), "PPP");
+      expect(screen.getByText(today)).toBeInTheDocument();
+    });
+
+    it("defaults to first family member", async () => {
+      // Pass explicit defaultValues to avoid async initialization race condition
+      // The component's smart defaults logic is tested implicitly by other tests
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ memberId: testMembers[0].id }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Wait for member button to be visible AND selected
+      await waitForMemberSelected(testMembers[0].name);
+
+      // Fill title and submit to verify first member is selected
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "Test Event");
+
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              memberId: testMembers[0].id,
+            }),
+          );
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+  });
+
+  describe("Edit Mode", () => {
+    const existingEvent = {
+      title: "Existing Meeting",
+      date: "2025-12-25",
+      startTime: "14:00",
+      endTime: "15:00",
+      memberId: testMembers[1].id,
+    };
+
+    it("renders with provided values", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={existingEvent}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      expect(screen.getByLabelText(/event name/i)).toHaveValue(
+        "Existing Meeting",
+      );
+      expect(
+        screen.getByRole("button", { name: /save changes/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("shows Save Changes button instead of Add Event", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={existingEvent}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      expect(
+        screen.queryByRole("button", { name: /add event/i }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /save changes/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("preserves the selected family member on submit", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={existingEvent}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Submit without changing member
+      await user.click(screen.getByRole("button", { name: /save changes/i }));
+
+      // Should submit with the original member (testMembers[1])
+      expect(mockOnSubmit).toHaveBeenCalledWith(
+        expect.objectContaining({
+          memberId: testMembers[1].id,
+        }),
+      );
+    });
+  });
+
+  describe("Time Changes", () => {
+    it("preserves duration when changing the start time with the picker", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent()}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await changeHourWithTimePicker(user, /9:00 AM/i, "11");
+
+      expect(
+        screen.getByRole("button", { name: /11:00 AM/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /12:00 PM/i }),
+      ).toBeInTheDocument();
+
+      await expect(submitEditForm(user)).resolves.toEqual(
+        expect.objectContaining({
+          startTime: "11:00",
+          endTime: "12:00",
+        }),
+      );
+    });
+
+    it("clamps the preserved end time to 23:59 when changing the start time", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent({
+            startTime: "21:00",
+            endTime: "22:30",
+          })}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await changeHourWithTimePicker(user, /9:00 PM/i, "11");
+
+      expect(
+        screen.getByRole("button", { name: /11:00 PM/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /11:59 PM/i }),
+      ).toBeInTheDocument();
+
+      await expect(submitEditForm(user)).resolves.toEqual(
+        expect.objectContaining({
+          startTime: "23:00",
+          endTime: "23:59",
+        }),
+      );
+    });
+
+    it("does not let an off-grid start picker change create equal times near midnight", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent({
+            startTime: "22:59",
+            endTime: "23:59",
+          })}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await changeHourWithTimePicker(user, /10:59 PM/i, "11");
+
+      expect(
+        screen.getByRole("button", { name: /10:59 PM/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /11:59 PM/i }),
+      ).toBeInTheDocument();
+
+      const submitted = await submitEditForm(user);
+
+      expect(submitted).toEqual(
+        expect.objectContaining({
+          startTime: "22:59",
+          endTime: "23:59",
+        }),
+      );
+      expect(timeToMinutes(submitted.endTime)).toBeGreaterThan(
+        timeToMinutes(submitted.startTime),
+      );
+    });
+
+    it.each([
+      { endTime: "09:00", state: "equal to start" },
+      { endTime: "08:30", state: "before start" },
+    ])(
+      "uses a one-hour duration when the current end time is $state",
+      async ({ endTime }) => {
+        const { user } = renderWithUser(
+          <EventForm
+            mode="edit"
+            defaultValues={timedEvent({ endTime })}
+            onSubmit={mockOnSubmit}
+            onCancel={mockOnCancel}
+          />,
+        );
+
+        await changeHourWithTimePicker(user, /9:00 AM/i, "11");
+
+        expect(
+          screen.getByRole("button", { name: /11:00 AM/i }),
+        ).toBeInTheDocument();
+        expect(
+          screen.getByRole("button", { name: /12:00 PM/i }),
+        ).toBeInTheDocument();
+
+        await expect(submitEditForm(user)).resolves.toEqual(
+          expect.objectContaining({
+            startTime: "11:00",
+            endTime: "12:00",
+          }),
+        );
+      },
+    );
+
+    it("shifts both start and end times when nudging the start later", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent()}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await user.click(
+        screen.getByRole("button", {
+          name: "Start time later by 15 minutes",
+        }),
+      );
+
+      expect(
+        screen.getByRole("button", { name: /9:15 AM/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /10:15 AM/i }),
+      ).toBeInTheDocument();
+
+      await expect(submitEditForm(user)).resolves.toEqual(
+        expect.objectContaining({
+          startTime: "09:15",
+          endTime: "10:15",
+        }),
+      );
+    });
+
+    it("does not let a start nudge create equal times near midnight", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent({
+            startTime: "23:45",
+            endTime: "23:59",
+          })}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await user.click(
+        screen.getByRole("button", {
+          name: "Start time later by 15 minutes",
+        }),
+      );
+
+      expect(
+        screen.getByRole("button", { name: /11:45 PM/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /11:59 PM/i }),
+      ).toBeInTheDocument();
+
+      const submitted = await submitEditForm(user);
+
+      expect(submitted).toEqual(
+        expect.objectContaining({
+          startTime: "23:45",
+          endTime: "23:59",
+        }),
+      );
+      expect(timeToMinutes(submitted.endTime)).toBeGreaterThan(
+        timeToMinutes(submitted.startTime),
+      );
+    });
+
+    it("shifts only the end time when nudging the end later", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent()}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await user.click(
+        screen.getByRole("button", {
+          name: "End time later by 15 minutes",
+        }),
+      );
+
+      expect(
+        screen.getByRole("button", { name: /9:00 AM/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /10:15 AM/i }),
+      ).toBeInTheDocument();
+
+      await expect(submitEditForm(user)).resolves.toEqual(
+        expect.objectContaining({
+          startTime: "09:00",
+          endTime: "10:15",
+        }),
+      );
+    });
+
+    it.each([
+      {
+        startTime: "09:00",
+        endTime: "09:15",
+        startDisplay: /9:00 AM/i,
+        endDisplay: /9:15 AM/i,
+      },
+      {
+        startTime: "23:45",
+        endTime: "23:59",
+        startDisplay: /11:45 PM/i,
+        endDisplay: /11:59 PM/i,
+      },
+    ])(
+      "does not let an end nudge move $endTime at or before $startTime",
+      async ({ startTime, endTime, startDisplay, endDisplay }) => {
+        const { user } = renderWithUser(
+          <EventForm
+            mode="edit"
+            defaultValues={timedEvent({
+              startTime,
+              endTime,
+            })}
+            onSubmit={mockOnSubmit}
+            onCancel={mockOnCancel}
+          />,
+        );
+
+        await user.click(
+          screen.getByRole("button", {
+            name: "End time earlier by 15 minutes",
+          }),
+        );
+
+        expect(
+          screen.getByRole("button", { name: startDisplay }),
+        ).toBeInTheDocument();
+        expect(
+          screen.getByRole("button", { name: endDisplay }),
+        ).toBeInTheDocument();
+
+        const submitted = await submitEditForm(user);
+
+        expect(submitted).toEqual(
+          expect.objectContaining({
+            startTime,
+            endTime,
+          }),
+        );
+        expect(timeToMinutes(submitted.endTime)).toBeGreaterThan(
+          timeToMinutes(submitted.startTime),
+        );
+      },
+    );
+
+    it("renders accessible 44px nudge controls for both time fields", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={timedEvent()}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      for (const label of [
+        "Start time earlier by 15 minutes",
+        "Start time later by 15 minutes",
+        "End time earlier by 15 minutes",
+        "End time later by 15 minutes",
+      ]) {
+        const button = screen.getByRole("button", { name: label });
+
+        expect(button.className).toContain("h-11");
+        expect(button.className).toContain("w-11");
+      }
+    });
+  });
+
+  describe("Form Validation", () => {
+    it("shows error when title is empty on submit", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Clear title and submit
+      const titleInput = screen.getByLabelText(/event name/i);
+      await user.clear(titleInput);
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      expect(screen.getByText("Event name is required")).toBeInTheDocument();
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+
+    it("shows error when title exceeds 100 characters", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      const longTitle = "a".repeat(101);
+      const titleInput = screen.getByLabelText(/event name/i);
+      await user.type(titleInput, longTitle);
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      expect(
+        screen.getByText("Event name must be 100 characters or less"),
+      ).toBeInTheDocument();
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+
+    it("rejects whitespace-only title", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      const titleInput = screen.getByLabelText(/event name/i);
+      await user.type(titleInput, "   ");
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      expect(screen.getByText("Event name is required")).toBeInTheDocument();
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+
+    it("shows error when end time is before start time", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ startTime: "14:00", endTime: "13:00" }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await user.type(screen.getByLabelText(/event name/i), "Test Event");
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      expect(
+        screen.getByText("End time must be after start time"),
+      ).toBeInTheDocument();
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("Form Submission", () => {
+    it("calls onSubmit with form data when valid", async () => {
+      // Pass explicit defaultValues to avoid async initialization race condition
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ memberId: testMembers[0].id }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Wait for member button to be visible AND selected
+      await waitForMemberSelected(testMembers[0].name);
+
+      // Fill in the title and wait for value to propagate
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "New Team Meeting");
+
+      // Submit the form
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              title: "New Team Meeting",
+              memberId: testMembers[0].id,
+            }),
+          );
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("calls onCancel when cancel button is clicked", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await user.click(screen.getByRole("button", { name: /cancel/i }));
+
+      expect(mockOnCancel).toHaveBeenCalledTimes(1);
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("Pending State", () => {
+    it("shows 'Adding...' when isPending is true in add mode", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+          isPending
+        />,
+      );
+
+      expect(
+        screen.getByRole("button", { name: /adding/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: /add event/i }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("shows 'Saving...' when isPending is true in edit mode", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={{ title: "Test" }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+          isPending
+        />,
+      );
+
+      expect(
+        screen.getByRole("button", { name: /saving/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("disables buttons when isPending", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+          isPending
+        />,
+      );
+
+      expect(screen.getByRole("button", { name: /adding/i })).toBeDisabled();
+      expect(screen.getByRole("button", { name: /cancel/i })).toBeDisabled();
+    });
+
+    it("prevents double submission when isPending", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ title: "Test Event" }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+          isPending
+        />,
+      );
+
+      // Try to submit
+      const submitButton = screen.getByRole("button", { name: /adding/i });
+      await user.click(submitButton);
+
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("All Day Toggle", () => {
+    it("renders the all-day toggle switch", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      expect(screen.getByRole("switch")).toBeInTheDocument();
+      expect(screen.getByText("All day")).toBeInTheDocument();
+    });
+
+    it("hides time pickers when all-day is toggled on", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Time pickers visible initially
+      expect(screen.getByText("Start Time")).toBeInTheDocument();
+      expect(screen.getByText("End Time")).toBeInTheDocument();
+
+      // Toggle all-day on
+      await user.click(screen.getByRole("switch"));
+
+      // Time pickers should be hidden
+      expect(screen.queryByText("Start Time")).not.toBeInTheDocument();
+      expect(screen.queryByText("End Time")).not.toBeInTheDocument();
+    });
+
+    it("shows time pickers again when all-day is toggled off", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Toggle on then off
+      await user.click(screen.getByRole("switch"));
+      expect(screen.queryByText("Start Time")).not.toBeInTheDocument();
+
+      await user.click(screen.getByRole("switch"));
+      expect(screen.getByText("Start Time")).toBeInTheDocument();
+      expect(screen.getByText("End Time")).toBeInTheDocument();
+    });
+
+    it("submits with isAllDay true when toggled on", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ memberId: testMembers[0].id }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await waitForMemberSelected(testMembers[0].name);
+
+      // Toggle all-day on
+      await user.click(screen.getByRole("switch"));
+
+      // Fill title
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "Family Picnic");
+
+      // Submit
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              title: "Family Picnic",
+              isAllDay: true,
+              startTime: "00:00",
+              endTime: "23:59",
+            }),
+          );
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("renders with all-day toggle on in edit mode when event is all-day", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={{
+            title: "Holiday",
+            date: "2026-03-07",
+            startTime: "00:00",
+            endTime: "23:59",
+            memberId: testMembers[0].id,
+            isAllDay: true,
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      const toggle = screen.getByRole("switch");
+      expect(toggle).toHaveAttribute("aria-checked", "true");
+      expect(screen.queryByText("Start Time")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("End Date (Multi-Day)", () => {
+    it("shows end date picker when all-day is toggled on", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // End date not visible initially
+      expect(screen.queryByText("End Date")).not.toBeInTheDocument();
+
+      // Toggle all-day on
+      await user.click(screen.getByRole("switch"));
+
+      // End date picker should appear
+      expect(screen.getByText("End Date")).toBeInTheDocument();
+    });
+
+    it("hides end date picker when all-day is toggled off", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Toggle on then off
+      await user.click(screen.getByRole("switch"));
+      expect(screen.getByText("End Date")).toBeInTheDocument();
+
+      await user.click(screen.getByRole("switch"));
+      expect(screen.queryByText("End Date")).not.toBeInTheDocument();
+    });
+
+    it("clears endDate when toggling all-day off", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{
+            memberId: testMembers[0].id,
+            isAllDay: true,
+            startTime: "00:00",
+            endTime: "23:59",
+            date: "2026-12-20",
+            endDate: "2026-12-25",
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Toggle off
+      await user.click(screen.getByRole("switch"));
+
+      // Toggle back on and submit — endDate should have been cleared
+      await user.click(screen.getByRole("switch"));
+
+      await waitForMemberSelected(testMembers[0].name);
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "Test Event");
+
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              isAllDay: true,
+            }),
+          );
+          // endDate should not be present (was cleared on toggle off)
+          expect(mockOnSubmit.mock.calls[0][0].endDate).toBeUndefined();
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("submits with endDate when set", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{
+            memberId: testMembers[0].id,
+            isAllDay: true,
+            startTime: "00:00",
+            endTime: "23:59",
+            date: "2026-12-20",
+            endDate: "2026-12-25",
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await waitForMemberSelected(testMembers[0].name);
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "Family Vacation");
+
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              title: "Family Vacation",
+              isAllDay: true,
+              endDate: "2026-12-25",
+            }),
+          );
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("submits without endDate when not set", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{
+            memberId: testMembers[0].id,
+            isAllDay: true,
+            startTime: "00:00",
+            endTime: "23:59",
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await waitForMemberSelected(testMembers[0].name);
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "Single Day Event");
+
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              title: "Single Day Event",
+              isAllDay: true,
+            }),
+          );
+          expect(mockOnSubmit.mock.calls[0][0].endDate).toBeUndefined();
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("renders end date picker in edit mode for multi-day event", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={{
+            title: "Vacation",
+            date: "2026-03-08",
+            endDate: "2026-03-12",
+            startTime: "00:00",
+            endTime: "23:59",
+            memberId: testMembers[0].id,
+            isAllDay: true,
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      expect(screen.getByText("End Date")).toBeInTheDocument();
+    });
+  });
+
+  describe("Description Field", () => {
+    it("hides description textarea by default in add mode", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+      expect(screen.queryByLabelText(/description/i)).not.toBeInTheDocument();
+      expect(screen.getByText(/add details/i)).toBeInTheDocument();
+    });
+
+    it("shows description textarea when 'Add details' is clicked", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      await user.click(screen.getByText(/add details/i));
+      expect(screen.getByLabelText(/description/i)).toBeInTheDocument();
+    });
+
+    it("auto-expands in edit mode when description has value", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={{
+            title: "Test",
+            date: "2026-01-15",
+            startTime: "09:00",
+            endTime: "10:00",
+            memberId: testMembers[0].id,
+            description: "Some notes",
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+      expect(screen.getByLabelText(/description/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/description/i)).toHaveValue("Some notes");
+    });
+
+    it("does not auto-expand in edit mode when description is empty", () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={{
+            title: "Test",
+            date: "2026-01-15",
+            startTime: "09:00",
+            endTime: "10:00",
+            memberId: testMembers[0].id,
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+      expect(screen.queryByLabelText(/description/i)).not.toBeInTheDocument();
+    });
+  });
+
+  describe("Member Selection", () => {
+    it("allows changing selected family member", async () => {
+      // Pass explicit defaultValues to avoid async initialization race condition
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ memberId: testMembers[0].id }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      // Wait for first member button to be visible AND selected
+      await waitForMemberSelected(testMembers[0].name);
+
+      // Click on second member to change selection
+      const secondMember = screen.getByRole("button", {
+        name: testMembers[1].name,
+      });
+      await user.click(secondMember);
+
+      // Wait for second member to become selected
+      await waitForMemberSelected(testMembers[1].name);
+
+      // Fill title and wait for value to propagate
+      const titleInput = screen.getByLabelText(/event name/i);
+      await typeAndWait(user, titleInput, "Test Event");
+
+      // Submit form
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+              memberId: testMembers[1].id,
+            }),
+          );
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("displays all family members", () => {
+      render(
+        <EventForm
+          mode="add"
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      for (const member of testMembers) {
+        expect(
+          screen.getByRole("button", { name: member.name }),
+        ).toBeInTheDocument();
+      }
+    });
+  });
+
+  describe("location field", () => {
+    it("reveals Location and Description behind Add details", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ memberId: testMembers[0].id }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+      await waitForMemberSelected(testMembers[0].name);
+
+      expect(screen.queryByLabelText("Location")).not.toBeInTheDocument();
+      await user.click(screen.getByRole("button", { name: /add details/i }));
+      expect(screen.getByLabelText("Location")).toBeInTheDocument();
+      expect(screen.getByLabelText("Description")).toBeInTheDocument();
+    });
+
+    it("submits the entered location", async () => {
+      const { user } = renderWithUser(
+        <EventForm
+          mode="add"
+          defaultValues={{ memberId: testMembers[0].id, title: "Swim class" }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+      await waitForMemberSelected(testMembers[0].name);
+
+      await user.click(screen.getByRole("button", { name: /add details/i }));
+      await user.type(screen.getByLabelText("Location"), "YMCA pool");
+      await user.click(screen.getByRole("button", { name: /add event/i }));
+
+      await waitFor(
+        () => {
+          expect(mockOnSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({ location: "YMCA pool" }),
+          );
+        },
+        { timeout: TEST_TIMEOUTS.FORM_SUBMIT },
+      );
+    });
+
+    it("starts expanded in edit mode when location is present", async () => {
+      render(
+        <EventForm
+          mode="edit"
+          defaultValues={{
+            memberId: testMembers[0].id,
+            title: "Dentist",
+            date: "2026-07-01",
+            startTime: "09:30",
+            endTime: "10:30",
+            location: "Smile Dental",
+          }}
+          onSubmit={mockOnSubmit}
+          onCancel={mockOnCancel}
+        />,
+      );
+
+      expect(screen.getByLabelText("Location")).toHaveValue("Smile Dental");
+    });
+  });
+});

@@ -1,0 +1,73 @@
+name: CI
+permissions:
+  contents: read
+  statuses: write
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npm run lint
+      - run: npm run test:coverage
+      - name: Resolve stable BE version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/resolve-backend-version.test.sh
+          BE_VERSION=$(bash .github/scripts/resolve-backend-version.sh)
+          if [ -z "$BE_VERSION" ]; then
+            echo "::error::No published backend release could be resolved"
+            exit 1
+          fi
+          echo "BE_IMAGE_TAG=${BE_VERSION}" >> "$GITHUB_ENV"
+          echo "Using published BE image tag: ${BE_VERSION}"
+          # Regression guard: fail closed if a ':-latest' fallback is ever
+          # re-introduced. Explicit block so it fails regardless of position
+          # (relying on this being the last line would silently disarm it).
+          if grep -RE 'BE_(VERSION|IMAGE_TAG):-latest' .github/workflows/ci.yml docker-compose.e2e.yml; then
+            echo "::error::Found a ':-latest' fallback — CI must fail closed on a missing BE release"
+            exit 1
+          fi
+      - name: Start backend container
+        run: docker compose -f docker-compose.e2e.yml up -d --wait
+      - name: Run E2E tests (real backend)
+        run: npm run test:e2e
+      - name: Stop backend container
+        if: always() && env.BE_IMAGE_TAG != ''
+        run: docker compose -f docker-compose.e2e.yml down
+      - run: npm run build
+      - name: Check bundle size budget
+        run: npm run check:bundle
+      - name: Collect Lighthouse reports
+        run: npx lhci collect
+      - name: Assert Lighthouse thresholds
+        run: npx lhci assert
+      - name: Upload Lighthouse to temporary storage
+        run: npx lhci upload
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: lighthouse-report-${{ github.event.pull_request.number && format('pr-{0}', github.event.pull_request.number) || github.sha }}
+          path: .lighthouseci/
+          include-hidden-files: true
+          retention-days: 90

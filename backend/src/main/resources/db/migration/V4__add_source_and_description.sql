@@ -1,0 +1,3 @@
+ALTER TABLE calendar_event
+    ADD COLUMN source VARCHAR(10) NOT NULL DEFAULT 'NATIVE',
+    ADD COLUMN description TEXT;

@@ -1,0 +1,14 @@
+target/
+.idea/
+*.iml
+*.iws
+*.ipr
+.settings/
+.project
+.classpath
+reviews/
+.git/
+*.md
+.env
+Dockerfile
+.dockerignore

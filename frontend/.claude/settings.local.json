@@ -1,0 +1,76 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(tree:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(npx @anthropic-ai/claude-code-mcp-playwright --help)",
+      "mcp__claude-code-docs__search_claude_code_documentation",
+      "Bash(npm search:*)",
+      "WebSearch",
+      "Bash(claude mcp remove:*)",
+      "Bash(claude mcp add playwright --transport stdio -- npx -y @playwright/mcp@latest)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(mkdir:*)",
+      "Bash(git restore:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(git pull:*)",
+      "Bash(npm run lint:*)",
+      "Bash(git stash:*)",
+      "Bash(gh pr view:*)",
+      "Bash(git -C /Users/joe.bor/code/family-hub check-ignore dist/)",
+      "Bash(gh pr comment:*)",
+      "Bash(npm run lint:fix:*)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(npm run test:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(git worktree:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh pr list:*)",
+      "Bash(grep:*)",
+      "Bash(gh pr review:*)",
+      "Bash(npm run test:e2e:*)",
+      "Bash(wc:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run watch:*)",
+      "Bash(gh pr checks:*)",
+      "Skill(review-pr)",
+      "Bash(gh api:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Funk.aiff"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Purr.aiff"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+cors:
+  allowed-origins: http://localhost:5173
+
+spring:
+  datasource:
+    # Testcontainers auto-configures via @ServiceConnection
+    hikari:
+      maximum-pool-size: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+
+  h2:
+    console:
+      enabled: false
+
+jwt:
+  secret: ${JWT_SECRET:YWIwMTIzNDU2Nzg5MGFiMDEyMzQ1Njc4OTBhYjAxMjM=}
+  expiration: ${JWT_EXPIRATION:86400000}
+  issuer: ${JWT_ISSUER:family-hub-api-test}
+
+google:
+  oauth:
+    client-id: test-client-id
+    client-secret: test-client-secret
+    redirect-uri: http://localhost:8080/api/google/callback
+    frontend-redirect-url: http://localhost:5173/settings?googleConnected=true
+
+security:
+  # Base64-encoded 32-byte key for AES-256
+  token-encryption-key: hZVYYDBsu6sIox9GnjtoSB6Wv3cgjVG5euDC/JVAHZ4=

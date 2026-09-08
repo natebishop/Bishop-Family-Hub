@@ -1,0 +1,16 @@
+services:
+  family-hub-api:
+    image: ghcr.io/joe-bor/family-hub-api:${BE_IMAGE_TAG:?BE_IMAGE_TAG must be a published release}
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=dGVzdC1zZWNyZXQta2V5LXRoYXQtaXMtbG9uZy1lbm91Z2gtZm9yLWhtYWMtc2hhLTI1Ng==
+      - TOKEN_ENCRYPTION_KEY=hZVYYDBsu6sIox9GnjtoSB6Wv3cgjVG5euDC/JVAHZ4=
+      - SPRING_PROFILES_ACTIVE=dev
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/api/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
