@@ -4,14 +4,18 @@ This is the local monorepo for the FamilyHub installation.
 
 ## Layout
 
-- `frontend/` — Vite/React PWA. Current deployed source is the `natebishop/FamilyHub` GitHub fork.
-- `backend/` — Spring Boot API. Current deployed source is the `natebishop/family-hub-api` GitHub fork.
+- `frontend/` — Vite/React PWA. Vercel builds this directory.
+- `backend/` — Spring Boot API. DigitalOcean App Platform builds this directory.
 
-## Current deployment safety
+## Deployment source of truth
 
-The existing Vercel and DigitalOcean deployments still use the two original standalone GitHub repositories. This monorepo is a local consolidation of their current source state; deployment settings have not been changed yet.
+The production deployments now use the single GitHub repository:
 
-Do not delete or rewrite the standalone repositories until the monorepo has been tested and a deliberate migration of Vercel and DigitalOcean has been completed.
+- Repository: `natebishop/Bishop-Family-Hub`
+- Vercel project: `familyhub`, root directory `frontend/`
+- DigitalOcean App Platform app: `familyhub-api`, source directory `/backend`
+
+Pushes to `main` are the normal deployment path for both services. The original standalone repositories are retained temporarily as rollback references; do not delete or rewrite them until the migrated deployments have had a reasonable period of successful operation.
 
 ## Original remotes
 
@@ -33,6 +37,6 @@ Run backend commands from `backend/`.
 
 The frontend's `.env.local` is intentionally not copied into this repository. Create it locally from `frontend/.env.example` when needed.
 
-## Next migration step
+## Deployment verification
 
-After the monorepo builds successfully, create or select a GitHub repository named `Bishop-Family-Hub`, push this repository, then update Vercel to build from `frontend/` and DigitalOcean to build from `backend/`. Keep the current deployments unchanged until both migrations are verified.
+After changing deployment configuration, verify the Vercel frontend URL and DigitalOcean API health endpoint before treating the migration as complete. Keep provider credentials and local environment files out of the repository.

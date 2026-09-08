@@ -10,11 +10,12 @@ This is a monorepo containing the FamilyHub frontend and backend.
 
 ## Important deployment context
 
-The current production deployments still build from the original standalone GitHub repositories:
+The production deployments use the monorepo GitHub repository:
 
-- `natebishop/FamilyHub` for Vercel
-- `natebishop/family-hub-api` for DigitalOcean
+- `natebishop/Bishop-Family-Hub`
+- Vercel project `familyhub` builds from `frontend/`
+- DigitalOcean App Platform app `familyhub-api` builds from `backend/`
 
-Do not change Vercel or DigitalOcean source settings unless the user explicitly asks to complete the monorepo deployment migration.
+The original standalone repositories are retained temporarily for rollback only. Do not delete or rewrite them without an explicit request.
 
 Never commit `.env.local`, database credentials, OAuth secrets, JWT secrets, or other local credentials.
