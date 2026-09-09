@@ -126,6 +126,61 @@ class GoogleCalendarSyncServiceTest {
     }
 
     @Test
+    void fullSync_updatesDuplicateExceptionDateInsteadOfInsertingAgain() throws IOException {
+        Event parentEvent = createTimedGoogleEvent("parent-duplicate", "Recurring",
+                "2025-06-03T09:00:00-04:00", "2025-06-03T09:30:00-04:00");
+        parentEvent.setRecurrence(java.util.List.of("RRULE:FREQ=WEEKLY;BYDAY=TU"));
+
+        Event firstException = createTimedGoogleEvent("exception-first", "First",
+                "2025-06-10T10:00:00-04:00", "2025-06-10T10:30:00-04:00");
+        firstException.setRecurringEventId("parent-duplicate");
+        firstException.setOriginalStartTime(new EventDateTime()
+                .setDateTime(new DateTime("2025-06-10T09:00:00-04:00")));
+
+        Event duplicateException = createTimedGoogleEvent("exception-replaced", "Replacement",
+                "2025-06-10T11:00:00-04:00", "2025-06-10T11:30:00-04:00");
+        duplicateException.setRecurringEventId("parent-duplicate");
+        duplicateException.setOriginalStartTime(new EventDateTime()
+                .setDateTime(new DateTime("2025-06-10T09:00:00-04:00")));
+
+        Calendar calendarClient = mockCalendarClient(new com.google.api.services.calendar.model.Events()
+                .setItems(java.util.List.of(parentEvent, firstException, duplicateException))
+                .setNextSyncToken("sync-token-duplicate"));
+
+        CalendarEvent parentEntity = new CalendarEvent();
+        parentEntity.setId(UUID.randomUUID());
+        CalendarEvent firstEntity = new CalendarEvent();
+        firstEntity.setId(UUID.randomUUID());
+        firstEntity.setTitle("First");
+        firstEntity.setOriginalDate(java.time.LocalDate.of(2025, 6, 10));
+        CalendarEvent replacementEntity = new CalendarEvent();
+        replacementEntity.setTitle("Replacement");
+        replacementEntity.setOriginalDate(java.time.LocalDate.of(2025, 6, 10));
+
+        when(googleEventMapper.toEntity(eq(parentEvent), eq(syncedCal))).thenReturn(parentEntity);
+        when(googleEventMapper.toExceptionEntity(eq(firstException), eq(syncedCal), eq(parentEntity)))
+                .thenReturn(firstEntity);
+        when(googleEventMapper.toExceptionEntity(eq(duplicateException), eq(syncedCal), eq(parentEntity)))
+                .thenReturn(replacementEntity);
+        when(calendarEventRepository.findBySyncedCalendarAndGoogleEventId(syncedCal, "parent-duplicate"))
+                .thenReturn(Optional.of(parentEntity));
+        when(calendarEventRepository.findBySyncedCalendarAndGoogleEventId(syncedCal, "exception-first"))
+                .thenReturn(Optional.empty());
+        when(calendarEventRepository.findBySyncedCalendarAndGoogleEventId(syncedCal, "exception-replaced"))
+                .thenReturn(Optional.empty());
+        when(calendarEventRepository.findByRecurringEventAndOriginalDate(parentEntity,
+                java.time.LocalDate.of(2025, 6, 10)))
+                .thenReturn(Optional.empty())
+                .thenReturn(Optional.of(firstEntity));
+
+        syncService.fullSync(syncedCal, calendarClient);
+
+        verify(calendarEventRepository, times(2)).save(firstEntity);
+        verify(calendarEventRepository, never()).save(replacementEntity);
+        assertThat(firstEntity.getTitle()).isEqualTo("Replacement");
+    }
+
+    @Test
     void persistFullSync_deselectedCalendarDoesNotWriteFetchedEvents() {
         syncedCal.setEnabled(false);
         Event event = createTimedGoogleEvent("disabled-event", "Should Not Appear",

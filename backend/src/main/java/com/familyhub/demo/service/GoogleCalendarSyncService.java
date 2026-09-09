@@ -182,7 +182,7 @@ public class GoogleCalendarSyncService {
 
             CalendarEvent exceptionEntity = googleEventMapper.toExceptionEntity(
                     exception, syncedCal, parentEntity.get());
-            calendarEventRepository.save(exceptionEntity);
+            upsertExceptionEntity(exceptionEntity, parentEntity.get(), syncedCal, exception.getId());
         }
     }
 
@@ -283,14 +283,32 @@ public class GoogleCalendarSyncService {
         }
 
         CalendarEvent entity = googleEventMapper.toExceptionEntity(googleEvent, syncedCal, parentOpt.get());
-        calendarEventRepository.findBySyncedCalendarAndGoogleEventId(syncedCal, googleEvent.getId())
-                .ifPresentOrElse(
-                        existing -> {
-                            updateExistingEvent(existing, entity);
-                            calendarEventRepository.save(existing);
-                        },
-                        () -> calendarEventRepository.save(entity)
-                );
+        upsertExceptionEntity(entity, parentOpt.get(), syncedCal, googleEvent.getId());
+    }
+
+    /**
+     * Recurring exception identity is the parent series plus original occurrence
+     * date. Google event IDs are normally stable, but duplicate or replaced
+     * exception records can still share that occurrence date. Prefer the Google
+     * ID when present, then fall back to the database's parent/date identity so
+     * one malformed response cannot abort the whole calendar sync.
+     */
+    private void upsertExceptionEntity(CalendarEvent entity, CalendarEvent parent,
+                                       GoogleSyncedCalendar syncedCal, String googleEventId) {
+        Optional<CalendarEvent> existing = calendarEventRepository
+                .findBySyncedCalendarAndGoogleEventId(syncedCal, googleEventId);
+        if (existing.isEmpty()) {
+            existing = calendarEventRepository.findByRecurringEventAndOriginalDate(
+                    parent, entity.getOriginalDate());
+        }
+
+        existing.ifPresentOrElse(
+                current -> {
+                    updateExistingEvent(current, entity);
+                    calendarEventRepository.save(current);
+                },
+                () -> calendarEventRepository.save(entity)
+        );
     }
 
     /**
