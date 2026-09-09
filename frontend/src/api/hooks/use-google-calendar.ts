@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ApiException } from "@/api/client";
 import { googleCalendarService } from "@/api/services";
-import type { ApiResponse, GoogleCalendarInfo } from "@/lib/types";
+import type {
+  ApiResponse,
+  CalendarEvent,
+  GoogleCalendarInfo,
+} from "@/lib/types";
 import { calendarKeys } from "./use-calendar";
 
 export const googleCalendarKeys = {
@@ -38,6 +42,26 @@ interface GoogleMutationCallbacks<T = void> {
   onError?: (error: ApiException) => void;
 }
 
+/**
+ * Google selection changes are destructive to the visible event set. Clear
+ * cached list responses before refetching so a disabled calendar cannot remain
+ * on screen while the authoritative response is loading. Detail-event queries
+ * share the same prefix, so the predicate deliberately excludes their string
+ * ID key.
+ */
+function clearCalendarEventListCaches(
+  queryClient: ReturnType<typeof useQueryClient>,
+): void {
+  queryClient.setQueriesData<ApiResponse<CalendarEvent[]>>(
+    {
+      queryKey: calendarKeys.events(),
+      predicate: (query) =>
+        query.queryKey.length === 3 && typeof query.queryKey[2] !== "string",
+    },
+    (old) => (old ? { ...old, data: [] } : old),
+  );
+}
+
 export function useUpdateGoogleCalendars(
   callbacks?: GoogleMutationCallbacks<ApiResponse<GoogleCalendarInfo[]>>,
 ) {
@@ -51,15 +75,17 @@ export function useUpdateGoogleCalendars(
       memberId: string;
       calendarIds: string[];
     }) => googleCalendarService.updateCalendars(memberId, calendarIds),
-    onSuccess: (data, variables) => {
+    onSuccess: async (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: googleCalendarKeys.calendars(variables.memberId),
       });
       queryClient.invalidateQueries({
         queryKey: googleCalendarKeys.status(variables.memberId),
       });
-      queryClient.invalidateQueries({
+      clearCalendarEventListCaches(queryClient);
+      await queryClient.invalidateQueries({
         queryKey: calendarKeys.events(),
+        refetchType: "active",
       });
       callbacks?.onSuccess?.(data);
     },

@@ -4,10 +4,11 @@ import { HttpResponse, http } from "msw";
 import type { ReactNode } from "react";
 import { afterAll, afterEach, beforeAll } from "vitest";
 import { server } from "@/test/mocks/server";
-import { calendarKeys } from "./use-calendar";
+import { calendarKeys, useCalendarEvents } from "./use-calendar";
 import {
   googleCalendarKeys,
   useGoogleConnectionStatus,
+  useUpdateGoogleCalendars,
   useSyncGoogleCalendar,
 } from "./use-google-calendar";
 
@@ -93,5 +94,66 @@ describe("useSyncGoogleCalendar", () => {
       queryClient.getQueryState(googleCalendarKeys.status(MEMBER_ID))
         ?.isInvalidated,
     ).toBe(true);
+  });
+});
+
+describe("useUpdateGoogleCalendars", () => {
+  it("clears stale event lists and refetches the active range after saving", async () => {
+    const range = { startDate: "2026-06-01", endDate: "2026-06-30" };
+    let eventFetches = 0;
+
+    server.use(
+      http.put(`${API_BASE}/google/calendars/${MEMBER_ID}`, () =>
+        HttpResponse.json({
+          data: [
+            { id: "primary", name: "Main Calendar", primary: true, enabled: true },
+          ],
+          message: "Calendar selection updated",
+        }),
+      ),
+      http.get(`${API_BASE}/calendar/events`, () => {
+        eventFetches += 1;
+        return HttpResponse.json({ data: [], message: null });
+      }),
+    );
+
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    queryClient.setQueryData(calendarKeys.eventList(range), {
+      data: [
+        {
+          id: "stale-kamccor-event",
+          title: "Stale event from a disabled calendar",
+          startTime: "9:00 AM",
+          endTime: "10:00 AM",
+          date: "2026-06-15",
+          memberId: MEMBER_ID,
+          isAllDay: false,
+        },
+      ],
+    });
+
+    const wrapper = ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
+
+    const { result } = renderHook(
+      () => ({
+        mutation: useUpdateGoogleCalendars(),
+        events: useCalendarEvents(range),
+      }),
+      { wrapper },
+    );
+
+    result.current.mutation.mutate({
+      memberId: MEMBER_ID,
+      calendarIds: ["primary"],
+    });
+
+    await waitFor(() => expect(result.current.mutation.isSuccess).toBe(true));
+    await waitFor(() => expect(result.current.events.data?.data).toEqual([]));
+
+    expect(eventFetches).toBeGreaterThan(0);
   });
 });
