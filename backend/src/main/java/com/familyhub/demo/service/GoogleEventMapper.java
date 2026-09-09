@@ -35,6 +35,16 @@ public class GoogleEventMapper {
             if (!exdates.isEmpty()) {
                 entity.setExdates(exdates);
             }
+
+            // FamilyHub represents recurring events as one-day occurrences. Google
+            // can return an all-day recurring event with an exclusive end date
+            // (for example, a birthday), which would violate the legacy
+            // "recurring events cannot span multiple days" database constraint.
+            // Keep the recurrence and let the expander create the occurrences;
+            // the end date describes the Google instance, not the series.
+            if (rrule != null) {
+                entity.setEndDate(null);
+            }
         }
 
         return entity;

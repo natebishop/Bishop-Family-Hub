@@ -155,6 +155,25 @@ class GoogleEventMapperTest {
         }
 
         @Test
+        void mapsRecurringAllDayEventWithoutEndDate() {
+            Event googleEvent = new Event();
+            googleEvent.setId("recurring-birthday-123");
+            googleEvent.setSummary("Birthday");
+            googleEvent.setUpdated(new DateTime(1700000000000L));
+            googleEvent.setStart(new EventDateTime()
+                    .setDate(new DateTime("2025-10-13")));
+            googleEvent.setEnd(new EventDateTime()
+                    .setDate(new DateTime("2025-10-14")));
+            googleEvent.setRecurrence(List.of("RRULE:FREQ=YEARLY"));
+
+            CalendarEvent entity = mapper.toEntity(googleEvent, syncedCal);
+
+            assertThat(entity.isAllDay()).isTrue();
+            assertThat(entity.getRecurrenceRule()).isEqualTo("FREQ=YEARLY");
+            assertThat(entity.getEndDate()).isNull();
+        }
+
+        @Test
         void handlesRecurrenceListWithNoRrule() {
             Event googleEvent = new Event();
             googleEvent.setId("exdate-only");
